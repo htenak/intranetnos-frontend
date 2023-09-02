@@ -1,7 +1,23 @@
-/* .nav-icon {
-  margin-left: 20px;
-} */
+/*
+ * ESTILOS SIDEBAR NAV:
+*/
+
+.sidebar-nav .nav-icon {
+  height: 20px !important;
+}
 .nav-icon-sub {
-  margin-right: 5px;
-  width: 20px;
+  margin-right: 8px;
+  width: 22px !important;
+}
+
+/*
+ * ESTILOS CONTROLES DE 
+ * FORMULARIOS:
+*/
+
+button,
+input,
+select,
+textarea {
+  border-radius: 2px !important;
 }

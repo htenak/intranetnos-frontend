@@ -1,6 +1,23 @@
 import React from "react";
 import { CNavGroup, CNavItem, CNavTitle } from "@coreui/react";
-import { faCoffee, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBook,
+  faBookOpen,
+  faBookReader,
+  faCalendarAlt,
+  faChalkboardTeacher,
+  faCoffee,
+  faCubes,
+  faGraduationCap,
+  faKey,
+  faPowerOff,
+  faProjectDiagram,
+  faRestroom,
+  faUserCircle,
+  faUserCog,
+  faUserGraduate,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
 import { FAIcon } from "./assets/icon/FAIcon";
 
 const _nav = [
@@ -12,11 +29,11 @@ const _nav = [
     component: CNavItem,
     name: "Mi perfil",
     to: "/",
-    icon: <FAIcon customClass="icon nav-icon" icon={faUser} />,
+    icon: <FAIcon customClass="icon nav-icon" icon={faUserCircle} />,
   },
   {
     component: CNavItem,
-    name: "Página de Inicio",
+    name: "Menú principal",
     to: "/",
     icon: <FAIcon customClass="icon nav-icon" icon={faCoffee} />,
   },
@@ -27,77 +44,97 @@ const _nav = [
   {
     component: CNavGroup,
     name: "Usuarios",
-    icon: <FAIcon customClass="icon nav-icon" icon={faCoffee} />,
+    icon: <FAIcon customClass="icon nav-icon" icon={faUsers} />,
     items: [
       {
         component: CNavItem,
         name: "Roles",
-        to: "/",
+        to: "/roles",
+        icon: <FAIcon customClass="icon nav-icon-sub" icon={faKey} />,
       },
       {
         component: CNavItem,
         name: "Administradores",
         to: "/",
+        icon: <FAIcon customClass="icon nav-icon-sub" icon={faUserCog} />,
       },
       {
         component: CNavItem,
         name: "Profesores",
         to: "/",
+        icon: (
+          <FAIcon customClass="icon nav-icon-sub" icon={faChalkboardTeacher} />
+        ),
       },
       {
         component: CNavItem,
         name: "Estudiantes",
         to: "/",
-      },
-      {
-        component: CNavItem,
-        name: "Todos",
-        to: "/",
+        icon: <FAIcon customClass="icon nav-icon-sub" icon={faUserGraduate} />,
       },
     ],
   },
   {
     component: CNavGroup,
-    name: "Carreras",
+    name: "Formación",
+    icon: <FAIcon customClass="icon nav-icon" icon={faBook} />,
     items: [
       {
         component: CNavItem,
         name: "Carreras",
         to: "/",
+        icon: <FAIcon customClass="icon nav-icon-sub" icon={faGraduationCap} />,
+      },
+      {
+        component: CNavItem,
+        name: "Ciclos",
+        to: "/",
+        icon: (
+          <FAIcon customClass="icon nav-icon-sub" icon={faProjectDiagram} />
+        ),
+      },
+      {
+        component: CNavItem,
+        name: "Cursos",
+        to: "/",
+        icon: <FAIcon customClass="icon nav-icon-sub" icon={faBookReader} />,
       },
     ],
   },
   {
     component: CNavGroup,
-    name: "Notifications",
+    name: "Aulas",
+    icon: <FAIcon customClass="icon nav-icon" icon={faCubes} />,
     items: [
       {
         component: CNavItem,
-        name: "Alerts",
-        to: "/notifications/alerts",
+        name: "Clases",
+        to: "/",
+        icon: <FAIcon customClass="icon nav-icon-sub" icon={faBookOpen} />,
       },
       {
         component: CNavItem,
-        name: "Badges",
-        to: "/notifications/badges",
+        name: "Horarios",
+        to: "/",
+        icon: <FAIcon customClass="icon nav-icon-sub" icon={faCalendarAlt} />,
       },
       {
         component: CNavItem,
-        name: "Modal",
-        to: "/notifications/modals",
-      },
-      {
-        component: CNavItem,
-        name: "Toasts",
-        to: "/notifications/toasts",
+        name: "Matriculados",
+        to: "/",
+        icon: <FAIcon customClass="icon nav-icon-sub" icon={faRestroom} />,
       },
     ],
   },
-
+  {
+    component: CNavTitle,
+    name: "Opciones",
+  },
   {
     component: CNavItem,
     name: "Cerrar sesión",
     to: "/",
+    icon: <FAIcon customClass="icon nav-icon text-danger" icon={faPowerOff} />,
   },
 ];
 
