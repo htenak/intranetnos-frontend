@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CButton,
   CCard,
@@ -13,13 +13,14 @@ import {
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { cilLockLocked, cilUser } from "@coreui/icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 import { login } from "src/store";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const { errorMessage } = useSelector((state) => state.auth);
 
   const [credentials, setCredentials] = useState({
     username: "",
@@ -43,6 +44,13 @@ const Login = () => {
       toast.error("Algunos campos están vacíos");
     }
   };
+
+  // mostramos errores del estado
+  useEffect(() => {
+    if (errorMessage !== undefined) {
+      toast.error(errorMessage);
+    }
+  }, [errorMessage]);
 
   return (
     <div

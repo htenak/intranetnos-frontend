@@ -19,6 +19,7 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { FAIcon } from "./assets/icon/FAIcon";
+import Logout from "./auth/pages/logout/Logout";
 
 const _nav = [
   {
@@ -131,9 +132,8 @@ const _nav = [
     name: "Opciones",
   },
   {
-    component: CNavItem,
+    component: Logout,
     name: "Cerrar sesión",
-    to: "/",
     icon: <FAIcon customClass="icon nav-icon text-danger" icon={faPowerOff} />,
   },
 ];

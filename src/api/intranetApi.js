@@ -1,26 +1,16 @@
 import axios from "axios";
-import { store } from "src/store";
 
-const axiosInstance = axios.create({
+const intranetApi = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
 // interceptor para agregar token a las solicitudes
-axiosInstance.interceptors.request.use(
-  (config) => {
-    // verificar si es una solicitud de login
-    const isLoginRequest = config.url.includes("/auth/login");
-    if (!isLoginRequest) {
-      const token = store.getState().auth.token;
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+intranetApi.interceptors.request.use((config) => {
+  config.headers = {
+    ...config.headers,
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  };
+  return config;
+});
 
-export default axiosInstance;
+export default intranetApi;

@@ -1,1 +1,1 @@
-export { default as intranetURL } from "./intranetApi";
+export { default as intranetApi } from "./intranetApi";

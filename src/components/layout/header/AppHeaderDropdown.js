@@ -7,27 +7,33 @@ import {
   CDropdownMenu,
   CDropdownToggle,
 } from "@coreui/react";
-import { cilLockLocked } from "@coreui/icons";
+import { cilPowerStandby, cilUser } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 
-import avatar8 from "./../../../assets/images/avatars/8.jpg";
-import { FAIcon } from "src/assets/icon/FAIcon";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import avatarUser from "./../../../assets/images/user.png";
+import { useDispatch } from "react-redux";
+import { logout } from "src/store";
 
 const AppHeaderDropdown = () => {
+  const dispatch = useDispatch();
+
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
-        <CAvatar src={avatar8} size="md" />
+        <CAvatar src={avatarUser} size="md" />
       </CDropdownToggle>
-      <CDropdownMenu className="pt-0" placement="bottom-end">
+      <CDropdownMenu className="py-2" placement="bottom-end">
         <CDropdownItem href="#">
-          <FAIcon customClass="icon" icon={faUser} />
-          <span>Mi perfil</span>
+          <CIcon icon={cilUser} className="me-2" />
+          Mi perfil
         </CDropdownItem>
         <CDropdownDivider />
-        <CDropdownItem href="#" className="text-danger">
-          <CIcon icon={cilLockLocked} className="me-2" />
+        <CDropdownItem
+          style={{ cursor: "pointer" }}
+          onClick={() => dispatch(logout())}
+          className="text-danger"
+        >
+          <CIcon icon={cilPowerStandby} className="me-2" />
           Cerrar sesión
         </CDropdownItem>
       </CDropdownMenu>

@@ -16,7 +16,7 @@ import { cilMenu } from "@coreui/icons";
 
 import AppBreadcrumb from "./AppBreadcrumb";
 import AppHeaderDropdown from "./AppHeaderDropdown";
-import logoNor from "src/assets/images/logos/nor_logo.png";
+import logoNor from "src/assets/images/nor_logo.png";
 
 import { setNav } from "src/store/nav";
 

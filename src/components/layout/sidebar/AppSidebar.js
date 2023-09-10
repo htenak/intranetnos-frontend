@@ -9,7 +9,7 @@ import {
 
 import AppSidebarNav from "./AppSidebarNav";
 
-import logoNor from "src/assets/images/logos/nor_logo.jpeg";
+import logoNor from "src/assets/images/nor_logo.jpeg";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 
