@@ -144,41 +144,39 @@ const Dashboard = () => {
               <CRow>
                 <CCol xs={12} md={12} xl={12}>
                   <CRow>
-                    <CCol sm={2}>
+                    <CCol md={4} xl={2}>
                       <div className="border-start border-start-5 border-start-success py-1 px-3">
-                        <div className="text-medium-emphasis">
-                          Usuarios totales
-                        </div>
+                        <div className="text-medium-emphasis">Usuarios</div>
                         <div className="fs-5 fw-semibold">122</div>
                       </div>
                     </CCol>
-                    <CCol sm={2}>
+                    <CCol md={4} xl={2}>
                       <div className="border-start border-start-5 border-start-dark py-1 px-3">
                         <div className="text-medium-emphasis">
-                          Administradores
+                          Administrador
                         </div>
                         <div className="fs-5 fw-semibold">5</div>
                       </div>
                     </CCol>
-                    <CCol sm={2}>
+                    <CCol md={4} xl={2}>
                       <div className="border-start border-start-5 border-start-info py-1 px-3">
                         <div className="text-medium-emphasis">Profesores</div>
                         <div className="fs-5 fw-semibold">7</div>
                       </div>
                     </CCol>
-                    <CCol sm={2}>
+                    <CCol md={4} xl={2}>
                       <div className="border-start border-start-5 border-start-warning py-1 px-3">
                         <div className="text-medium-emphasis">Estudiantes</div>
                         <div className="fs-5 fw-semibold">110</div>
                       </div>
                     </CCol>
-                    <CCol sm={2}>
+                    <CCol md={4} xl={2}>
                       <div className="border-start border-start-5 border-start-secondary py-1 px-3">
                         <div className="text-medium-emphasis">Carreras</div>
                         <div className="fs-5 fw-semibold">10</div>
                       </div>
                     </CCol>
-                    <CCol sm={2}>
+                    <CCol md={4} xl={2}>
                       <div className="border-start border-start-5 border-start-danger py-1 px-3">
                         <div className="text-medium-emphasis">Cursos</div>
                         <div className="fs-5 fw-semibold">43</div>
@@ -189,7 +187,7 @@ const Dashboard = () => {
               </CRow>
             </CCardBody>
           </CCard>
-          <CCard className="mt-4">
+          {/* <CCard className="mt-4">
             <CCardHeader style={{ fontSize: "18px", fontWeight: 500 }}>
               Vistas previas
             </CCardHeader>
@@ -250,7 +248,7 @@ const Dashboard = () => {
                 </CTableBody>
               </CTable>
             </CCardBody>
-          </CCard>
+          </CCard> */}
         </CCol>
       </CRow>
     </>

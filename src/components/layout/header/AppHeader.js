@@ -14,14 +14,15 @@ import {
 import CIcon from "@coreui/icons-react";
 import { cilMenu } from "@coreui/icons";
 
-import { AppBreadcrumb } from "../../index";
-import { AppHeaderDropdown } from "./AppHeaderDropdown";
+import AppBreadcrumb from "./AppBreadcrumb";
+import AppHeaderDropdown from "./AppHeaderDropdown";
 import logoNor from "src/assets/images/logos/nor_logo.png";
-import { setNav } from "src/store/slices/nav";
 
-export const AppHeader = () => {
+import { setNav } from "src/store/nav";
+
+const AppHeader = () => {
   const dispatch = useDispatch();
-  const sidebarShow = useSelector((state) => state.navReducer.sidebarShow);
+  const { sidebarShow } = useSelector((state) => state.nav);
 
   return (
     <CHeader position="sticky" className="mb-4">
@@ -57,3 +58,5 @@ export const AppHeader = () => {
     </CHeader>
   );
 };
+
+export default AppHeader;

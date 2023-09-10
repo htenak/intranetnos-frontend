@@ -120,7 +120,7 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: "Matriculados",
+        name: "Matricula",
         to: "/",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faRestroom} />,
       },

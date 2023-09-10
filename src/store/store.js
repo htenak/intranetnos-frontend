@@ -1,9 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { navSlice } from './slices/nav'
+import { configureStore } from "@reduxjs/toolkit";
+import { navSlice, authSlice } from "./";
 
 export const store = configureStore({
   reducer: {
-    navReducer: navSlice.reducer,
+    nav: navSlice.reducer,
+    auth: authSlice.reducer,
   },
-  devTools: process.env.NODE_ENV !== 'production', // Habilita DevTools en desarrollo
-})
+  devTools: process.env.NODE_ENV !== "production", // Habilita DevTools en desarrollo
+});

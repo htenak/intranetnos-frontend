@@ -6,7 +6,8 @@ import {
   CSidebarNav,
   CSidebarToggler,
 } from "@coreui/react";
-import { AppSidebarNav } from "./AppSidebarNav";
+
+import AppSidebarNav from "./AppSidebarNav";
 
 import logoNor from "src/assets/images/logos/nor_logo.jpeg";
 import SimpleBar from "simplebar-react";
@@ -14,11 +15,12 @@ import "simplebar/dist/simplebar.min.css";
 
 // sidebar nav config
 import navigation from "../../../_nav";
-import { setNav } from "src/store/slices/nav";
+
+import { setNav } from "src/store";
 
 const AppSidebar = () => {
   const dispatch = useDispatch();
-  const sidebarShow = useSelector((state) => state.navReducer.sidebarShow);
+  const { sidebarShow } = useSelector((state) => state.nav);
 
   return (
     <CSidebar

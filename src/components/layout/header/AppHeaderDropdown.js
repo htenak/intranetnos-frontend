@@ -14,7 +14,7 @@ import avatar8 from "./../../../assets/images/avatars/8.jpg";
 import { FAIcon } from "src/assets/icon/FAIcon";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
-export const AppHeaderDropdown = () => {
+const AppHeaderDropdown = () => {
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
@@ -34,3 +34,5 @@ export const AppHeaderDropdown = () => {
     </CDropdown>
   );
 };
+
+export default AppHeaderDropdown;
