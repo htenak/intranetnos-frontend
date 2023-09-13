@@ -5,16 +5,16 @@ const AppFooter = () => {
   return (
     <CFooter>
       <div>
-        <span>&copy;2023 NOS Intranet, KanethDev.</span>
+        <span>&copy;2023 NOS Intranet</span>
       </div>
       <div className="ms-auto">
-        <span className="me-1">Construido con </span>
+        <span className="me-1">Desarrollado por </span>
         <a
-          href="https://coreui.io/react"
+          href="https://kanethsite.netlify.app/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          CoreUI React
+          KanethDev
         </a>
       </div>
     </CFooter>

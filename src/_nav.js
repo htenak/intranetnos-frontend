@@ -21,28 +21,35 @@ import {
 import { FAIcon } from "./assets/icon/FAIcon";
 import Logout from "./auth/pages/logout/Logout";
 
+import { ROLE_ADMIN, ROLE_PROFESSOR, ROLE_STUDENT } from "./constants";
+
 const _nav = [
+  // todos:
   {
     component: CNavTitle,
     name: "Inicio",
   },
   {
     component: CNavItem,
-    name: "Mi perfil",
-    to: "/",
-    icon: <FAIcon customClass="icon nav-icon" icon={faUserCircle} />,
-  },
-  {
-    component: CNavItem,
     name: "Menú principal",
-    to: "/",
+    to: "/dashboard",
     icon: <FAIcon customClass="icon nav-icon" icon={faCoffee} />,
   },
   {
+    component: CNavItem,
+    name: "Mi perfil",
+    to: "/profile",
+    icon: <FAIcon customClass="icon nav-icon" icon={faUserCircle} />,
+  },
+
+  // admins:
+  {
+    roles: [ROLE_ADMIN],
     component: CNavTitle,
     name: "Mantenedores",
   },
   {
+    roles: [ROLE_ADMIN],
     component: CNavGroup,
     name: "Usuarios",
     icon: <FAIcon customClass="icon nav-icon" icon={faUsers} />,
@@ -76,6 +83,7 @@ const _nav = [
     ],
   },
   {
+    roles: [ROLE_ADMIN],
     component: CNavGroup,
     name: "Formación",
     icon: <FAIcon customClass="icon nav-icon" icon={faBook} />,
@@ -103,6 +111,7 @@ const _nav = [
     ],
   },
   {
+    roles: [ROLE_ADMIN],
     component: CNavGroup,
     name: "Aulas",
     icon: <FAIcon customClass="icon nav-icon" icon={faCubes} />,
@@ -127,6 +136,8 @@ const _nav = [
       },
     ],
   },
+
+  // todos:
   {
     component: CNavTitle,
     name: "Opciones",

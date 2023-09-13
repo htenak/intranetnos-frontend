@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { checkAuthToken } from "src/store";
+import { checkAuthToken, getMyPhoto } from "src/store";
 
 const AppContent = React.lazy(() => import("../components/AppContent"));
 const Login = React.lazy(() => import("../auth/pages/login/Login"));
@@ -16,7 +16,7 @@ const AppRouter = () => {
     // verifica el token
     dispatch(checkAuthToken());
 
-    // redirecciona a la rut raíz
+    // redirecciona a la ruta raíz si no se autenticó
     if (status === "not-authenticated") {
       navigate("/", { replace: true });
     }

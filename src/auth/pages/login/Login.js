@@ -29,7 +29,13 @@ const Login = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setCredentials({ ...credentials, [name]: value });
+    if (name === "username") {
+      if (value.length <= 8) {
+        setCredentials({ ...credentials, [name]: value });
+      }
+    } else {
+      setCredentials({ ...credentials, [name]: value });
+    }
   };
 
   const handleSubmit = (e) => {
