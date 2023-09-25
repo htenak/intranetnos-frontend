@@ -5,7 +5,7 @@ import { MyData, Password } from "./parts";
 const Profile = () => {
   return (
     <>
-      <CCard className="mb-5">
+      <CCard className="mb-4">
         <CCardBody>
           <h1 className="fs-4 mb-3">Mi perfil</h1>
           <CRow>

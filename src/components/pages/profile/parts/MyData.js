@@ -50,14 +50,14 @@ export const MyData = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (values.email.length < 3) {
-      return toast.error("El correo electrónico es inválido");
+    if (values.email?.length < 3) {
+      return toast.error("Correo electrónico es inválido");
     }
-    if (values.phone.length < 9) {
-      return toast.error("El celular es inválido");
+    if (values.phone?.length < 9) {
+      return toast.error("Celular es inválido");
     }
-    if (values.nickname.length < 3) {
-      return toast.error("El apodo debe tener almenos 3 caracteres");
+    if (values.nickname?.length < 3) {
+      return toast.error("Apodo debe tener al menos 3 caracteres");
     }
     dispatch(updateMyData(values));
   };

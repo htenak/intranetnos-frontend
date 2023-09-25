@@ -9,7 +9,6 @@ import {
   faCoffee,
   faCubes,
   faGraduationCap,
-  faKey,
   faPowerOff,
   faProjectDiagram,
   faRestroom,
@@ -56,9 +55,9 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: "Roles",
-        to: "/roles",
-        icon: <FAIcon customClass="icon nav-icon-sub" icon={faKey} />,
+        name: "Usuarios",
+        to: "/users",
+        icon: <FAIcon customClass="icon nav-icon-sub" icon={faUsers} />,
       },
       {
         component: CNavItem,

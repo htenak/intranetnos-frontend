@@ -58,9 +58,7 @@ export const Password = () => {
 
   const changePassword = () => {
     dispatch(updateMyData(values));
-    setPasswords(initialPasswords);
-    setValues(initialState);
-    setStatusModal(false);
+    hideModal();
   };
 
   const hideModal = () => {

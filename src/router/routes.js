@@ -6,18 +6,18 @@ const Dashboard = React.lazy(() =>
 );
 const NotFound = React.lazy(() => import("../components/pages/404/NotFound"));
 const Profile = React.lazy(() => import("../components/pages/profile/Profile"));
-const Roles = React.lazy(() => import("../components/pages/roles/Roles"));
+const Users = React.lazy(() => import("../components/pages/users/Users"));
 
 const routes = [
   // todos:
   { path: "/", exact: true, name: "Inicio" },
-  { path: "/*", name: "Not Found", element: NotFound },
-  { path: "/not-found", name: "Not Found", element: NotFound },
+  { path: "/*", name: "Página no encontrada", element: NotFound },
+  { path: "/not-found", name: "Página no encontrada", element: NotFound },
   { path: "/dashboard", name: "Menú principal", element: Dashboard },
   { path: "/profile", name: "Mi perfil", element: Profile },
 
   // admin:
-  { path: "/roles", name: "Roles", element: Roles, roles: [ROLE_ADMIN] },
+  { path: "/users", name: "Usuarios", element: Users, roles: [ROLE_ADMIN] },
 
   // professor:
 

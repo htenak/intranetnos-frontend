@@ -1,7 +1,14 @@
+/* OCULTA WARNING ResizeObserver loop 
+  * completed with undelivered notifications
+  * QUE APARECE EN CHROME:
+ */
+iframe#webpack-dev-server-client-overlay {
+  display: none !important;
+}
+
 /*
  * ESTILOS SIDEBAR NAV:
 */
-
 .sidebar-nav .nav-icon {
   height: 20px !important;
 }
@@ -14,7 +21,6 @@
  * ESTILOS CONTROLES DE 
  * FORMULARIOS:
 */
-
 button,
 input,
 select,
@@ -23,8 +29,8 @@ textarea {
 }
 
 /* ocultamos check de aumento y decremento
- * en inputs numericos
-*/
+  * en inputs numericos
+  */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;

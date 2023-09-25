@@ -64,7 +64,7 @@ export const updateMyData = (form) => {
       }, 50);
     } catch (error) {
       if (Array.isArray(error.response.data.message)) {
-        dispatch(onMyDataCancelEditing(error.response.data.message[0] || ""));
+        dispatch(onMyDataCancelEditing(error.response.data?.message[0] || ""));
       } else {
         dispatch(onMyDataCancelEditing(error.response.data?.message || ""));
       }

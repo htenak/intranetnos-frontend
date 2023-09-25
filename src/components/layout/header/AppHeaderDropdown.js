@@ -47,7 +47,7 @@ const AppHeaderDropdown = () => {
         </Link>
         <CDropdownDivider />
         <CDropdownItem
-          style={{ cursor: "pointer" }}
+          role="button"
           onClick={() => dispatch(logout())}
           className="text-danger"
         >

@@ -1,4 +1,3 @@
-import React from "react";
 import {
   CButton,
   CModal,
@@ -8,29 +7,25 @@ import {
   CModalTitle,
 } from "@coreui/react";
 
-export const ConfirmChangePassword = ({
-  statusModal,
-  hideModal,
-  changePassword,
-}) => {
+export const RoleDetail = ({ statusModal, hideModal, roleDetail }) => {
+  console.log(roleDetail, "en modal");
   return (
     <CModal alignment="center" visible={statusModal} onClose={hideModal}>
       <CModalHeader>
-        <CModalTitle>Cambiar contraseña</CModalTitle>
+        <CModalTitle>Detalles de rol</CModalTitle>
       </CModalHeader>
       <CModalBody>
-        Estás a punto de cambiar tu contraseña, ¿deseas confirmar?
+        <p>{roleDetail.detail}</p>
+        <p>{roleDetail.accessTo}</p>
+        <ul>
+          {roleDetail.accessDetail?.map((row, index) => (
+            <li key={index}>{row}</li>
+          ))}
+        </ul>
       </CModalBody>
       <CModalFooter className="border-0">
         <CButton color="dark" onClick={hideModal}>
-          Cancelar
-        </CButton>
-        <CButton
-          color="success"
-          className="text-white"
-          onClick={changePassword}
-        >
-          Confirmar
+          Cerrar
         </CButton>
       </CModalFooter>
     </CModal>
