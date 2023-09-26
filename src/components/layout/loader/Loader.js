@@ -9,6 +9,7 @@ const Loader = () => {
         height: "280px",
         display: "flex",
         justifyContent: "center",
+        marginBottom: 60,
       }}
     >
       <img src={gifLoading} style={{}} />

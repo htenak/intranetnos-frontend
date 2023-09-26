@@ -17,9 +17,13 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { FAIcon } from "src/assets/icon/FAIcon";
-import { saveUser, updateUser } from "src/store";
+import { saveStudent, updateStudent } from "src/store";
 
-export const AddUser = ({ statusAddUserModal, hideAddUserModal, dataUser }) => {
+export const AddStudent = ({
+  statusAddStudentModal,
+  hideAddStudentModal,
+  dataStudent,
+}) => {
   const dispatch = useDispatch();
   const { roles } = useSelector((state) => state.users);
 
@@ -38,12 +42,22 @@ export const AddUser = ({ statusAddUserModal, hideAddUserModal, dataUser }) => {
 
   // asigna values (editar)
   useEffect(() => {
-    if (dataUser?.id) {
-      setValues(dataUser);
+    if (dataStudent?.id) {
+      setValues(dataStudent);
     } else {
       setValues(initialStateValues);
     }
-  }, [statusAddUserModal]);
+  }, [statusAddStudentModal]);
+
+  // asigna rol por 'student' por defecto
+  useEffect(() => {
+    if (statusAddStudentModal) {
+      if (!dataStudent?.id) {
+        const roleFound = roles?.find((row) => row.name === "student");
+        setValues({ ...values, roleId: roleFound.id });
+      }
+    }
+  }, [statusAddStudentModal]);
 
   // elimina email si está vacío
   useEffect(() => {
@@ -103,30 +117,30 @@ export const AddUser = ({ statusAddUserModal, hideAddUserModal, dataUser }) => {
     }
 
     if (parseInt(values?.id) !== 0) {
-      dispatch(updateUser(values));
+      dispatch(updateStudent(values));
     } else {
-      dispatch(saveUser(values));
+      dispatch(saveStudent(values));
     }
   };
 
   const hideModal = () => {
     setValues(initialStateValues);
-    hideAddUserModal();
+    hideAddStudentModal();
   };
 
   return (
     <CModal
       alignment="center"
-      visible={statusAddUserModal}
+      visible={statusAddStudentModal}
       onClose={hideModal}
       size="lg"
     >
       <CForm onSubmit={handleSubmit}>
         <CModalHeader>
           {values?.id !== 0 ? (
-            <CModalTitle>Editar usuario</CModalTitle>
+            <CModalTitle>Editar estudiante</CModalTitle>
           ) : (
-            <CModalTitle>Registrar nuevo usuario</CModalTitle>
+            <CModalTitle>Registrar nuevo estudiante</CModalTitle>
           )}
         </CModalHeader>
         <CModalBody>

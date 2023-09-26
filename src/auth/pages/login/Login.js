@@ -81,6 +81,7 @@ const Login = () => {
                       type="text"
                       name="username"
                       placeholder="Usuario"
+                      autoFocus
                       autoComplete="username"
                       value={credentials.username}
                       onChange={handleInputChange}

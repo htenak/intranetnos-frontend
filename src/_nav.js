@@ -76,7 +76,7 @@ const _nav = [
       {
         component: CNavItem,
         name: "Estudiantes",
-        to: "/",
+        to: "/students",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faUserGraduate} />,
       },
     ],

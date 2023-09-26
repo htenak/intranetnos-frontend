@@ -8,7 +8,6 @@ import {
 } from "@coreui/react";
 
 export const RoleDetail = ({ statusModal, hideModal, roleDetail }) => {
-  console.log(roleDetail, "en modal");
   return (
     <CModal alignment="center" visible={statusModal} onClose={hideModal}>
       <CModalHeader>

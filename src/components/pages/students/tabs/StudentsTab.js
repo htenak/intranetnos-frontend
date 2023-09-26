@@ -3,118 +3,109 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import DataGrid from "react-data-grid";
-import { CButton, CCol, CFormSelect, CRow } from "@coreui/react";
+import { CButton, CCol, CRow } from "@coreui/react";
 import { FAIcon } from "src/assets/icon/FAIcon";
 
 import {
-  deleteUser,
   getAllRoles,
-  getAllUsers,
-  updateStatusUser,
+  getAllStudents,
+  deleteStudent,
+  updateStatusStudent,
 } from "src/store";
 import Loader from "src/components/layout/loader/Loader";
-import { AddUser, ConfirmChangeStatus, ConfirmDeleteUser } from "../modals";
 
-export const UsersTab = () => {
+import {
+  AddStudent,
+  ConfirmChangeStatus,
+  ConfirmDeleteStudent,
+} from "../modals";
+
+export const StudentsTab = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
-  const { users, isLoadingUsers, statusDataUser } = useSelector(
-    (state) => state.users
+  const { students, isLoadingStudents, statusDataStudent } = useSelector(
+    (state) => state.students
   );
 
-  const [query, setQuery] = useState("*");
   const [rows, setRows] = useState([]);
   const [search, setSearch] = useState("");
-  const [statusStatusUserModal, setStatusStatusUserModal] = useState(false);
-  const [statusAddUserModal, setStatusAddUserModal] = useState(false);
-  const [statusDeleteUserModal, setStatusDeleteUserModal] = useState(false);
-  const [dataUser, setDataUser] = useState({});
+  const [statusStatusStudentModal, setStatusStatusStudentModal] =
+    useState(false);
+  const [statusAddStudentModal, setstatusAddStudentModal] = useState(false);
+  const [statusDeleteStudentModal, setStatusDeleteStudentModal] =
+    useState(false);
+  const [dataStudent, setDataStudent] = useState({});
 
   // se consultan datos solo la primera vez
   useEffect(() => {
-    if (isLoadingUsers === "no-changed") {
-      dispatch(getAllUsers(query));
+    if (isLoadingStudents === "no-changed") {
       dispatch(getAllRoles());
+      dispatch(getAllStudents());
     }
-  }, [isLoadingUsers]);
-
-  // se consultan datos si se cambio el query
-  useEffect(() => {
-    if (query) {
-      dispatch(getAllUsers(query));
-    }
-  }, [query]);
+  }, [isLoadingStudents]);
 
   // se consultan datos si se hizo crud
   useEffect(() => {
     if (
-      statusDataUser === "created" ||
-      statusDataUser === "updated" ||
-      statusDataUser === "deleted"
+      statusDataStudent === "created" ||
+      statusDataStudent === "updated" ||
+      statusDataStudent === "deleted"
     ) {
-      dispatch(getAllUsers(query));
+      dispatch(getAllStudents());
       hideModal();
     }
-  }, [statusDataUser]);
+  }, [statusDataStudent]);
 
   // se asignan datos a un estado local
   useEffect(() => {
-    if (isLoadingUsers === "loaded") {
-      const data = users
-        ?.filter((data) => data.id !== user.id)
-        .sort((a, b) => b.id - a.id);
+    if (isLoadingStudents === "loaded") {
+      const data = [...students]; // crea una copia de students
+      data.sort((a, b) => b.id - a.id);
       setRows(data);
     }
-  }, [isLoadingUsers]);
-
-  // cambia query
-  const handleChangeQuery = (e) => {
-    const { value } = e.target;
-    setQuery(value);
-  };
+  }, [isLoadingStudents]);
 
   // captura eventos en los estados
-  const handleChangeStatusUser = (row) => {
+  const handlechangeStatusStudent = (row) => {
     if (!row.status) {
-      changeStatusUser(row);
+      changeStatusStudent(row);
       return;
     } else {
-      setDataUser(row);
-      setStatusStatusUserModal(true);
+      setDataStudent(row);
+      setStatusStatusStudentModal(true);
       return;
     }
   };
 
   // captura eventos de eliminacion
-  const handleRemoveUser = (row) => {
-    setDataUser(row);
-    setStatusDeleteUserModal(true);
+  const handleRemoveStudent = (row) => {
+    setDataStudent(row);
+    setStatusDeleteStudentModal(true);
   };
 
   // cambia estado del usuario
-  const changeStatusUser = (row) => {
+  const changeStatusStudent = (row) => {
     if (row.status) {
-      dispatch(updateStatusUser({ id: row.id, status: false }));
+      dispatch(updateStatusStudent({ id: row.id, status: false }));
     } else {
-      dispatch(updateStatusUser({ id: row.id, status: true }));
+      dispatch(updateStatusStudent({ id: row.id, status: true }));
     }
   };
 
   // elimina usuario
-  const removeUser = (row) => {
-    dispatch(deleteUser({ id: row.id }));
+  const removeStudent = (row) => {
+    dispatch(deleteStudent({ id: row.id }));
   };
 
   // muestra modal de usuario
-  const showAddUserModal = () => {
-    setStatusAddUserModal(true);
+  const showAddStudentModal = () => {
+    setstatusAddStudentModal(true);
   };
 
   const hideModal = () => {
-    setDataUser({});
-    setStatusAddUserModal(false);
-    setStatusStatusUserModal(false);
-    setStatusDeleteUserModal(false);
+    setDataStudent({});
+    setstatusAddStudentModal(false);
+    setStatusStatusStudentModal(false);
+    setStatusDeleteStudentModal(false);
   };
 
   const columns = [
@@ -125,11 +116,11 @@ export const UsersTab = () => {
       width: 108,
       renderCell: ({ row }) => {
         const onClickEdit = () => {
-          setDataUser(row);
-          showAddUserModal();
+          setDataStudent(row);
+          showAddStudentModal();
         };
         const onClickDelete = () => {
-          handleRemoveUser(row);
+          handleRemoveStudent(row);
         };
         return (
           <div className="h-100 d-flex justify-content-around align-items-center">
@@ -165,29 +156,13 @@ export const UsersTab = () => {
       resizable: true,
     },
     {
-      key: "role",
-      name: "Tipo",
-      minWidth: 90,
-      resizable: true,
-      renderCell: ({ row }) => {
-        return (
-          <span>
-            {row.role?.name === "admin" && "ADMINISTRADOR"}
-            {row.role?.name === "professor" && "PROFESOR"}
-            {row.role?.name === "student" && "ESTUDIANTE"}
-            {row.role?.name === "user" && "USUARIO"}
-          </span>
-        );
-      },
-    },
-    {
       key: "status",
       name: "Estado",
       width: 95,
       resizable: true,
       renderCell: ({ row }) => {
         const onClickStatus = () => {
-          handleChangeStatusUser(row);
+          handlechangeStatusStudent(row);
         };
         return (
           <div className="h-100 d-flex justify-content-around align-items-center">
@@ -222,17 +197,10 @@ export const UsersTab = () => {
           <CButton
             color="success"
             className="text-white"
-            onClick={showAddUserModal}
+            onClick={showAddStudentModal}
           >
             Registrar
           </CButton>
-        </CCol>
-        <CCol xs={6} lg={2}>
-          <CFormSelect onChange={handleChangeQuery}>
-            <option value="*">TODOS</option>
-            <option value="true">ACTIVOS</option>
-            <option value="false">INACTIVOS</option>
-          </CFormSelect>
         </CCol>
         <CCol sm={9} lg={6} className="mt-2 mt-sm-0">
           <input
@@ -245,9 +213,8 @@ export const UsersTab = () => {
       </CRow>
       <CRow>
         <CCol>
-          {isLoadingUsers === "loading" && statusDataUser === "no-changed" && (
-            <Loader />
-          )}
+          {isLoadingStudents === "loading" &&
+            statusDataStudent === "no-changed" && <Loader />}
           {rows ? (
             <DataGrid
               className="rdg-light"
@@ -261,22 +228,22 @@ export const UsersTab = () => {
           )}
         </CCol>
       </CRow>
-      <AddUser
-        statusAddUserModal={statusAddUserModal}
-        hideAddUserModal={hideModal}
-        dataUser={dataUser}
+      <AddStudent
+        statusAddStudentModal={statusAddStudentModal}
+        hideAddStudentModal={hideModal}
+        dataStudent={dataStudent}
       />
       <ConfirmChangeStatus
-        statusStatusUserModal={statusStatusUserModal}
-        hideStatusUserModal={hideModal}
-        changeStatus={() => changeStatusUser(dataUser)}
-        dataUser={dataUser}
+        statusStatusStudentModal={statusStatusStudentModal}
+        hideStatusStudentModal={hideModal}
+        changeStatus={() => changeStatusStudent(dataStudent)}
+        dataStudent={dataStudent}
       />
-      <ConfirmDeleteUser
-        statusDeleteUserModal={statusDeleteUserModal}
-        hideDeleteUserModal={hideModal}
-        removeUser={() => removeUser(dataUser)}
-        dataUser={dataUser}
+      <ConfirmDeleteStudent
+        statusDeleteStudentModal={statusDeleteStudentModal}
+        hideDeleteStudentModal={hideModal}
+        removeStudent={() => removeStudent(dataStudent)}
+        dataStudent={dataStudent}
       />
     </>
   );
