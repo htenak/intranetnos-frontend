@@ -18,9 +18,7 @@ import { AddUser, ConfirmChangeStatus, ConfirmDeleteUser } from "../modals";
 export const UsersTab = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const { users, isLoadingUsers, statusDataUser } = useSelector(
-    (state) => state.users
-  );
+  const { users, statusDataUser } = useSelector((state) => state.users);
 
   const [query, setQuery] = useState("*");
   const [rows, setRows] = useState([]);
@@ -30,13 +28,11 @@ export const UsersTab = () => {
   const [statusDeleteUserModal, setStatusDeleteUserModal] = useState(false);
   const [dataUser, setDataUser] = useState({});
 
-  // se consultan datos solo la primera vez
+  // se consultan datos al abrir
   useEffect(() => {
-    if (isLoadingUsers === "no-changed") {
-      dispatch(getAllUsers(query));
-      dispatch(getAllRoles());
-    }
-  }, [isLoadingUsers]);
+    dispatch(getAllUsers(query));
+    dispatch(getAllRoles());
+  }, []);
 
   // se consultan datos si se cambio el query
   useEffect(() => {
@@ -47,11 +43,7 @@ export const UsersTab = () => {
 
   // se consultan datos si se hizo crud
   useEffect(() => {
-    if (
-      statusDataUser === "created" ||
-      statusDataUser === "updated" ||
-      statusDataUser === "deleted"
-    ) {
+    if (statusDataUser !== null) {
       dispatch(getAllUsers(query));
       hideModal();
     }
@@ -59,13 +51,15 @@ export const UsersTab = () => {
 
   // se asignan datos a un estado local
   useEffect(() => {
-    if (isLoadingUsers === "loaded") {
-      const data = users
-        ?.filter((data) => data.id !== user.id)
-        .sort((a, b) => b.id - a.id);
-      setRows(data);
+    if (users) {
+      if (users.length !== 0) {
+        const data = users
+          ?.filter((data) => data.id !== user.id)
+          .sort((a, b) => b.id - a.id);
+        setRows(data);
+      }
     }
-  }, [isLoadingUsers]);
+  }, [users]);
 
   // cambia query
   const handleChangeQuery = (e) => {
@@ -245,10 +239,9 @@ export const UsersTab = () => {
       </CRow>
       <CRow>
         <CCol>
-          {isLoadingUsers === "loading" && statusDataUser === "no-changed" && (
+          {!users ? (
             <Loader />
-          )}
-          {rows ? (
+          ) : (
             <DataGrid
               className="rdg-light"
               columns={columns}
@@ -256,8 +249,6 @@ export const UsersTab = () => {
               rowHeight={45}
               resizable
             />
-          ) : (
-            <></>
           )}
         </CCol>
       </CRow>

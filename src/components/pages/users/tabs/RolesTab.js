@@ -1,14 +1,16 @@
+import React, { useState } from "react";
 import { CButton, CCol, CRow } from "@coreui/react";
 import { useSelector } from "react-redux";
 import DataGrid from "react-data-grid";
+
 import Loader from "src/components/layout/loader/Loader";
 import { FAIcon } from "src/assets/icon/FAIcon";
 import { faQuestion } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+
 import { RoleDetail } from "../modals";
 
 export const RolesTab = () => {
-  const { roles, isLoadingRoles } = useSelector((state) => state.users);
+  const { roles } = useSelector((state) => state.users);
 
   const rolesDetails = [
     {
@@ -104,16 +106,15 @@ export const RolesTab = () => {
     <>
       <CRow className="mt-3 mb-2">
         <CCol>
-          {isLoadingRoles === "loading" ? <Loader /> : <></>}
-          {roles && isLoadingRoles === "loaded" ? (
+          {!roles ? (
+            <Loader />
+          ) : (
             <DataGrid
               className="rdg-light"
               columns={columns}
               rows={roles || []}
               rowHeight={70}
             />
-          ) : (
-            <></>
           )}
         </CCol>
       </CRow>

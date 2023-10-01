@@ -59,16 +59,16 @@ const _nav = [
         to: "/users",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faUsers} />,
       },
-      {
-        component: CNavItem,
-        name: "Administradores",
-        to: "/",
-        icon: <FAIcon customClass="icon nav-icon-sub" icon={faUserCog} />,
-      },
+      // {
+      //   component: CNavItem,
+      //   name: "Administradores",
+      //   to: "/admins",
+      //   icon: <FAIcon customClass="icon nav-icon-sub" icon={faUserCog} />,
+      // },
       {
         component: CNavItem,
         name: "Profesores",
-        to: "/",
+        to: "/professors",
         icon: (
           <FAIcon customClass="icon nav-icon-sub" icon={faChalkboardTeacher} />
         ),
@@ -90,7 +90,7 @@ const _nav = [
       {
         component: CNavItem,
         name: "Carreras",
-        to: "/",
+        to: "/careers",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faGraduationCap} />,
       },
       {

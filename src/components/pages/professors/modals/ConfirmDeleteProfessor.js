@@ -7,21 +7,21 @@ import {
   CModalTitle,
 } from "@coreui/react";
 
-export const ConfirmDeleteStudent = ({
-  statusDeleteStudentModal,
-  hideDeleteStudentModal,
-  removeStudent,
-  dataStudent,
+export const ConfirmDeleteProfessor = ({
+  statusDeleteProfessorModal,
+  hideDeleteProfessorModal,
+  removeProfessor,
+  dataProfessor,
 }) => {
   const handleSubmit = () => {
-    removeStudent();
-    hideDeleteStudentModal();
+    removeProfessor();
+    hideDeleteProfessorModal();
   };
   return (
     <CModal
       alignment="center"
-      visible={statusDeleteStudentModal}
-      onClose={hideDeleteStudentModal}
+      visible={statusDeleteProfessorModal}
+      onClose={hideDeleteProfessorModal}
     >
       <CModalHeader>
         <CModalTitle>Eliminar cuenta de usuario</CModalTitle>
@@ -30,7 +30,8 @@ export const ConfirmDeleteStudent = ({
         <p>
           Estas a punto de eliminar la cuenta de{" "}
           <b>
-            {dataStudent.name} {dataStudent.lastName1} {dataStudent.lastName2}
+            {dataProfessor.name} {dataProfessor.lastName1}{" "}
+            {dataProfessor.lastName2}
           </b>
           {", "}
           ¿desea realmente continuar?
@@ -41,7 +42,7 @@ export const ConfirmDeleteStudent = ({
         </ul>
       </CModalBody>
       <CModalFooter className="border-0">
-        <CButton color="dark" onClick={hideDeleteStudentModal}>
+        <CButton color="dark" onClick={hideDeleteProfessorModal}>
           Cancelar
         </CButton>
         <CButton color="danger" className="text-white" onClick={handleSubmit}>

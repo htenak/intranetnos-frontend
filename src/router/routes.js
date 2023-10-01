@@ -10,6 +10,9 @@ const Users = React.lazy(() => import("../components/pages/users/Users"));
 const Students = React.lazy(() =>
   import("../components/pages/students/Students")
 );
+const Professors = React.lazy(() =>
+  import("../components/pages/professors/Professors")
+);
 
 const routes = [
   // todos:
@@ -25,6 +28,12 @@ const routes = [
     path: "/students",
     name: "Estudiantes",
     element: Students,
+    roles: [ROLE_ADMIN],
+  },
+  {
+    path: "/professors",
+    name: "Profesores",
+    element: Professors,
     roles: [ROLE_ADMIN],
   },
 

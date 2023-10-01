@@ -1,5 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { navSlice, authSlice, usersSlice, studentsSlice } from "./";
+import {
+  navSlice,
+  authSlice,
+  usersSlice,
+  studentsSlice,
+  professorsSlice,
+} from "./";
 
 export const store = configureStore({
   reducer: {
@@ -7,6 +13,7 @@ export const store = configureStore({
     auth: authSlice.reducer,
     users: usersSlice.reducer,
     students: studentsSlice.reducer,
+    professors: professorsSlice.reducer,
   },
-  devTools: process.env.NODE_ENV !== "production", // Habilita DevTools en desarrollo
+  devTools: process.env.NODE_ENV !== "production", // habilita DevTools en desarrollo
 });

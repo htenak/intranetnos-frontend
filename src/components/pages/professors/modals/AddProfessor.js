@@ -17,12 +17,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { FAIcon } from "src/assets/icon/FAIcon";
-import { saveStudent, updateStudent } from "src/store";
+import { saveProfessor, updateProfessor } from "src/store";
 
-export const AddStudent = ({
-  statusAddStudentModal,
-  hideAddStudentModal,
-  dataStudent,
+export const AddProfessor = ({
+  statusAddProfessorModal,
+  hideAddProfessorModal,
+  dataProfessor,
 }) => {
   const dispatch = useDispatch();
   const { roles } = useSelector((state) => state.users);
@@ -42,22 +42,22 @@ export const AddStudent = ({
 
   // asigna values (editar)
   useEffect(() => {
-    if (dataStudent?.id) {
-      setValues(dataStudent);
+    if (dataProfessor?.id) {
+      setValues(dataProfessor);
     } else {
       setValues(initialStateValues);
     }
-  }, [statusAddStudentModal]);
+  }, [statusAddProfessorModal]);
 
-  // asigna rol 'student' por defecto
+  // asigna rol 'professor' por defecto
   useEffect(() => {
-    if (statusAddStudentModal) {
-      if (!dataStudent?.id) {
-        const roleFound = roles?.find((row) => row.name === "student");
+    if (statusAddProfessorModal) {
+      if (!dataProfessor?.id) {
+        const roleFound = roles?.find((row) => row.name === "professor");
         setValues({ ...values, roleId: roleFound.id });
       }
     }
-  }, [statusAddStudentModal]);
+  }, [statusAddProfessorModal]);
 
   // elimina email si está vacío
   useEffect(() => {
@@ -117,30 +117,30 @@ export const AddStudent = ({
     }
 
     if (parseInt(values?.id) !== 0) {
-      dispatch(updateStudent(values));
+      dispatch(updateProfessor(values));
     } else {
-      dispatch(saveStudent(values));
+      dispatch(saveProfessor(values));
     }
   };
 
   const hideModal = () => {
     setValues(initialStateValues);
-    hideAddStudentModal();
+    hideAddProfessorModal();
   };
 
   return (
     <CModal
       alignment="center"
-      visible={statusAddStudentModal}
+      visible={statusAddProfessorModal}
       onClose={hideModal}
       size="lg"
     >
       <CForm onSubmit={handleSubmit}>
         <CModalHeader>
           {values?.id !== 0 ? (
-            <CModalTitle>Editar estudiante</CModalTitle>
+            <CModalTitle>Editar profesor</CModalTitle>
           ) : (
-            <CModalTitle>Registrar nuevo estudiante</CModalTitle>
+            <CModalTitle>Registrar nuevo profesor</CModalTitle>
           )}
         </CModalHeader>
         <CModalBody>
