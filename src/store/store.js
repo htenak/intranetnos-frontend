@@ -6,6 +6,7 @@ import {
   studentsSlice,
   professorsSlice,
   academicSlice,
+  classesSlice,
 } from "./";
 
 export const store = configureStore({
@@ -16,6 +17,7 @@ export const store = configureStore({
     students: studentsSlice.reducer,
     professors: professorsSlice.reducer,
     academic: academicSlice.reducer,
+    classes: classesSlice.reducer,
   },
   devTools: process.env.NODE_ENV !== "production", // habilita DevTools en desarrollo
 });

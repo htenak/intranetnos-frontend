@@ -57,12 +57,6 @@ export const AddUser = ({ statusAddUserModal, hideAddUserModal, dataUser }) => {
     const { name, value } = e.target;
     if (name === "roleId") {
       setValues({ ...values, [name]: parseInt(value) });
-    } else if (
-      name === "name" ||
-      name === "lastName1" ||
-      name === "lastName2"
-    ) {
-      setValues({ ...values, [name]: value.toUpperCase() });
     } else if (name === "dni") {
       if (value.length <= 8) {
         setValues({ ...values, [name]: value });

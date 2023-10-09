@@ -16,6 +16,7 @@ const Professors = React.lazy(() =>
 const Careers = React.lazy(() => import("../components/pages/careers/Careers"));
 const Cycles = React.lazy(() => import("../components/pages/cycles/Cycles"));
 const Courses = React.lazy(() => import("../components/pages/courses/Courses"));
+const Classes = React.lazy(() => import("../components/pages/classes/Classes"));
 
 const routes = [
   // todos:
@@ -55,6 +56,12 @@ const routes = [
     path: "/courses",
     name: "Cursos",
     element: Courses,
+    roles: [ROLE_ADMIN],
+  },
+  {
+    path: "/classes",
+    name: "Clases",
+    element: Classes,
     roles: [ROLE_ADMIN],
   },
 

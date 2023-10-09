@@ -20,7 +20,11 @@ export const ConfirmDeletePhoto = ({ statusModal, hideModal }) => {
   };
 
   return (
-    <CModal alignment="center" visible={statusModal}>
+    <CModal
+      alignment="center"
+      visible={statusModal}
+      onClose={() => hideModal(false)}
+    >
       <CModalHeader style={{ background: "#333", color: "#fff" }}>
         <CModalTitle>¿Quieres eliminar tu foto de perfil?</CModalTitle>
       </CModalHeader>

@@ -48,7 +48,7 @@ export const AddCareerModal = ({
   // cambios en campos
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setValues({ ...values, [name]: value.toUpperCase() });
+    setValues({ ...values, [name]: value });
   };
 
   // envío de datos

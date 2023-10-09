@@ -94,43 +94,10 @@ export const CoursesTab = () => {
     {
       key: "courseType",
       name: "Tipo",
-      width: 65,
+      width: 120,
       resizable: true,
       renderCell: ({ row }) => {
-        const onClick = () => {};
-        return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
-              color="warning"
-              className="text-white"
-              onClick={onClick}
-              title="Ver"
-            >
-              <FAIcon customClass="icon" icon={faBookReader} />
-            </CButton>
-          </div>
-        );
-      },
-    },
-    {
-      key: "career",
-      name: "Carrera",
-      width: 70,
-      resizable: true,
-      renderCell: ({ row }) => {
-        const onClick = () => {};
-        return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
-              color="primary"
-              className="text-white"
-              onClick={onClick}
-              title="Ver"
-            >
-              <FAIcon customClass="icon" icon={faGraduationCap} />
-            </CButton>
-          </div>
-        );
+        return <>{row.courseType?.name}</>;
       },
     },
     {

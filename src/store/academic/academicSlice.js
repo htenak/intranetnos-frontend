@@ -24,6 +24,8 @@ const initialState = {
   statusDataCourse: null, // 'CREATED' , 'UPDATED', 'DELETED'
   courseErrorMessage: undefined,
   courseSuccessMessage: undefined,
+
+  totals: null,
 };
 
 export const academicSlice = createSlice({
@@ -105,6 +107,11 @@ export const academicSlice = createSlice({
     setCourseErrorMessage: (state, action) => {
       state.courseErrorMessage = action.payload;
     },
+
+    // totals
+    setTotals: (state, action) => {
+      state.totals = action.payload;
+    },
   },
 });
 
@@ -129,4 +136,6 @@ export const {
   onCourseCrud,
   resetCourseCrud,
   setCourseErrorMessage,
+
+  setTotals,
 } = academicSlice.actions;

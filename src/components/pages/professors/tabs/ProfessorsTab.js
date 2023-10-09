@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import DataGrid from "react-data-grid";
-import { CButton, CCol, CRow } from "@coreui/react";
+import { CAvatar, CButton, CCol, CRow } from "@coreui/react";
 import { FAIcon } from "src/assets/icon/FAIcon";
 import Loader from "src/components/layout/loader/Loader";
+import imgUser from "src/assets/images/user.png";
 
 import {
   getAllRoles,
@@ -13,6 +14,7 @@ import {
   deleteProfessor,
   updateStatusProfessor,
 } from "src/store";
+import { intranetAvatarApi } from "src/api";
 
 import {
   AddProfessor,
@@ -56,6 +58,8 @@ export const ProfessorsTab = () => {
         const data = [...professors]; // crea una copia de professors
         data.sort((a, b) => b.id - a.id);
         setRows(data);
+      } else {
+        setRows([]);
       }
     }
   }, [professors]);
@@ -137,10 +141,28 @@ export const ProfessorsTab = () => {
     {
       key: "name",
       name: "Nombres",
-      minWidth: 200,
+      minWidth: 210,
       resizable: true,
       renderCell: ({ row }) => {
-        return <div>{`${row.name} ${row.lastName1} ${row.lastName2}`}</div>;
+        const goImageURL = () => {
+          if (row.filename) {
+            window.open(`${intranetAvatarApi}/${row.filename}`, "_blank");
+          }
+        };
+        return (
+          <div>
+            {" "}
+            <CAvatar
+              size="sm"
+              src={
+                !row.filename ? imgUser : `${intranetAvatarApi}/${row.filename}`
+              }
+              style={{ marginRight: 10, overflow: "hidden", cursor: "pointer" }}
+              onClick={goImageURL}
+            />
+            {`${row.name} ${row.lastName1} ${row.lastName2}`}
+          </div>
+        );
       },
     },
     { key: "dni", name: "DNI", minWidth: 90, resizable: true },

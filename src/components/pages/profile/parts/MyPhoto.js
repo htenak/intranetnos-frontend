@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { intranetAvatarApi } from "src/api";
 import { uploadMyPhoto } from "src/store";
 
-import imgUser from "../../../../assets/images/user.png";
+import imgUser from "src/assets/images/user.png";
 
 import { ConfirmDeletePhoto } from "../modals";
 
@@ -53,6 +53,17 @@ export const MyPhoto = () => {
     setFilePreview(null);
   };
 
+  // abre pestaña de la foto
+  const goImageURL = () => {
+    if (!filename && !preview) {
+      window.open(imgUser, "_blank");
+    } else if (filename && !preview) {
+      window.open(`${intranetAvatarApi}/${filename}`, "_blank");
+    } else {
+      window.open(filePreview, "_blank");
+    }
+  };
+
   return (
     <>
       <CCol lg={4} className="d-flex flex-column justify-content-center">
@@ -73,6 +84,7 @@ export const MyPhoto = () => {
                 width: "auto",
                 maxWidth: "100%",
                 borderRadius: 3,
+                cursor: "pointer",
               }}
               alt="Foto de perfil - NOS"
               src={
@@ -80,6 +92,7 @@ export const MyPhoto = () => {
                 (preview && filePreview) ||
                 (!filename && !preview && imgUser)
               }
+              onClick={goImageURL}
             />
           </CCol>
         </CRow>

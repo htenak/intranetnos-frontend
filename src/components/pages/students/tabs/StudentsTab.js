@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrash, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import DataGrid from "react-data-grid";
-import { CButton, CCol, CRow } from "@coreui/react";
+import { CAvatar, CButton, CCol, CRow } from "@coreui/react";
 import { FAIcon } from "src/assets/icon/FAIcon";
 
 import {
@@ -12,6 +12,7 @@ import {
   deleteStudent,
   updateStatusStudent,
 } from "src/store";
+import imgUser from "src/assets/images/user.png";
 import Loader from "src/components/layout/loader/Loader";
 
 import {
@@ -19,6 +20,7 @@ import {
   ConfirmChangeStatus,
   ConfirmDeleteStudent,
 } from "../modals";
+import { intranetAvatarApi } from "src/api";
 
 export const StudentsTab = () => {
   const dispatch = useDispatch();
@@ -56,6 +58,8 @@ export const StudentsTab = () => {
         const data = [...students]; // crea una copia de students
         data.sort((a, b) => b.id - a.id);
         setRows(data);
+      } else {
+        setRows([]);
       }
     }
   }, [students]);
@@ -137,10 +141,28 @@ export const StudentsTab = () => {
     {
       key: "name",
       name: "Nombres",
-      minWidth: 200,
+      minWidth: 210,
       resizable: true,
       renderCell: ({ row }) => {
-        return <div>{`${row.name} ${row.lastName1} ${row.lastName2}`}</div>;
+        const goImageURL = () => {
+          if (row.filename) {
+            window.open(`${intranetAvatarApi}/${row.filename}`, "_blank");
+          }
+        };
+        return (
+          <div>
+            {" "}
+            <CAvatar
+              size="sm"
+              src={
+                !row.filename ? imgUser : `${intranetAvatarApi}/${row.filename}`
+              }
+              style={{ marginRight: 10, overflow: "hidden", cursor: "pointer" }}
+              onClick={goImageURL}
+            />
+            {`${row.name} ${row.lastName1} ${row.lastName2}`}
+          </div>
+        );
       },
     },
     { key: "dni", name: "DNI", minWidth: 90, resizable: true },
@@ -224,7 +246,6 @@ export const StudentsTab = () => {
               <></>
             )}
           </div>
-          students
         </CCol>
       </CRow>
       <AddStudent

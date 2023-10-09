@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "src/store";
 import { intranetAvatarApi } from "src/api";
 
-import imgUser from "./../../../assets/images/user.png";
+import imgUser from "src/assets/images/user.png";
 
 const AppHeaderDropdown = () => {
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const AppHeaderDropdown = () => {
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
-        <CAvatar src={myPhoto} size="md" />
+        <CAvatar src={myPhoto} size="md" style={{ overflow: "hidden" }} />
       </CDropdownToggle>
       <CDropdownMenu className="py-2" placement="bottom-end">
         <Link

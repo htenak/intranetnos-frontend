@@ -13,7 +13,6 @@ import {
   faProjectDiagram,
   faRestroom,
   faUserCircle,
-  faUserCog,
   faUserGraduate,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
@@ -118,19 +117,19 @@ const _nav = [
       {
         component: CNavItem,
         name: "Clases",
-        to: "/",
+        to: "/classes",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faBookOpen} />,
       },
       {
         component: CNavItem,
         name: "Horarios",
-        to: "/",
+        to: "/schedules",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faCalendarAlt} />,
       },
       {
         component: CNavItem,
-        name: "Matricula",
-        to: "/",
+        name: "Inscripciones",
+        to: "/registrations",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faRestroom} />,
       },
     ],

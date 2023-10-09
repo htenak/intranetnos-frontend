@@ -16,6 +16,7 @@ import {
   onCourseCrud,
   resetCourseCrud,
   setCourseErrorMessage,
+  setTotals,
 } from "../academic";
 
 // careers:
@@ -368,6 +369,18 @@ export const deleteCourse = (form) => {
       setTimeout(() => {
         dispatch(resetCourseCrud());
       }, 50);
+    }
+  };
+};
+
+// totals:
+export const getTotalsAcademic = () => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.get(`/academic/totals`);
+      dispatch(setTotals(data.data));
+    } catch (error) {
+      console.log("Error al obtener totales de datos academicos");
     }
   };
 };

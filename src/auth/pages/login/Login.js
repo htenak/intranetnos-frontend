@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  CAlert,
   CButton,
   CCard,
   CCardBody,
@@ -14,7 +15,6 @@ import {
 import CIcon from "@coreui/icons-react";
 import { cilLockLocked, cilUser } from "@coreui/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 
 import { login } from "src/store";
 
@@ -26,6 +26,7 @@ const Login = () => {
     username: "",
     password: "",
   });
+  const [someError, setSomeError] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -47,14 +48,14 @@ const Login = () => {
     ) {
       dispatch(login(credentials));
     } else {
-      toast.error("Algunos campos están vacíos");
+      setSomeError("Algunos campos vacíos");
     }
   };
 
   // mostramos errores del estado
   useEffect(() => {
     if (errorMessage !== undefined) {
-      toast.error(errorMessage);
+      setSomeError(errorMessage);
     }
   }, [errorMessage]);
 
@@ -73,6 +74,13 @@ const Login = () => {
                   <p className="text-medium-emphasis">
                     Ingresa tus credenciales para acceder
                   </p>
+                  <CAlert
+                    color="danger"
+                    visible={someError !== null ? true : someError}
+                    dismissible
+                  >
+                    {someError}
+                  </CAlert>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
                       <CIcon icon={cilUser} />
