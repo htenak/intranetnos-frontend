@@ -116,7 +116,7 @@ export const UsersTab = () => {
       key: "actions",
       name: "Acciones",
       resizable: true,
-      width: 108,
+      width: 110,
       renderCell: ({ row }) => {
         const onClickEdit = () => {
           setDataUser(row);
@@ -239,17 +239,21 @@ export const UsersTab = () => {
       </CRow>
       <CRow>
         <CCol>
-          {!users ? (
-            <Loader />
-          ) : (
-            <DataGrid
-              className="rdg-light"
-              columns={columns}
-              rows={filter(rows) || []}
-              rowHeight={45}
-              resizable
-            />
-          )}
+          <div style={{ height: 450, width: "100%", overflow: "hidden" }}>
+            <Loader show={!users} center={true} />
+            {users ? (
+              <DataGrid
+                className="rdg-light"
+                columns={columns}
+                rows={filter(rows) || []}
+                rowHeight={45}
+                style={{ height: 450 }}
+                resizable
+              />
+            ) : (
+              <></>
+            )}
+          </div>
         </CCol>
       </CRow>
       <AddUser

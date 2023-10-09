@@ -106,16 +106,21 @@ export const RolesTab = () => {
     <>
       <CRow className="mt-3 mb-2">
         <CCol>
-          {!roles ? (
-            <Loader />
-          ) : (
-            <DataGrid
-              className="rdg-light"
-              columns={columns}
-              rows={roles || []}
-              rowHeight={70}
-            />
-          )}
+          <div style={{ height: 450, width: "100%", overflow: "hidden" }}>
+            <Loader show={!roles} center={true} />
+            {roles ? (
+              <DataGrid
+                className="rdg-light"
+                columns={columns}
+                rows={roles || []}
+                rowHeight={70}
+                style={{ height: 450 }}
+                resizable
+              />
+            ) : (
+              <></>
+            )}
+          </div>
         </CCol>
       </CRow>
       <RoleDetail

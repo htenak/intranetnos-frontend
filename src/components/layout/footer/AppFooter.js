@@ -9,11 +9,7 @@ const AppFooter = () => {
       </div>
       <div className="ms-auto">
         <span className="me-1">Desarrollado por </span>
-        <a
-          href="https://kanethsite.netlify.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="#" target="_blank" rel="noopener noreferrer">
           KanethDev
         </a>
       </div>

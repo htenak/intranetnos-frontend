@@ -23,10 +23,10 @@ export const ConfirmDeleteProfessor = ({
       visible={statusDeleteProfessorModal}
       onClose={hideDeleteProfessorModal}
     >
-      <CModalHeader>
+      <CModalHeader style={{ background: "#333", color: "#fff" }}>
         <CModalTitle>Eliminar cuenta de usuario</CModalTitle>
       </CModalHeader>
-      <CModalBody>
+      <CModalBody style={{ background: "#333", color: "#fff" }}>
         <p>
           Estas a punto de eliminar la cuenta de{" "}
           <b>
@@ -41,7 +41,10 @@ export const ConfirmDeleteProfessor = ({
           <li>Esta acción no se puede deshacer</li>
         </ul>
       </CModalBody>
-      <CModalFooter className="border-0">
+      <CModalFooter
+        className="border-0"
+        style={{ background: "#333", color: "#fff" }}
+      >
         <CButton color="dark" onClick={hideDeleteProfessorModal}>
           Cancelar
         </CButton>

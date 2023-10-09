@@ -74,3 +74,41 @@ export const updateMyData = (form) => {
     }
   };
 };
+
+export const uploadMyPhoto = (form) => {
+  return async (dispatch) => {
+    dispatch(onMyDataEditing());
+    try {
+      const { data } = await intranetApi.put("/user/my-profile/upload", form);
+      dispatch(onMyDataUpdated({ user: data.data, message: data.message }));
+      setTimeout(() => {
+        dispatch(clearSuccessMessage());
+      }, 50);
+    } catch (error) {
+      dispatch(onMyDataCancelEditing(error.response.data?.message || ""));
+      setTimeout(() => {
+        dispatch(clearErrorMessage());
+      }, 50);
+    }
+  };
+};
+
+export const deleteMyPhoto = () => {
+  return async (dispatch) => {
+    dispatch(onMyDataEditing());
+    try {
+      const { data } = await intranetApi.delete(
+        "/user/my-profile/delete-photo"
+      );
+      dispatch(onMyDataUpdated({ user: data.data, message: data.message }));
+      setTimeout(() => {
+        dispatch(clearSuccessMessage());
+      }, 50);
+    } catch (error) {
+      dispatch(onMyDataCancelEditing(error.response.data?.message || ""));
+      setTimeout(() => {
+        dispatch(clearErrorMessage());
+      }, 50);
+    }
+  };
+};

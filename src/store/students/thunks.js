@@ -16,7 +16,7 @@ export const getAllStudents = () => {
     } catch (error) {
       dispatch(setErrorStudentsMessage(error.response.data?.message));
       setTimeout(() => {
-        dispatch(setErrorStudentsMessage(undefined));
+        dispatch(resetDataStudent(undefined));
       }, 50);
     }
   };

@@ -16,7 +16,7 @@ export const getAllProfessors = () => {
     } catch (error) {
       dispatch(setErrorProfessorsMessage(error.response.data?.message));
       setTimeout(() => {
-        dispatch(setErrorProfessorsMessage(undefined));
+        dispatch(resetDataProfessor(undefined));
       }, 50);
     }
   };

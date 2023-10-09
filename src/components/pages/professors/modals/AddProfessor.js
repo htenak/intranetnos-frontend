@@ -37,7 +37,6 @@ export const AddProfessor = ({
     phone: "",
     roleId: 0,
   };
-
   const [values, setValues] = useState(initialStateValues);
 
   // asigna values (editar)
@@ -140,7 +139,7 @@ export const AddProfessor = ({
           {values?.id !== 0 ? (
             <CModalTitle>Editar profesor</CModalTitle>
           ) : (
-            <CModalTitle>Registrar nuevo profesor</CModalTitle>
+            <CModalTitle>Registrar profesor</CModalTitle>
           )}
         </CModalHeader>
         <CModalBody>

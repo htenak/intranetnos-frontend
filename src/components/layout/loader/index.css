@@ -1,0 +1,20 @@
+.loader {
+  transition: opacity 1s linear;
+}
+.hid-loader {
+  opacity: 0;
+}
+
+/* rotacion de la imagen loader */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader img {
+  animation: spin 3.5s linear infinite;
+}

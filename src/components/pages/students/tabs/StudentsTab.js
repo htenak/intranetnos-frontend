@@ -109,7 +109,7 @@ export const StudentsTab = () => {
       key: "actions",
       name: "Acciones",
       resizable: true,
-      width: 108,
+      width: 110,
       renderCell: ({ row }) => {
         const onClickEdit = () => {
           setDataStudent(row);
@@ -209,17 +209,22 @@ export const StudentsTab = () => {
       </CRow>
       <CRow>
         <CCol>
-          {!students ? (
-            <Loader />
-          ) : (
-            <DataGrid
-              className="rdg-light"
-              columns={columns}
-              rows={filter(rows) || []}
-              rowHeight={45}
-              resizable
-            />
-          )}
+          <div style={{ height: 450, width: "100%", overflow: "hidden" }}>
+            <Loader show={!students} center={true} />
+            {students ? (
+              <DataGrid
+                className="rdg-light"
+                columns={columns}
+                rows={filter(rows) || []}
+                rowHeight={45}
+                style={{ height: 450 }}
+                resizable
+              />
+            ) : (
+              <></>
+            )}
+          </div>
+          students
         </CCol>
       </CRow>
       <AddStudent

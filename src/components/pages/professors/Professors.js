@@ -39,7 +39,7 @@ const Professors = () => {
             <CCol xs>
               <CCard>
                 <CCardHeader style={{ fontSize: "18px", fontWeight: 500 }}>
-                  Lista de todos los profesores
+                  Todos los profesores
                 </CCardHeader>
                 <CCardBody>
                   <CNav variant="tabs">

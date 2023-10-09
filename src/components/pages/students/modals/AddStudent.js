@@ -140,7 +140,7 @@ export const AddStudent = ({
           {values?.id !== 0 ? (
             <CModalTitle>Editar estudiante</CModalTitle>
           ) : (
-            <CModalTitle>Registrar nuevo estudiante</CModalTitle>
+            <CModalTitle>Registrar estudiante</CModalTitle>
           )}
         </CModalHeader>
         <CModalBody>

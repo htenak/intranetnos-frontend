@@ -84,7 +84,7 @@ const _nav = [
   {
     roles: [ROLE_ADMIN],
     component: CNavGroup,
-    name: "Formación",
+    name: "P. Academico",
     icon: <FAIcon customClass="icon nav-icon" icon={faBook} />,
     items: [
       {
@@ -96,7 +96,7 @@ const _nav = [
       {
         component: CNavItem,
         name: "Ciclos",
-        to: "/",
+        to: "/cycles",
         icon: (
           <FAIcon customClass="icon nav-icon-sub" icon={faProjectDiagram} />
         ),
@@ -104,7 +104,7 @@ const _nav = [
       {
         component: CNavItem,
         name: "Cursos",
-        to: "/",
+        to: "/courses",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faBookReader} />,
       },
     ],

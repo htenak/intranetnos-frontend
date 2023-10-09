@@ -28,7 +28,7 @@ export const getAllUsers = (status) => {
     } catch (error) {
       dispatch(setErrorUsersMessage(error.response.data?.message));
       setTimeout(() => {
-        dispatch(setErrorUsersMessage(undefined));
+        dispatch(resetDataUser());
       }, 50);
     }
   };

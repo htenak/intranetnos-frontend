@@ -83,7 +83,7 @@ export const MyData = () => {
           Mis datos personales
         </CCardHeader>
         <CCardBody>
-          <CRow>
+          <CRow className="justify-content-center">
             <CCol xl={8}>
               <CForm onSubmit={handleSubmit}>
                 <CRow>

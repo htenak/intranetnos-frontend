@@ -29,8 +29,8 @@ textarea {
 }
 
 /* ocultamos check de aumento y decremento
-  * en inputs numericos
-  */
+ * en inputs numericos
+ */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -39,4 +39,11 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   appearance: none;
   -moz-appearance: textfield; /* en firefox */
+}
+
+/* oculta el outline de los campos que tiene 
+ * por defecto el react-data-grid
+ */
+.c1wupbe7-0-0-beta-39[aria-selected="true"] {
+  outline: 0;
 }

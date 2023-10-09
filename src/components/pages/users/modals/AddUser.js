@@ -126,7 +126,7 @@ export const AddUser = ({ statusAddUserModal, hideAddUserModal, dataUser }) => {
           {values?.id !== 0 ? (
             <CModalTitle>Editar usuario</CModalTitle>
           ) : (
-            <CModalTitle>Registrar nuevo usuario</CModalTitle>
+            <CModalTitle>Registrar usuario</CModalTitle>
           )}
         </CModalHeader>
         <CModalBody>
