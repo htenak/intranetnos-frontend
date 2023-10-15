@@ -67,7 +67,7 @@ export const AddCourseModal = ({
   // cambios en campos
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name === "abbreviation" || name === "name") {
+    if (name === "abbreviation") {
       setValues({ ...values, [name]: value.toUpperCase() });
     } else if (name === "courseTypeId" || name === "careerId") {
       setValues({ ...values, [name]: parseInt(value) });

@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCourses, updateCourse } from "src/store";
+import { getAllCourses, updateStatusCourse } from "src/store";
 
 import { CButton, CCol, CRow } from "@coreui/react";
-import {
-  faBookReader,
-  faEdit,
-  faGraduationCap,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FAIcon } from "src/assets/icon/FAIcon";
 import DataGrid from "react-data-grid";
 import Loader from "src/components/layout/loader/Loader";
@@ -65,10 +60,16 @@ export const CoursesTab = () => {
         };
         return (
           <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton color="info" className="text-white" onClick={onClickEdit}>
+            <CButton
+              title="Editar"
+              color="info"
+              className="text-white"
+              onClick={onClickEdit}
+            >
               <FAIcon customClass="icon" icon={faEdit} />
             </CButton>
             <CButton
+              title="Eliminar"
               color="danger"
               className="text-white"
               onClick={onClickDelete}
@@ -107,11 +108,12 @@ export const CoursesTab = () => {
       resizable: true,
       renderCell: ({ row }) => {
         const onClickStatus = () => {
-          dispatch(updateCourse({ id: row.id, status: !row.status }));
+          dispatch(updateStatusCourse({ id: row.id, status: !row.status }));
         };
         return (
           <div className="h-100 d-flex justify-content-around align-items-center">
             <CButton
+              title="Cambiar estado"
               color={row.status ? "success" : "danger"}
               className="text-white"
               onClick={onClickStatus}

@@ -48,7 +48,11 @@ export const AddCourseTypeModal = ({
   // cambios en campos
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setValues({ ...values, [name]: value.toUpperCase() });
+    if (name === "name") {
+      setValues({ ...values, [name]: value.toUpperCase() });
+    } else {
+      setValues({ ...values, [name]: value });
+    }
   };
 
   // envío de datos
