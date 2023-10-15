@@ -25,7 +25,7 @@ const Dashboard = () => {
             <CCol>
               <CCard>
                 <CCardHeader style={{ fontSize: "18px", fontWeight: 500 }}>
-                  Vista previa de registros
+                  Vista previa de registros totales
                 </CCardHeader>
                 <CCardBody>
                   <CRow>
@@ -43,7 +43,7 @@ const Dashboard = () => {
                             <CCol xs={12} md={4} className="mt-2 mb-2">
                               <div className="border-start border-start-5 border-start-success py-1 px-3">
                                 <div className="text-medium-emphasis">
-                                  Usuarios
+                                  Usuarios totales
                                 </div>
                                 <div className="fs-5 fw-semibold">
                                   {totals.totalUsers}
@@ -51,7 +51,7 @@ const Dashboard = () => {
                               </div>
                             </CCol>
                             <CCol xs={12} md={4} className="mt-2 mb-2">
-                              <div className="border-start border-start-5 border-start-dark py-1 px-3">
+                              <div className="border-start border-start-5 border-start-danger py-1 px-3">
                                 <div className="text-medium-emphasis">
                                   Administradores
                                 </div>
@@ -71,7 +71,7 @@ const Dashboard = () => {
                               </div>
                             </CCol>
                             <CCol xs={12} md={4} className="mt-2 mb-2">
-                              <div className="border-start border-start-5 border-start-warning py-1 px-3">
+                              <div className="border-start border-start-5 border-start-danger py-1 px-3">
                                 <div className="text-medium-emphasis">
                                   Estudiantes
                                 </div>
@@ -81,7 +81,17 @@ const Dashboard = () => {
                               </div>
                             </CCol>
                             <CCol xs={12} md={4} className="mt-2 mb-2">
-                              <div className="border-start border-start-5 border-start-secondary py-1 px-3">
+                              <div className="border-start border-start-5 border-start-info py-1 px-3">
+                                <div className="text-medium-emphasis">
+                                  Invitados
+                                </div>
+                                <div className="fs-5 fw-semibold">
+                                  {totals.totalInviteds}
+                                </div>
+                              </div>
+                            </CCol>
+                            <CCol xs={12} md={4} className="mt-2 mb-2">
+                              <div className="border-start border-start-5 border-start-success py-1 px-3">
                                 <div className="text-medium-emphasis">
                                   Carreras
                                 </div>
@@ -91,12 +101,32 @@ const Dashboard = () => {
                               </div>
                             </CCol>
                             <CCol xs={12} md={4} className="mt-2 mb-2">
-                              <div className="border-start border-start-5 border-start-danger py-1 px-3">
+                              <div className="border-start border-start-5 border-start-info py-1 px-3">
                                 <div className="text-medium-emphasis">
                                   Cursos
                                 </div>
                                 <div className="fs-5 fw-semibold">
                                   {totals.totalCourses}
+                                </div>
+                              </div>
+                            </CCol>
+                            <CCol xs={12} md={4} className="mt-2 mb-2">
+                              <div className="border-start border-start-5 border-start-success py-1 px-3">
+                                <div className="text-medium-emphasis">
+                                  Clases
+                                </div>
+                                <div className="fs-5 fw-semibold">
+                                  {totals.totalClasses}
+                                </div>
+                              </div>
+                            </CCol>
+                            <CCol xs={12} md={4} className="mt-2 mb-2">
+                              <div className="border-start border-start-5 border-start-danger py-1 px-3">
+                                <div className="text-medium-emphasis">
+                                  Actividades
+                                </div>
+                                <div className="fs-5 fw-semibold">
+                                  {totals.totalActivities}
                                 </div>
                               </div>
                             </CCol>

@@ -92,11 +92,15 @@ export const MyData = () => {
                     <CFormInput value={user.name} disabled />
                   </CCol>
                   <CCol xs={6} sm={4} md={3}>
-                    <CFormLabel className="mb-1 mt-2">Apellido 1</CFormLabel>
+                    <CFormLabel className="mb-1 mt-2">
+                      Apellido paterno
+                    </CFormLabel>
                     <CFormInput value={user.lastName1} disabled />
                   </CCol>
                   <CCol xs={6} sm={4} md={3}>
-                    <CFormLabel className="mb-1 mt-2">Apellido 2</CFormLabel>
+                    <CFormLabel className="mb-1 mt-2">
+                      Apellido materno
+                    </CFormLabel>
                     <CFormInput value={user.lastName2} disabled />
                   </CCol>
                   <CCol xs={5} sm={4} md={3}>
@@ -145,7 +149,8 @@ export const MyData = () => {
                       value={
                         (user.role.name === "admin" && "ADMINISTRADOR") ||
                         (user.role.name === "professor" && "PROFESOR") ||
-                        (user.role.name === "student" && "ESTUDIANTE")
+                        (user.role.name === "student" && "ESTUDIANTE") ||
+                        (user.role.name === "user" && "INVITADO")
                       }
                       disabled
                     />
