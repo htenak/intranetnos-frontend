@@ -6,6 +6,13 @@ iframe#webpack-dev-server-client-overlay {
   display: none !important;
 }
 
+/* OCULTA EL OUTLINE de los campos que tiene 
+ * por defecto el react-data-grid
+ */
+.c1wupbe7-0-0-beta-39[aria-selected="true"] {
+  outline: 0;
+}
+
 /*
  * ESTILOS SIDEBAR NAV:
 */
@@ -20,15 +27,17 @@ iframe#webpack-dev-server-client-overlay {
 /*
  * ESTILOS CONTROLES DE 
  * FORMULARIOS:
+ * (incluido Select de  react-select)
 */
 button,
 input,
 select,
+.css-13cymwt-control, /* clase del Select de react-select*/
 textarea {
   border-radius: 2px !important;
 }
 
-/* ocultamos check de aumento y decremento
+/* OCULTA CHECKS de aumento y decremento
  * en inputs numericos
  */
 input[type="number"]::-webkit-inner-spin-button,
@@ -41,9 +50,9 @@ input[type="number"] {
   -moz-appearance: textfield; /* en firefox */
 }
 
-/* oculta el outline de los campos que tiene 
- * por defecto el react-data-grid
+/* OCULTA BARRA de carga en las 
+ * notificaciones de react-toastify 
  */
-.c1wupbe7-0-0-beta-39[aria-selected="true"] {
-  outline: 0;
+.Toastify__progress-bar {
+  width: 0 !important;
 }
