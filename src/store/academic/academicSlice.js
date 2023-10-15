@@ -29,7 +29,7 @@ const initialState = {
 };
 
 export const academicSlice = createSlice({
-  name: "acedemic",
+  name: "academic",
   initialState,
   reducers: {
     // careers:

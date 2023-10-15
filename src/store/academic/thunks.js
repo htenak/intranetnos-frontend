@@ -350,6 +350,32 @@ export const updateCourse = (form) => {
   };
 };
 
+export const updateStatusCourse = (form) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.put(
+        `/academic/courses/status/${form.id}`,
+        form
+      );
+      dispatch(
+        onCourseCrud({
+          crud: "UPDATED",
+          course: data.data,
+          message: data.message,
+        })
+      );
+      setTimeout(() => {
+        dispatch(resetCourseCrud());
+      }, 50);
+    } catch (error) {
+      dispatch(setCourseErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetCourseCrud());
+      }, 50);
+    }
+  };
+};
+
 export const deleteCourse = (form) => {
   return async (dispatch) => {
     try {
