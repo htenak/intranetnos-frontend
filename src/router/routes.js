@@ -22,7 +22,7 @@ const routes = [
   // todos:
   { path: "/", exact: true, name: "Inicio" },
   { path: "/*", name: "Página no encontrada", element: NotFound },
-  { path: "/not-found", name: "Página no encontrada", element: NotFound },
+  { path: "/not-found", name: "Página restringida", element: NotFound },
   { path: "/dashboard", name: "Menú principal", element: Dashboard },
   { path: "/profile", name: "Mi perfil", element: Profile },
 
