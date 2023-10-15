@@ -11,6 +11,7 @@ import {
   CNavLink,
   CRow,
 } from "@coreui/react";
+import { ClassesTab } from "./tabs";
 
 const Classes = () => {
   const { classSuccessMessage, classErrorMessage } = useSelector(
@@ -55,7 +56,7 @@ const Classes = () => {
                       </CNavLink>
                     </CNavItem>
                   </CNav>
-                  {tab === "classes" ? <></> : <></>}
+                  {tab === "classes" ? <ClassesTab /> : <></>}
                 </CCardBody>
               </CCard>
             </CCol>
