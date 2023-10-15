@@ -19,7 +19,12 @@ import {
 import { FAIcon } from "./assets/icon/FAIcon";
 import Logout from "./auth/pages/logout/Logout";
 
-import { ROLE_ADMIN, ROLE_PROFESSOR, ROLE_STUDENT } from "./constants";
+import {
+  ROLE_ADMIN,
+  ROLE_PROFESSOR,
+  ROLE_STUDENT,
+  ROLE_USER,
+} from "./constants";
 
 const _nav = [
   // todos:
@@ -42,12 +47,12 @@ const _nav = [
 
   // admins:
   {
-    roles: [ROLE_ADMIN],
+    roles: [ROLE_ADMIN, ROLE_USER],
     component: CNavTitle,
     name: "Mantenedores",
   },
   {
-    roles: [ROLE_ADMIN],
+    roles: [ROLE_ADMIN, ROLE_USER],
     component: CNavGroup,
     name: "Usuarios",
     icon: <FAIcon customClass="icon nav-icon" icon={faUsers} />,
@@ -81,7 +86,7 @@ const _nav = [
     ],
   },
   {
-    roles: [ROLE_ADMIN],
+    roles: [ROLE_ADMIN, ROLE_USER],
     component: CNavGroup,
     name: "P. Academico",
     icon: <FAIcon customClass="icon nav-icon" icon={faBook} />,
@@ -106,14 +111,6 @@ const _nav = [
         to: "/courses",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faBookReader} />,
       },
-    ],
-  },
-  {
-    roles: [ROLE_ADMIN],
-    component: CNavGroup,
-    name: "Aulas",
-    icon: <FAIcon customClass="icon nav-icon" icon={faCubes} />,
-    items: [
       {
         component: CNavItem,
         name: "Clases",
