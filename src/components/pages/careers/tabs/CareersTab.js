@@ -66,10 +66,16 @@ export const CareersTab = () => {
         };
         return (
           <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton color="info" className="text-white" onClick={onClickEdit}>
+            <CButton
+              title="Editar"
+              color="info"
+              className="text-white"
+              onClick={onClickEdit}
+            >
               <FAIcon customClass="icon" icon={faEdit} />
             </CButton>
             <CButton
+              title="Eliminar"
               color="danger"
               className="text-white"
               onClick={onClickDelete}
@@ -104,7 +110,12 @@ export const CareersTab = () => {
         };
         return (
           <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton color="primary" className="text-white" onClick={onClick}>
+            <CButton
+              title="Cambiar estado"
+              color="primary"
+              className="text-white"
+              onClick={onClick}
+            >
               Ver cursos
             </CButton>
           </div>
