@@ -44,7 +44,7 @@ export const AddClassModal = ({
     careerId: 0,
     courseId: 0,
     professorUserId: 0,
-    denomination: "/ /",
+    denomination: "",
   };
   const [values, setValues] = useState(initialStateValues);
   const [searchCycles, setSearchCycles] = useState([]);
@@ -71,9 +71,9 @@ export const AddClassModal = ({
     );
     setValues({
       ...values,
-      denomination: `${cycle?.abbreviation || "ciclo"} / ${
+      denomination: `${cycle?.abbreviation || "ciclo"} - ${
         course?.name || "curso"
-      } / ${professor?.name || "profesor"} ${professor?.lastName1 || ""} ${
+      } - ${professor?.name || "profesor"} ${professor?.lastName1 || ""} ${
         professor?.lastName2 || ""
       }`,
     });

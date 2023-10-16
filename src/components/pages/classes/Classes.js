@@ -14,9 +14,12 @@ import {
 import { ClassesTab } from "./tabs";
 
 const Classes = () => {
-  const { classSuccessMessage, classErrorMessage } = useSelector(
-    (state) => state.classes
-  );
+  const {
+    classSuccessMessage,
+    classErrorMessage,
+    studentClassErrorMessage,
+    studentClassSuccessMessage,
+  } = useSelector((state) => state.classes);
 
   const [tab, setTab] = useState("classes");
 
@@ -29,6 +32,15 @@ const Classes = () => {
       toast.success(classSuccessMessage);
     }
   }, [classSuccessMessage, classErrorMessage]);
+
+  useEffect(() => {
+    if (studentClassErrorMessage !== undefined) {
+      toast.error(studentClassErrorMessage);
+    }
+    if (studentClassSuccessMessage !== undefined) {
+      toast.success(studentClassSuccessMessage);
+    }
+  }, [studentClassErrorMessage, studentClassSuccessMessage]);
 
   return (
     <>

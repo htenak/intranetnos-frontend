@@ -6,6 +6,13 @@ const initialState = {
   statusDataClass: null, // 'CREATED' , 'UPDATED', 'DELETED'
   classErrorMessage: undefined,
   classSuccessMessage: undefined,
+
+  studentsClassByClassId: null, // para clases de estudiantes que se obtienen por classId
+  studentsClasses: null, // para todas las clases de estudiantes
+  studentClass: null,
+  statusDataStudentClass: null,
+  studentClassErrorMessage: undefined,
+  studentClassSuccessMessage: undefined,
 };
 
 export const classesSlice = createSlice({
@@ -33,6 +40,31 @@ export const classesSlice = createSlice({
     setClassErrorMessage: (state, action) => {
       state.classErrorMessage = action.payload;
     },
+
+    // students classes:
+    setStudentsClassByClassId: (state, action) => {
+      state.studentsClassByClassId = action.payload;
+    },
+    setStudentsClasses: (state, action) => {
+      state.studentsClasses = action.payload;
+    },
+    setStudentClass: (state, action) => {
+      state.studentClass = action.payload;
+    },
+    onStudentClassCrud: (state, action) => {
+      state.statusDataStudentClass = action.payload.crud;
+      state.studentClass = action.payload.studentClass;
+      state.studentClassSuccessMessage = action.payload.message;
+    },
+    resetStudentClassCrud: (state) => {
+      state.studentClass = null;
+      state.statusDataStudentClass = null;
+      state.studentClassErrorMessage = undefined;
+      state.studentClassSuccessMessage = undefined;
+    },
+    setStudentClassErrorMessage: (state, action) => {
+      state.studentClassErrorMessage = action.payload;
+    },
   },
 });
 
@@ -43,4 +75,11 @@ export const {
   onClassCrud,
   resetClassCrud,
   setClassErrorMessage,
+
+  setStudentsClassByClassId,
+  setStudentsClasses,
+  setStudentClass,
+  onStudentClassCrud,
+  resetStudentClassCrud,
+  setStudentClassErrorMessage,
 } = classesSlice.actions;

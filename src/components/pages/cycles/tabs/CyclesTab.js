@@ -83,8 +83,8 @@ export const CyclesTab = () => {
     },
     {
       key: "abbreviation",
-      name: "Ciclo",
-      width: 90,
+      name: "Ciclos",
+      width: 70,
       resizable: true,
       renderCell: ({ row }) => {
         return <div className="text-center">{row.abbreviation}</div>;
@@ -100,7 +100,7 @@ export const CyclesTab = () => {
       key: "startDate",
       name: "Fecha de inicio",
       resizable: true,
-      width: 170,
+      width: 180,
       renderCell: ({ row }) => {
         return <>{friendlyDateFormat(row.startDate)}</>;
       },
@@ -109,7 +109,7 @@ export const CyclesTab = () => {
       key: "endDate",
       name: "Fecha de cierre",
       resizable: true,
-      width: 170,
+      width: 180,
       renderCell: ({ row }) => {
         return <>{friendlyDateFormat(row.endDate)}</>;
       },

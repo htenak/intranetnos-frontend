@@ -32,8 +32,7 @@ export const DeleteClassModal = ({
       </CModalHeader>
       <CModalBody style={{ background: "#333", color: "#fff" }}>
         <p>
-          Estas a punto de eliminar la clase{" "}
-          <b>{dataClass.courseProfessorCycle}</b>
+          Estas a punto de eliminar la clase <b>{dataClass.denomination}</b>
           {", "}
           ¿desea realmente continuar?
         </p>

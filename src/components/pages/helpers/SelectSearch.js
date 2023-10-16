@@ -6,7 +6,6 @@ export const SelectSearch = ({
   arraySearch,
   placeholder,
   icon,
-  iconSize,
   noResultsMessage,
   ...restProps
 }) => {

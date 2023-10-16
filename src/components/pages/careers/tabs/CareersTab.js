@@ -88,7 +88,7 @@ export const CareersTab = () => {
     },
     {
       key: "name",
-      name: "Carrera",
+      name: "Carreras",
       minWidth: 180,
       resizable: true,
     },
@@ -112,7 +112,7 @@ export const CareersTab = () => {
           <div className="h-100 d-flex justify-content-around align-items-center">
             <CButton
               title="Cambiar estado"
-              color="primary"
+              color="success"
               className="text-white"
               onClick={onClick}
             >

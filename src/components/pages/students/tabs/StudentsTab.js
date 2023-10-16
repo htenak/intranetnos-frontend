@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { faEdit, faTrash, faUserAlt } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import DataGrid from "react-data-grid";
 import { CAvatar, CButton, CCol, CRow } from "@coreui/react";
 import { FAIcon } from "src/assets/icon/FAIcon";
@@ -156,7 +156,7 @@ export const StudentsTab = () => {
           }
         };
         return (
-          <div>
+          <span title={`${row.name} ${row.lastName1} ${row.lastName2}`}>
             {" "}
             <CAvatar
               size="sm"
@@ -167,7 +167,7 @@ export const StudentsTab = () => {
               onClick={goImageURL}
             />
             {`${row.name} ${row.lastName1} ${row.lastName2}`}
-          </div>
+          </span>
         );
       },
     },

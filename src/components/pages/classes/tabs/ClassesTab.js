@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllClasses, updateClass } from "src/store";
+import {
+  getAllClasses,
+  updateClass,
+  setStudentsClassByClassId,
+} from "src/store";
 
 import { CButton, CCol, CRow } from "@coreui/react";
 import {
   faEdit,
-  faProjectDiagram,
   faTrash,
   faUserGraduate,
 } from "@fortawesome/free-solid-svg-icons";
@@ -13,7 +16,7 @@ import { FAIcon } from "src/assets/icon/FAIcon";
 import DataGrid from "react-data-grid";
 import Loader from "src/components/layout/loader/Loader";
 
-import { AddClassModal, DeleteClassModal } from "../modals";
+import { AddClassModal, DeleteClassModal, StudentsClassModal } from "../modals";
 
 export const ClassesTab = () => {
   const dispatch = useDispatch();
@@ -22,6 +25,8 @@ export const ClassesTab = () => {
   const [search, setSearch] = useState("");
   const [statusAddClassModal, setStatusAddClassModal] = useState(false);
   const [statusDeleteClassModal, setStatusDeleteClassModal] = useState(false);
+  const [statusStudentsClassModal, setStatusStudentsClassModal] =
+    useState(false);
   const [dataClass, setDataClass] = useState({});
 
   // se consultan datos al abrir
@@ -59,6 +64,11 @@ export const ClassesTab = () => {
           setDataClass(row);
           showAddClassModal();
         };
+        const onClickStudentsClass = () => {
+          dispatch(setStudentsClassByClassId(null));
+          setDataClass(row);
+          setStatusStudentsClassModal(true);
+        };
         const onClickDelete = () => {
           setDataClass(row);
           setStatusDeleteClassModal(true);
@@ -73,7 +83,12 @@ export const ClassesTab = () => {
             >
               <FAIcon customClass="icon" icon={faEdit} />
             </CButton>
-            <CButton title="Alumnos" color="success" className="text-white">
+            <CButton
+              title="Alumnos de esta clase"
+              color="success"
+              className="text-white"
+              onClick={onClickStudentsClass}
+            >
               <FAIcon customClass="icon" icon={faUserGraduate} />
             </CButton>
             <CButton
@@ -90,7 +105,7 @@ export const ClassesTab = () => {
     },
     {
       key: "denomination",
-      name: "Clase",
+      name: "Clases",
       minWidth: 320,
       resizable: true,
       renderCell: ({ row }) => {
@@ -100,7 +115,7 @@ export const ClassesTab = () => {
     {
       key: "career",
       name: "Carrera",
-      minWidth: 280,
+      minWidth: 240,
       resizable: true,
       renderCell: ({ row }) => {
         return <span title={row.career?.name}>{row.career?.name}</span>;
@@ -151,6 +166,7 @@ export const ClassesTab = () => {
     setDataClass({});
     setStatusAddClassModal(false);
     setStatusDeleteClassModal(false);
+    setStatusStudentsClassModal(false);
   };
 
   return (
@@ -196,6 +212,11 @@ export const ClassesTab = () => {
       <AddClassModal
         statusAddClassModal={statusAddClassModal}
         hideAddClassModal={hideModal}
+        dataClass={dataClass}
+      />
+      <StudentsClassModal
+        statusStudentsClassModal={statusStudentsClassModal}
+        hideStudentsClassModal={hideModal}
         dataClass={dataClass}
       />
       <DeleteClassModal

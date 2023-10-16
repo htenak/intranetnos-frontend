@@ -164,7 +164,7 @@ export const UsersTab = () => {
           }
         };
         return (
-          <div>
+          <span title={`${row.name} ${row.lastName1} ${row.lastName2}`}>
             {" "}
             <CAvatar
               size="sm"
@@ -175,7 +175,7 @@ export const UsersTab = () => {
               onClick={goImageURL}
             />
             {`${row.name} ${row.lastName1} ${row.lastName2}`}
-          </div>
+          </span>
         );
       },
     },

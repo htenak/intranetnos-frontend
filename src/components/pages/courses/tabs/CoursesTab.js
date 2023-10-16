@@ -88,7 +88,7 @@ export const CoursesTab = () => {
     },
     {
       key: "name",
-      name: "Curso",
+      name: "Cursos",
       minWidth: 200,
       resizable: true,
     },
