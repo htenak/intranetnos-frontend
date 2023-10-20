@@ -16,17 +16,17 @@ import "simplebar/dist/simplebar.min.css";
 
 // sidebar nav config
 
-import { setNav } from "src/store";
+import { setNav, setUnfoldable } from "src/store";
 import { Link } from "react-router-dom";
 
 const AppSidebar = () => {
   const dispatch = useDispatch();
-  const { sidebarShow } = useSelector((state) => state.nav);
+  const { sidebarShow, unfoldableShow } = useSelector((state) => state.nav);
   const { user } = useSelector((state) => state.auth);
-
   return (
     <CSidebar
       position="fixed"
+      unfoldable={unfoldableShow}
       visible={sidebarShow}
       onVisibleChange={(visible) => {
         dispatch(setNav(visible));
@@ -34,13 +34,23 @@ const AppSidebar = () => {
       style={{ background: "green" }}
     >
       <CSidebarBrand className="d-none d-md-flex">
-        <Link className="text-white" to="/">
+        <Link className="sidebar-brand-full text-white" to="/">
           NOS INTRANET
           <img
             src={logoNor}
-            style={{ width: "40px", marginLeft: "10px", borderRadius: "300px" }}
+            style={{ width: 40, marginLeft: 10, borderRadius: 300 }}
           />
         </Link>
+        <span>
+          <img
+            className="sidebar-brand-narrow"
+            src={logoNor}
+            style={{
+              width: 40,
+              borderRadius: 300,
+            }}
+          />
+        </span>
       </CSidebarBrand>
       <CSidebarNav>
         <SimpleBar>
@@ -49,7 +59,7 @@ const AppSidebar = () => {
       </CSidebarNav>
       <CSidebarToggler
         className="d-none d-lg-flex"
-        onClick={() => dispatch(setNav(!sidebarShow))}
+        onClick={() => dispatch(setUnfoldable(!unfoldableShow))}
       />
     </CSidebar>
   );

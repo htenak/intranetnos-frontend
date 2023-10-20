@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { NavLink } from "react-router-dom";
 import {
   CAvatar,
   CDropdown,
@@ -21,6 +21,7 @@ const AppHeaderDropdown = () => {
   const dispatch = useDispatch();
   const { filename } = useSelector((state) => state.auth?.user);
 
+  const profileRef = useRef(null);
   const [myPhoto, setMyPhoto] = useState(imgUser);
 
   useEffect(() => {
@@ -37,14 +38,11 @@ const AppHeaderDropdown = () => {
         <CAvatar src={myPhoto} size="md" style={{ overflow: "hidden" }} />
       </CDropdownToggle>
       <CDropdownMenu className="py-2" placement="bottom-end">
-        <Link
-          to="/profile"
-          className="px-3"
-          style={{ textDecoration: "none", color: "green" }}
-        >
+        <NavLink to="/profile" ref={profileRef} className="d-none"></NavLink>
+        <CDropdownItem role="button" onClick={() => profileRef.current.click()}>
           <CIcon icon={cilUser} className="me-2" />
           Mi perfil
-        </Link>
+        </CDropdownItem>
         <CDropdownDivider />
         <CDropdownItem
           role="button"
