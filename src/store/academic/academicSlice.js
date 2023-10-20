@@ -20,6 +20,7 @@ const initialState = {
   courseTypeSuccessMessage: undefined,
 
   courses: null,
+  coursesByCycle: null,
   course: null,
   statusDataCourse: null, // 'CREATED' , 'UPDATED', 'DELETED'
   courseErrorMessage: undefined,
@@ -93,6 +94,9 @@ export const academicSlice = createSlice({
     setCourses: (state, action) => {
       state.courses = action.payload;
     },
+    setCoursesByCycle: (state, action) => {
+      state.coursesByCycle = action.payload;
+    },
     onCourseCrud: (state, action) => {
       state.statusDataCourse = action.payload.crud;
       state.course = action.payload.course;
@@ -133,6 +137,7 @@ export const {
   setCourseTypeErrorMessage,
 
   setCourses,
+  setCoursesByCycle,
   onCourseCrud,
   resetCourseCrud,
   setCourseErrorMessage,

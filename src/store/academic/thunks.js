@@ -17,6 +17,7 @@ import {
   resetCourseCrud,
   setCourseErrorMessage,
   setTotals,
+  setCoursesByCycle,
 } from "../academic";
 
 // careers:
@@ -285,13 +286,29 @@ export const deleteCourseType = (form) => {
   };
 };
 
-// courseTypes:
+// course:
 
 export const getAllCourses = () => {
   return async (dispatch) => {
     try {
       const { data } = await intranetApi.get(`/academic/courses`);
       dispatch(setCourses(data.data));
+    } catch (error) {
+      dispatch(setCourseErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetCourseCrud());
+      }, 50);
+    }
+  };
+};
+
+export const getCoursesByCycle = (cycleId) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.get(
+        `/academic/courses/cycleId/${cycleId}`
+      );
+      dispatch(setCoursesByCycle(data.data));
     } catch (error) {
       dispatch(setCourseErrorMessage(error.response.data?.message));
       setTimeout(() => {
