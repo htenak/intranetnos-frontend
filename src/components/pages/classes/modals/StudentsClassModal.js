@@ -25,6 +25,7 @@ import {
   updateStudentClass,
 } from "src/store";
 import Loader from "src/components/layout/loader/Loader";
+import { friendlyDateFormat } from "src/components/helpers/";
 import imgUser from "src/assets/images/user.png";
 import { SelectSearch } from "../../helpers";
 
@@ -186,9 +187,18 @@ export const StudentsClassModal = ({
               }
               style={{ marginRight: 10, overflow: "hidden" }}
             />
-            {`${row.student?.name} ${row.student?.lastName1} ${row.student?.lastName2} - ${dataClass?.career?.name}`}
+            {`${row.student?.name} ${row.student?.lastName1} ${row.student?.lastName2}`}
           </span>
         );
+      },
+    },
+    {
+      key: "createdAt",
+      name: "Fecha",
+      resizable: true,
+      width: 180,
+      renderCell: ({ row }) => {
+        return <span>{friendlyDateFormat(row.createdAt)}</span>;
       },
     },
     {
@@ -236,6 +246,9 @@ export const StudentsClassModal = ({
         <CRow className="mb-3">
           <CCol xs={12}>
             <CAlert color="primary" visible={true} className="text-center">
+              <span className="text-dark d-block">
+                {dataClass?.career?.name?.toUpperCase()}
+              </span>
               {dataClass?.denomination || ""}
             </CAlert>
           </CCol>
@@ -269,7 +282,7 @@ export const StudentsClassModal = ({
           </CCol>
         </CRow>
         <CRow>
-          <CCol>
+          <CCol xs={12}>
             <div style={{ height: 300, width: "100%", overflow: "hidden" }}>
               <Loader show={!studentsClassByClassId} center={true} />
               {studentsClassByClassId ? (
