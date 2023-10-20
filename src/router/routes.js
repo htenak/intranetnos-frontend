@@ -27,39 +27,59 @@ const routes = [
   { path: "/profile", name: "Mi perfil", element: Profile },
 
   // admin:
-  { path: "/users", name: "Usuarios", element: Users, roles: [ROLE_ADMIN] },
   {
-    path: "/students",
+    path: "/users",
+    name: "Usuarios",
+    element: Users,
+    roles: [ROLE_ADMIN],
+    exact: true,
+  },
+  {
+    path: "/users/users",
+    name: "Todos",
+    element: Users,
+    roles: [ROLE_ADMIN],
+  },
+  {
+    path: "/users/students",
     name: "Estudiantes",
     element: Students,
     roles: [ROLE_ADMIN],
   },
   {
-    path: "/professors",
+    path: "/users/professors",
     name: "Profesores",
     element: Professors,
     roles: [ROLE_ADMIN],
   },
+
   {
-    path: "/careers",
+    path: "/academic",
+    name: "P. Academico",
+    element: Careers,
+    roles: [ROLE_ADMIN],
+    exact: true,
+  },
+  {
+    path: "/academic/careers",
     name: "Carreras",
     element: Careers,
     roles: [ROLE_ADMIN],
   },
   {
-    path: "/cycles",
+    path: "/academic/cycles",
     name: "Ciclos",
     element: Cycles,
     roles: [ROLE_ADMIN],
   },
   {
-    path: "/courses",
+    path: "/academic/courses",
     name: "Cursos",
     element: Courses,
     roles: [ROLE_ADMIN],
   },
   {
-    path: "/classes",
+    path: "/academic/classes",
     name: "Clases",
     element: Classes,
     roles: [ROLE_ADMIN],
