@@ -19,7 +19,7 @@ const DefaultLayout = () => {
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <AppHeader />
         <div className="body flex-grow-1 px-3">
-          <CContainer xl>
+          <CContainer style={{ maxWidth: "none" }}>
             <Suspense fallback={<CSpinner style={{ color: "green" }} />}>
               <Routes>
                 {routes.map((route, idx) => {
