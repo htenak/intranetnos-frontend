@@ -9,7 +9,7 @@ import DataGrid from "react-data-grid";
 import Loader from "src/components/layout/loader/Loader";
 import { friendlyDateFormat } from "src/components/helpers/";
 
-import { AddCycleModal, DeleteCycleModal } from "../modals";
+import { AddCycleModal, DeleteCycleModal, InfoCoursesModal } from "../modals";
 
 export const CyclesTab = () => {
   const dispatch = useDispatch();
@@ -18,6 +18,7 @@ export const CyclesTab = () => {
   const [search, setSearch] = useState("");
   const [statusAddCycleModal, setStatusAddCycleModal] = useState(false);
   const [statusDeleteCycleModal, setStatusDeleteCycleModal] = useState(false);
+  const [statusInfoCoursesModal, setStatusInfoCoursesModal] = useState(false);
   const [dataCycle, setDataCycle] = useState({});
 
   // se consultan datos al abrir
@@ -102,7 +103,7 @@ export const CyclesTab = () => {
       resizable: true,
       width: 180,
       renderCell: ({ row }) => {
-        return <>{friendlyDateFormat(row.startDate)}</>;
+        return <span>{friendlyDateFormat(row.startDate)}</span>;
       },
     },
     {
@@ -111,7 +112,30 @@ export const CyclesTab = () => {
       resizable: true,
       width: 180,
       renderCell: ({ row }) => {
-        return <>{friendlyDateFormat(row.endDate)}</>;
+        return <span>{friendlyDateFormat(row.endDate)}</span>;
+      },
+    },
+    {
+      key: "courses",
+      name: "Cursos",
+      resizable: true,
+      width: 110,
+      renderCell: ({ row }) => {
+        const onClick = () => {
+          setDataCycle(row);
+          setStatusInfoCoursesModal(true);
+        };
+        return (
+          <div className="h-100 d-flex justify-content-around align-items-center">
+            <CButton
+              onClick={onClick}
+              title="Ver cursos en este ciclo"
+              className="text-white"
+            >
+              Cursos
+            </CButton>
+          </div>
+        );
       },
     },
     {
@@ -159,6 +183,7 @@ export const CyclesTab = () => {
     setDataCycle({});
     setStatusAddCycleModal(false);
     setStatusDeleteCycleModal(false);
+    setStatusInfoCoursesModal(false);
   };
 
   return (
@@ -209,6 +234,11 @@ export const CyclesTab = () => {
       <DeleteCycleModal
         statusDeleteCycleModal={statusDeleteCycleModal}
         hideDeleteCycleModal={hideModal}
+        dataCycle={dataCycle}
+      />
+      <InfoCoursesModal
+        statusInfoCoursesModal={statusInfoCoursesModal}
+        hideInfoCoursesModal={hideModal}
         dataCycle={dataCycle}
       />
     </>
