@@ -60,7 +60,7 @@ const _nav = [
       {
         component: CNavItem,
         name: "Usuarios",
-        to: "/users",
+        to: "users/users",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faUserFriends} />,
       },
       // {
@@ -72,7 +72,7 @@ const _nav = [
       {
         component: CNavItem,
         name: "Profesores",
-        to: "/professors",
+        to: "users/professors",
         icon: (
           <FAIcon customClass="icon nav-icon-sub" icon={faChalkboardTeacher} />
         ),
@@ -80,7 +80,7 @@ const _nav = [
       {
         component: CNavItem,
         name: "Estudiantes",
-        to: "/students",
+        to: "users/students",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faUserGraduate} />,
       },
     ],
@@ -94,13 +94,13 @@ const _nav = [
       {
         component: CNavItem,
         name: "Carreras",
-        to: "/careers",
+        to: "academic/careers",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faGraduationCap} />,
       },
       {
         component: CNavItem,
         name: "Ciclos",
-        to: "/cycles",
+        to: "academic/cycles",
         icon: (
           <FAIcon customClass="icon nav-icon-sub" icon={faProjectDiagram} />
         ),
@@ -108,19 +108,19 @@ const _nav = [
       {
         component: CNavItem,
         name: "Cursos",
-        to: "/courses",
+        to: "academic/courses",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faBookReader} />,
       },
       {
         component: CNavItem,
         name: "Clases",
-        to: "/classes",
+        to: "academic/classes",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faBookOpen} />,
       },
       {
         component: CNavItem,
         name: "Horarios",
-        to: "/schedules",
+        to: "academic/schedules",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faCalendarAlt} />,
       },
     ],
