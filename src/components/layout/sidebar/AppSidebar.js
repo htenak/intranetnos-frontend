@@ -7,7 +7,7 @@ import {
   CSidebarToggler,
 } from "@coreui/react";
 
-import navigation from "../../../_nav";
+import navigation from "../../../router/Navigation";
 import AppSidebarNav from "./AppSidebarNav";
 
 import logoNor from "src/assets/images/nor_logo.jpeg";

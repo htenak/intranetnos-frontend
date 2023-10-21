@@ -10,23 +10,22 @@ import {
   faGraduationCap,
   faPowerOff,
   faProjectDiagram,
-  faRestroom,
   faUserCircle,
   faUserFriends,
   faUserGraduate,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
-import { FAIcon } from "./assets/icon/FAIcon";
-import Logout from "./auth/pages/logout/Logout";
+import { FAIcon } from "../assets/icon/FAIcon";
+import Logout from "../auth/pages/logout/Logout";
 
 import {
   ROLE_ADMIN,
   ROLE_PROFESSOR,
   ROLE_STUDENT,
   ROLE_USER,
-} from "./constants";
+} from "../constants";
 
-const _nav = [
+const navigation = [
   // todos:
   {
     component: CNavTitle,
@@ -138,4 +137,4 @@ const _nav = [
   },
 ];
 
-export default _nav;
+export default navigation;
