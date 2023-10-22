@@ -26,16 +26,48 @@ export const MyPhoto = () => {
   /* captura subida de imagen , hace
    * preview y selecciona imagen a subir
    */
-  const onFileInputChange = (e) => {
+  const onFileInputChange = async (e) => {
     const { files } = e.target;
     if (files[0]) {
-      setFilePreview(URL.createObjectURL(files[0]));
+      const resizedImg = await resizeImage(files[0], 300);
+      setFilePreview(URL.createObjectURL(resizedImg));
       setPreview(true);
 
       const formData = new FormData();
-      formData.append("file", files[0]);
+      formData.append("file", resizedImg);
       setFileUpload(formData);
     }
+  };
+
+  // redimensiona imagen (solo alto maximo)
+  const resizeImage = async (file, maxHeight) => {
+    const image = new Image();
+    image.src = URL.createObjectURL(file);
+
+    return new Promise((resolve) => {
+      image.onload = () => {
+        const width = image.width;
+        const height = image.height;
+        let newWidth, newHeight;
+
+        if (height > maxHeight) {
+          newHeight = maxHeight;
+          newWidth = (maxHeight / height) * width;
+        } else {
+          newHeight = height;
+          newWidth = width;
+        }
+
+        const canvas = document.createElement("canvas");
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(image, 0, 0, newWidth, newHeight);
+        canvas.toBlob((blob) => {
+          resolve(new File([blob], file.name));
+        }, file.type);
+      };
+    });
   };
 
   // sube foto de perfil
