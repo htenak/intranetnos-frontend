@@ -12,8 +12,6 @@ import {
   CNavItem,
   CButton,
 } from "@coreui/react";
-import CIcon from "@coreui/icons-react";
-import { cilMenu } from "@coreui/icons";
 
 import AppBreadcrumb from "./AppBreadcrumb";
 import AppHeaderDropdown from "./AppHeaderDropdown";
@@ -21,7 +19,7 @@ import logoNor from "src/assets/images/nor_logo.png";
 
 import { setNav } from "src/store/nav";
 import { FAIcon } from "src/assets/icon/FAIcon";
-import { faRefresh } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faRefresh } from "@fortawesome/free-solid-svg-icons";
 
 const AppHeader = () => {
   const dispatch = useDispatch();
@@ -37,8 +35,9 @@ const AppHeader = () => {
         <CHeaderToggler
           className="ps-1"
           onClick={() => dispatch(setNav(!sidebarShow))}
+          title="Ocultar / Mostrar"
         >
-          <CIcon icon={cilMenu} size="lg" />
+          <FAIcon customClass="icon" icon={faBars} />
         </CHeaderToggler>
         <CHeaderBrand className="mx-auto d-md-none" to="/">
           {/* <CIcon icon={logo} height={48} alt="Logo" /> */}
@@ -46,7 +45,11 @@ const AppHeader = () => {
         </CHeaderBrand>
         <CHeaderNav className="d-none d-md-flex me-auto">
           <CNavItem>
-            <CNavLink to="/dashboard" component={NavLink}>
+            <CNavLink
+              to="/dashboard"
+              component={NavLink}
+              active={window.location.pathname === "/dashboard"}
+            >
               Inicio
             </CNavLink>
           </CNavItem>

@@ -58,6 +58,7 @@ const AppSidebar = () => {
         </SimpleBar>
       </CSidebarNav>
       <CSidebarToggler
+        title="Encoger / Expandir"
         className="d-none d-lg-flex"
         onClick={() => dispatch(setUnfoldable(!unfoldableShow))}
       />
