@@ -6,7 +6,9 @@ import {
   faBookReader,
   faCalendarAlt,
   faChalkboardTeacher,
+  faCloudDownloadAlt,
   faCoffee,
+  faEraser,
   faGraduationCap,
   faPowerOff,
   faProjectDiagram,
@@ -123,6 +125,25 @@ const navigation = [
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faCalendarAlt} />,
       },
     ],
+  },
+  {
+    roles: [ROLE_ADMIN, ROLE_USER],
+    component: CNavTitle,
+    name: "Operaciones",
+  },
+  {
+    roles: [ROLE_ADMIN, ROLE_USER],
+    component: CNavGroup,
+    name: "Exportación",
+    icon: <FAIcon customClass="icon nav-icon" icon={faCloudDownloadAlt} />,
+    items: [],
+  },
+  {
+    roles: [ROLE_ADMIN, ROLE_USER],
+    component: CNavGroup,
+    name: "Eliminación",
+    icon: <FAIcon customClass="icon nav-icon" icon={faEraser} />,
+    items: [],
   },
 
   // todos:
