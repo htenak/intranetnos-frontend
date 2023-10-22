@@ -144,6 +144,7 @@ export const AddStudent = ({
                 value={values.roleId}
                 onChange={handleInputChange}
                 name="roleId"
+                disabled
               >
                 <option value={0} disabled>
                   Tipo de usuario *

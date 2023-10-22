@@ -143,6 +143,7 @@ export const AddProfessor = ({
                 value={values.roleId}
                 onChange={handleInputChange}
                 name="roleId"
+                disabled
               >
                 <option value={0} disabled>
                   Tipo de usuario *
