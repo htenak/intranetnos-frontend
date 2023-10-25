@@ -11,6 +11,12 @@ import {
   onStudentClassCrud,
   resetStudentClassCrud,
   setStudentClassErrorMessage,
+  setDays,
+  setSchedules,
+  setSchedule,
+  onScheduleCrud,
+  resetScheduleCrud,
+  setScheduleErrorMessage,
 } from "../classes";
 
 // classes:
@@ -233,6 +239,126 @@ export const deleteStudentClass = (form) => {
       dispatch(setStudentClassErrorMessage(error.response.data?.message));
       setTimeout(() => {
         dispatch(resetStudentClassCrud());
+      }, 50);
+    }
+  };
+};
+
+// schedules:
+export const getAllDays = () => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.get(`/schedule/days`);
+      dispatch(setDays(data.data));
+    } catch (error) {
+      dispatch(setScheduleErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetScheduleCrud());
+      }, 50);
+    }
+  };
+};
+
+export const getAllSchedules = () => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.get(`/schedule/schedules`);
+      dispatch(setSchedules(data.data));
+    } catch (error) {
+      dispatch(setScheduleErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetScheduleCrud());
+      }, 50);
+    }
+  };
+};
+
+export const getSchedule = (id) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.get(`/schedule/schedules/${id}`);
+      dispatch(setSchedule(data.data));
+      setTimeout(() => {
+        dispatch(resetScheduleCrud());
+      }, 50);
+    } catch (error) {
+      dispatch(setScheduleErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetScheduleCrud());
+      }, 50);
+    }
+  };
+};
+
+export const saveSchedule = (form) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.post(`/schedule/schedules`, form);
+      dispatch(
+        onScheduleCrud({
+          crud: "CREATED",
+          schedule: data.data,
+          message: data.message,
+        })
+      );
+      setTimeout(() => {
+        dispatch(resetScheduleCrud());
+      }, 50);
+    } catch (error) {
+      dispatch(setScheduleErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetScheduleCrud());
+      }, 50);
+    }
+  };
+};
+
+export const updateSchedule = (form) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.put(
+        `/schedule/schedules/${form.id}`,
+        form
+      );
+      dispatch(
+        onScheduleCrud({
+          crud: "UPDATED",
+          class: data.data,
+          message: data.message,
+        })
+      );
+      setTimeout(() => {
+        dispatch(resetScheduleCrud());
+      }, 50);
+    } catch (error) {
+      dispatch(setScheduleErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetScheduleCrud());
+      }, 50);
+    }
+  };
+};
+
+export const deleteSchedule = (form) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.delete(
+        `/schedule/schedules/${form.id}`
+      );
+      dispatch(
+        onScheduleCrud({
+          crud: "DELETED",
+          schedule: data.data,
+          message: data.message,
+        })
+      );
+      setTimeout(() => {
+        dispatch(resetScheduleCrud());
+      }, 50);
+    } catch (error) {
+      dispatch(setScheduleErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetScheduleCrud());
       }, 50);
     }
   };

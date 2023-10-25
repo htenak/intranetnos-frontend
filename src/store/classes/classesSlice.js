@@ -13,6 +13,13 @@ const initialState = {
   statusDataStudentClass: null,
   studentClassErrorMessage: undefined,
   studentClassSuccessMessage: undefined,
+
+  days: null,
+  schedules: null,
+  schedule: null,
+  statusDataSchedule: null, // 'CREATED' , 'UPDATED', 'DELETED'
+  scheduleErrorMessage: undefined,
+  scheduleSuccessMessage: undefined,
 };
 
 export const classesSlice = createSlice({
@@ -65,6 +72,31 @@ export const classesSlice = createSlice({
     setStudentClassErrorMessage: (state, action) => {
       state.studentClassErrorMessage = action.payload;
     },
+
+    // schedules:
+    setDays: (state, action) => {
+      state.days = action.payload;
+    },
+    setSchedules: (state, action) => {
+      state.schedules = action.payload;
+    },
+    setSchedule: (state, action) => {
+      state.schedule = action.payload;
+    },
+    onScheduleCrud: (state, action) => {
+      state.statusDataSchedule = action.payload.crud;
+      state.schedule = action.payload.schedule;
+      state.scheduleSuccessMessage = action.payload.message;
+    },
+    resetScheduleCrud: (state) => {
+      state.schedule = null;
+      state.statusDataSchedule = null;
+      state.scheduleErrorMessage = undefined;
+      state.scheduleSuccessMessage = undefined;
+    },
+    setScheduleErrorMessage: (state, action) => {
+      state.scheduleErrorMessage = action.payload;
+    },
   },
 });
 
@@ -82,4 +114,11 @@ export const {
   onStudentClassCrud,
   resetStudentClassCrud,
   setStudentClassErrorMessage,
+
+  setDays,
+  setSchedules,
+  setSchedule,
+  onScheduleCrud,
+  resetScheduleCrud,
+  setScheduleErrorMessage,
 } = classesSlice.actions;
