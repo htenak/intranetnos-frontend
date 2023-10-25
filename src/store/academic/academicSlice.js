@@ -37,10 +37,27 @@ export const academicSlice = createSlice({
     setCareers: (state, action) => {
       state.careers = action.payload;
     },
-    onCareerCrud: (state, action) => {
-      state.statusDataCareer = action.payload.crud;
-      state.career = action.payload.career;
-      state.careerSuccessMessage = action.payload.message;
+    onCareerCrud: (state, { payload }) => {
+      state.statusDataCareer = payload.crud;
+      state.career = payload.career;
+      state.careerSuccessMessage = payload.message;
+
+      if (payload.crud === "CREATED") {
+        state.careers.push(payload.career);
+      }
+      if (payload.crud === "UPDATED") {
+        state.careers = state.careers.map((element) => {
+          if (parseInt(element.id) === parseInt(payload.career.id)) {
+            return payload.career;
+          }
+          return element;
+        });
+      }
+      if (payload.crud === "DELETED") {
+        state.careers = state.careers.filter(
+          (data) => parseInt(data.id) !== parseInt(payload.career.id)
+        );
+      }
     },
     resetCareerCrud: (state) => {
       state.career = null;
@@ -56,10 +73,27 @@ export const academicSlice = createSlice({
     setCycles: (state, action) => {
       state.cycles = action.payload;
     },
-    onCycleCrud: (state, action) => {
-      state.statusDataCycle = action.payload.crud;
-      state.cycle = action.payload.cycle;
-      state.cycleSuccessMessage = action.payload.message;
+    onCycleCrud: (state, { payload }) => {
+      state.statusDataCycle = payload.crud;
+      state.cycle = payload.cycle;
+      state.cycleSuccessMessage = payload.message;
+
+      if (payload.crud === "CREATED") {
+        state.cycles.push(payload.cycle);
+      }
+      if (payload.crud === "UPDATED") {
+        state.cycles = state.cycles.map((element) => {
+          if (parseInt(element.id) === parseInt(payload.cycle.id)) {
+            return payload.cycle;
+          }
+          return element;
+        });
+      }
+      if (payload.crud === "DELETED") {
+        state.cycles = state.cycles.filter(
+          (data) => parseInt(data.id) !== parseInt(payload.cycle.id)
+        );
+      }
     },
     resetCycleCrud: (state) => {
       state.cycle = null;
@@ -75,10 +109,27 @@ export const academicSlice = createSlice({
     setCourseTypes: (state, action) => {
       state.courseTypes = action.payload;
     },
-    onCourseTypeCrud: (state, action) => {
-      state.statusDataCourseType = action.payload.crud;
-      state.courseType = action.payload.courseType;
-      state.courseTypeSuccessMessage = action.payload.message;
+    onCourseTypeCrud: (state, { payload }) => {
+      state.statusDataCourseType = payload.crud;
+      state.courseType = payload.courseType;
+      state.courseTypeSuccessMessage = payload.message;
+
+      if (payload.crud === "CREATED") {
+        state.courseTypes.push(payload.courseType);
+      }
+      if (payload.crud === "UPDATED") {
+        state.courseTypes = state.courseTypes.map((element) => {
+          if (parseInt(element.id) === parseInt(payload.courseType.id)) {
+            return payload.courseType;
+          }
+          return element;
+        });
+      }
+      if (payload.crud === "DELETED") {
+        state.courseTypes = state.courseTypes.filter(
+          (data) => parseInt(data.id) !== parseInt(payload.courseType.id)
+        );
+      }
     },
     resetCourseTypeCrud: (state) => {
       state.courseType = null;
@@ -97,10 +148,27 @@ export const academicSlice = createSlice({
     setCoursesByCycle: (state, action) => {
       state.coursesByCycle = action.payload;
     },
-    onCourseCrud: (state, action) => {
-      state.statusDataCourse = action.payload.crud;
-      state.course = action.payload.course;
-      state.courseSuccessMessage = action.payload.message;
+    onCourseCrud: (state, { payload }) => {
+      state.statusDataCourse = payload.crud;
+      state.course = payload.course;
+      state.courseSuccessMessage = payload.message;
+
+      if (payload.crud === "CREATED") {
+        state.courses.push(payload.course);
+      }
+      if (payload.crud === "UPDATED") {
+        state.courses = state.courses.map((element) => {
+          if (parseInt(element.id) === parseInt(payload.course.id)) {
+            return payload.course;
+          }
+          return element;
+        });
+      }
+      if (payload.crud === "DELETED") {
+        state.courses = state.courses.filter(
+          (data) => parseInt(data.id) !== parseInt(payload.course.id)
+        );
+      }
     },
     resetCourseCrud: (state) => {
       state.course = null;

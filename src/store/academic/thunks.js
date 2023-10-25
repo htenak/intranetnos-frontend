@@ -92,7 +92,7 @@ export const deleteCareer = (form) => {
       dispatch(
         onCareerCrud({
           crud: "DELETED",
-          career: data.data,
+          career: form,
           message: data.message,
         })
       );
@@ -180,7 +180,7 @@ export const deleteCycle = (form) => {
       dispatch(
         onCycleCrud({
           crud: "DELETED",
-          cycle: data.data,
+          cycle: form,
           message: data.message,
         })
       );
@@ -270,7 +270,7 @@ export const deleteCourseType = (form) => {
       dispatch(
         onCourseTypeCrud({
           crud: "DELETED",
-          courseType: data.data,
+          courseType: form,
           message: data.message,
         })
       );
@@ -400,7 +400,7 @@ export const deleteCourse = (form) => {
       dispatch(
         onCourseCrud({
           crud: "DELETED",
-          course: data.data,
+          course: form,
           message: data.message,
         })
       );
