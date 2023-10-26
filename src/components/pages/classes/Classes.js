@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import {
   CCard,
   CCardBody,
@@ -12,35 +11,41 @@ import {
   CRow,
 } from "@coreui/react";
 import { ClassesTab } from "./tabs";
+import { messageHandler } from "src/components/helpers/";
 
 const Classes = () => {
   const {
     classSuccessMessage,
     classErrorMessage,
+    statusDataClass,
     studentClassErrorMessage,
     studentClassSuccessMessage,
+    statusDataStudentClass,
   } = useSelector((state) => state.classes);
 
   const [tab, setTab] = useState("classes");
 
   // mensajes de las peticiones
   useEffect(() => {
-    if (classErrorMessage !== undefined) {
-      toast.error(classErrorMessage);
+    if (statusDataClass !== null) {
+      messageHandler(classErrorMessage, classSuccessMessage, statusDataClass);
+    } else {
+      messageHandler(classErrorMessage);
     }
-    if (classSuccessMessage !== undefined) {
-      toast.success(classSuccessMessage);
-    }
-  }, [classSuccessMessage, classErrorMessage]);
+  }, [statusDataClass, classErrorMessage]);
 
+  // mensajes de las peticiones
   useEffect(() => {
-    if (studentClassErrorMessage !== undefined) {
-      toast.error(studentClassErrorMessage);
+    if (statusDataStudentClass !== null) {
+      messageHandler(
+        studentClassErrorMessage,
+        studentClassSuccessMessage,
+        statusDataStudentClass
+      );
+    } else {
+      messageHandler(studentClassErrorMessage);
     }
-    if (studentClassSuccessMessage !== undefined) {
-      toast.success(studentClassSuccessMessage);
-    }
-  }, [studentClassErrorMessage, studentClassSuccessMessage]);
+  }, [statusDataStudentClass, studentClassErrorMessage]);
 
   return (
     <>

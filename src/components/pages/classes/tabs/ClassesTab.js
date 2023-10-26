@@ -34,10 +34,9 @@ export const ClassesTab = () => {
     dispatch(getAllClasses());
   }, []);
 
-  // se consultan datos si se hizo crud
+  // cierra modal si se hizo crud
   useEffect(() => {
     if (statusDataClass !== null) {
-      dispatch(getAllClasses());
       hideModal();
     }
   }, [statusDataClass]);

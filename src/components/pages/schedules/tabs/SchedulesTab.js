@@ -1,47 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCycles, updateCycle } from "src/store";
+import { getAllDays, getAllSchedules, updateSchedule } from "src/store";
 
 import { CButton, CCol, CRow } from "@coreui/react";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FAIcon } from "src/assets/icon/FAIcon";
 import DataGrid from "react-data-grid";
 import Loader from "src/components/layout/loader/Loader";
-import { friendlyDateFormat } from "src/components/helpers/";
 
-import { AddCycleModal, DeleteCycleModal, InfoCoursesModal } from "../modals";
+import { AddScheduleModal } from "../modals";
 
-export const CyclesTab = () => {
+export const SchedulesTab = () => {
   const dispatch = useDispatch();
-  const { cycles, statusDataCycle } = useSelector((state) => state.academic);
+  const { schedules, statusDataSchedule } = useSelector(
+    (state) => state.classes
+  );
   const [rows, setRows] = useState([]);
   const [search, setSearch] = useState("");
-  const [statusAddCycleModal, setStatusAddCycleModal] = useState(false);
-  const [statusDeleteCycleModal, setStatusDeleteCycleModal] = useState(false);
-  const [statusInfoCoursesModal, setStatusInfoCoursesModal] = useState(false);
-  const [dataCycle, setDataCycle] = useState({});
+  const [statusAddScheduleModal, setStatusAddScheduleModal] = useState(false);
+  const [dataSchedule, setDataSchedule] = useState({});
 
   // se consultan datos al abrir
   useEffect(() => {
-    dispatch(getAllCycles());
+    dispatch(getAllSchedules());
+    dispatch(getAllDays());
   }, []);
 
-  // se cierra modal si hay crud
+  // se consultan datos si se hizo crud
   useEffect(() => {
-    if (statusDataCycle !== null) {
+    if (statusDataSchedule !== null) {
+      dispatch(getAllSchedules());
       hideModal();
     }
-  }, [statusDataCycle]);
+  }, [statusDataSchedule]);
 
   // se asignan datos a un estado local
   useEffect(() => {
-    if (cycles) {
-      if (cycles.length !== 0) {
-        const data = [...cycles];
-        setRows(data.sort((a, b) => b.id - a.id));
+    if (schedules) {
+      if (schedules.length !== 0) {
+        const data = [...schedules];
+        setRows(data);
       }
     }
-  }, [cycles]);
+  }, [schedules]);
 
   // datos para la grid
   const columns = [
@@ -52,12 +53,12 @@ export const CyclesTab = () => {
       width: 110,
       renderCell: ({ row }) => {
         const onClickEdit = () => {
-          setDataCycle(row);
-          showAddCycleModal();
+          setDataSchedule(row);
+          showAddScheduleModal();
         };
         const onClickDelete = () => {
-          setDataCycle(row);
-          setStatusDeleteCycleModal(true);
+          // setDataSchedule(row);
+          // setStatusDeleteCareerModal(true);
         };
         return (
           <div className="h-100 d-flex justify-content-around align-items-center">
@@ -82,58 +83,36 @@ export const CyclesTab = () => {
       },
     },
     {
-      key: "abbreviation",
-      name: "Ciclos",
-      width: 70,
+      key: "dayId",
+      name: "Día",
+      width: 90,
       resizable: true,
       renderCell: ({ row }) => {
-        return <div className="text-center">{row.abbreviation}</div>;
+        return <span title={row?.day?.name}>{row?.day?.name}</span>;
       },
     },
     {
-      key: "description",
-      name: "Descripción",
-      minWidth: 130,
+      key: "startTime",
+      name: "Hora de inicio",
+      width: 120,
       resizable: true,
     },
     {
-      key: "startDate",
-      name: "Fecha de inicio",
+      key: "endTime",
+      name: "Hora de cierre",
+      width: 120,
       resizable: true,
-      width: 180,
-      renderCell: ({ row }) => {
-        return <span>{friendlyDateFormat(row.startDate)}</span>;
-      },
     },
     {
-      key: "endDate",
-      name: "Fecha de cierre",
+      key: "classId",
+      name: "Clase",
+      minWidth: 200,
       resizable: true,
-      width: 180,
       renderCell: ({ row }) => {
-        return <span>{friendlyDateFormat(row.endDate)}</span>;
-      },
-    },
-    {
-      key: "courses",
-      name: "Cursos",
-      resizable: true,
-      width: 110,
-      renderCell: ({ row }) => {
-        const onClick = () => {
-          setDataCycle(row);
-          setStatusInfoCoursesModal(true);
-        };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
-              onClick={onClick}
-              title="Ver cursos en este ciclo"
-              className="text-white"
-            >
-              Cursos
-            </CButton>
-          </div>
+          <span title={row?.classs?.denomination}>
+            {row?.classs?.denomination}
+          </span>
         );
       },
     },
@@ -144,7 +123,7 @@ export const CyclesTab = () => {
       resizable: true,
       renderCell: ({ row }) => {
         const onClickStatus = () => {
-          dispatch(updateCycle({ id: row.id, status: !row.status }));
+          dispatch(updateSchedule({ id: row.id, status: !row.status }));
         };
         return (
           <div className="h-100 d-flex justify-content-around align-items-center">
@@ -166,23 +145,23 @@ export const CyclesTab = () => {
   const filter = (rows) => {
     return (
       rows.filter((row) =>
-        Object.values(row).some((value) =>
-          value?.toString().toLowerCase().includes(search.toLowerCase())
+        Object.values(row).some(
+          (value) =>
+            value?.toString().toLowerCase().includes(search.toLowerCase()) ||
+            value?.name?.toString().toLowerCase().includes(search.toLowerCase())
         )
       ) || rows
     );
   };
 
-  // muestra modal de agregar ciclo
-  const showAddCycleModal = () => {
-    setStatusAddCycleModal(true);
+  // muestra modal para agregar horario
+  const showAddScheduleModal = () => {
+    setStatusAddScheduleModal(true);
   };
 
   const hideModal = () => {
-    setDataCycle({});
-    setStatusAddCycleModal(false);
-    setStatusDeleteCycleModal(false);
-    setStatusInfoCoursesModal(false);
+    setDataSchedule({});
+    setStatusAddScheduleModal(false);
   };
 
   return (
@@ -192,7 +171,7 @@ export const CyclesTab = () => {
           <CButton
             color="success"
             className="text-white"
-            onClick={showAddCycleModal}
+            onClick={showAddScheduleModal}
           >
             Registrar
           </CButton>
@@ -208,9 +187,16 @@ export const CyclesTab = () => {
       </CRow>
       <CRow>
         <CCol>
-          <div style={{ height: 450, width: "100%", overflow: "hidden" }}>
-            <Loader show={!cycles} center={true} />
-            {cycles ? (
+          <div
+            style={{
+              height: 450,
+              width: "100%",
+              overflow: "hidden",
+              position: "relative",
+            }}
+          >
+            <Loader show={!schedules} center={true} />
+            {schedules ? (
               <DataGrid
                 className="rdg-light"
                 columns={columns}
@@ -225,20 +211,10 @@ export const CyclesTab = () => {
           </div>
         </CCol>
       </CRow>
-      <AddCycleModal
-        statusAddCycleModal={statusAddCycleModal}
-        hideAddCycleModal={hideModal}
-        dataCycle={dataCycle}
-      />
-      <DeleteCycleModal
-        statusDeleteCycleModal={statusDeleteCycleModal}
-        hideDeleteCycleModal={hideModal}
-        dataCycle={dataCycle}
-      />
-      <InfoCoursesModal
-        statusInfoCoursesModal={statusInfoCoursesModal}
-        hideInfoCoursesModal={hideModal}
-        dataCycle={dataCycle}
+      <AddScheduleModal
+        statusAddScheduleModal={statusAddScheduleModal}
+        hideAddScheduleModal={hideModal}
+        dataSchedule={dataSchedule}
       />
     </>
   );

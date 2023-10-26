@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import {
   CCard,
   CCardBody,
@@ -12,21 +11,23 @@ import {
   CRow,
 } from "@coreui/react";
 import { RolesTab, UsersTab } from "./tabs";
+import { messageHandler } from "src/components/helpers/";
 
 const Users = () => {
-  const { successMessage, errorMessage } = useSelector((state) => state.users);
+  const { successMessage, errorMessage, statusDataUser } = useSelector(
+    (state) => state.users
+  );
 
   const [tab, setTab] = useState("users");
 
   // mensajes de las peticiones
   useEffect(() => {
-    if (errorMessage !== undefined) {
-      toast.error(errorMessage);
+    if (statusDataUser !== null) {
+      messageHandler(errorMessage, successMessage, statusDataUser);
+    } else {
+      messageHandler(errorMessage);
     }
-    if (successMessage !== undefined) {
-      toast.success(successMessage);
-    }
-  }, [errorMessage, successMessage]);
+  }, [errorMessage, statusDataUser]);
 
   return (
     <>

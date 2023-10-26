@@ -36,7 +36,6 @@ export const CourseTypesTab = () => {
   // se consultan datos si se hizo crud
   useEffect(() => {
     if (statusDataCourseType !== null) {
-      dispatch(getAllCourseTypes());
       hideModal();
     }
   }, [statusDataCourseType]);

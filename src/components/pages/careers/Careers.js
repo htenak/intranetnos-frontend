@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import {
   CCard,
   CCardBody,
@@ -12,23 +11,26 @@ import {
   CRow,
 } from "@coreui/react";
 import { CareersTab } from "./tabs";
+import { messageHandler } from "src/components/helpers/";
 
 const Careers = () => {
-  const { careerSuccessMessage, careerErrorMessage } = useSelector(
-    (state) => state.academic
-  );
+  const { careerSuccessMessage, careerErrorMessage, statusDataCareer } =
+    useSelector((state) => state.academic);
 
   const [tab, setTab] = useState("careers");
 
   // mensajes de las peticiones
   useEffect(() => {
-    if (careerErrorMessage !== undefined) {
-      toast.error(careerErrorMessage);
+    if (statusDataCareer !== null) {
+      messageHandler(
+        careerErrorMessage,
+        careerSuccessMessage,
+        statusDataCareer
+      );
+    } else {
+      messageHandler(careerErrorMessage);
     }
-    if (careerSuccessMessage !== undefined) {
-      toast.success(careerSuccessMessage);
-    }
-  }, [careerErrorMessage, careerSuccessMessage]);
+  }, [statusDataCareer, careerErrorMessage]);
 
   return (
     <>

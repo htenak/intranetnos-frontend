@@ -30,10 +30,9 @@ export const CareersTab = () => {
     dispatch(getAllCareers());
   }, []);
 
-  // se consultan datos si se hizo crud
+  // se cierra modal si hay crud
   useEffect(() => {
     if (statusDataCareer !== null) {
-      dispatch(getAllCareers());
       hideModal();
     }
   }, [statusDataCareer]);
@@ -101,7 +100,7 @@ export const CareersTab = () => {
     {
       key: "courses",
       name: "Cursos",
-      width: 130,
+      width: 110,
       resizable: true,
       renderCell: ({ row }) => {
         const onClick = () => {
@@ -112,11 +111,10 @@ export const CareersTab = () => {
           <div className="h-100 d-flex justify-content-around align-items-center">
             <CButton
               title="Cambiar estado"
-              color="success"
               className="text-white"
               onClick={onClick}
             >
-              Ver cursos
+              Cursos
             </CButton>
           </div>
         );

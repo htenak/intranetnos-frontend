@@ -39,7 +39,7 @@ export const ConfirmChangeStatus = ({
         <CButton color="dark" onClick={hideStatusUserModal}>
           Cancelar
         </CButton>
-        <CButton color="success" className="text-white" onClick={changeStatus}>
+        <CButton color="warning" className="text-white" onClick={changeStatus}>
           Confirmar
         </CButton>
       </CModalFooter>

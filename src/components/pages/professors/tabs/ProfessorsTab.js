@@ -43,10 +43,9 @@ export const ProfessorsTab = () => {
     dispatch(getAllProfessors());
   }, []);
 
-  // se consultan datos si se hizo crud
+  // se cierra modal si se hizo crud
   useEffect(() => {
     if (statusDataProfessor !== null) {
-      dispatch(getAllProfessors());
       hideModal();
     }
   }, [statusDataProfessor]);

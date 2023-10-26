@@ -24,10 +24,9 @@ export const CoursesTab = () => {
     dispatch(getAllCourses());
   }, []);
 
-  // se consultan datos si se hizo crud
+  // cierra modal si se hizo crud
   useEffect(() => {
     if (statusDataCourse !== null) {
-      dispatch(getAllCourses());
       hideModal();
     }
   }, [statusDataCourse]);

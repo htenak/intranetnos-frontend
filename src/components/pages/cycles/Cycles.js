@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import {
   CCard,
   CCardBody,
@@ -12,23 +11,22 @@ import {
   CRow,
 } from "@coreui/react";
 import { CyclesTab } from "./tabs";
+import { messageHandler } from "src/components/helpers/";
 
 const Cycles = () => {
-  const { cycleSuccessMessage, cycleErrorMessage } = useSelector(
-    (state) => state.academic
-  );
+  const { cycleSuccessMessage, cycleErrorMessage, statusDataCycle } =
+    useSelector((state) => state.academic);
 
   const [tab, setTab] = useState("cycles");
 
   // mensajes de las peticiones
   useEffect(() => {
-    if (cycleErrorMessage !== undefined) {
-      toast.error(cycleErrorMessage);
+    if (statusDataCycle !== null) {
+      messageHandler(cycleErrorMessage, cycleSuccessMessage, statusDataCycle);
+    } else {
+      messageHandler(cycleErrorMessage);
     }
-    if (cycleSuccessMessage !== undefined) {
-      toast.success(cycleSuccessMessage);
-    }
-  }, [cycleSuccessMessage, cycleErrorMessage]);
+  }, [statusDataCycle, cycleErrorMessage]);
 
   return (
     <>

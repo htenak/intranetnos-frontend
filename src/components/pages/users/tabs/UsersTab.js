@@ -47,7 +47,6 @@ export const UsersTab = () => {
   // se consultan datos si se hizo crud
   useEffect(() => {
     if (statusDataUser !== null) {
-      dispatch(getAllUsers(query));
       hideModal();
     }
   }, [statusDataUser]);

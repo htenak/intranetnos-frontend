@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import {
   CCard,
   CCardBody,
@@ -12,36 +11,45 @@ import {
   CRow,
 } from "@coreui/react";
 import { CourseTypesTab, CoursesTab } from "./tabs";
+import { messageHandler } from "src/components/helpers/";
 
 const Courses = () => {
   const {
     courseTypeSuccessMessage,
     courseTypeErrorMessage,
+    statusDataCourseType,
     courseErrorMessage,
     courseSuccessMessage,
+    statusDataCourse,
   } = useSelector((state) => state.academic);
 
   const [tab, setTab] = useState("courses");
 
-  // mensajes de las peticiones (courseTypes)
+  // mensajes de las peticiones
   useEffect(() => {
-    if (courseTypeErrorMessage !== undefined) {
-      toast.error(courseTypeErrorMessage);
+    if (statusDataCourseType !== null) {
+      messageHandler(
+        courseTypeErrorMessage,
+        courseTypeSuccessMessage,
+        statusDataCourseType
+      );
+    } else {
+      messageHandler(courseTypeErrorMessage);
     }
-    if (courseTypeSuccessMessage !== undefined) {
-      toast.success(courseTypeSuccessMessage);
-    }
-  }, [courseTypeErrorMessage, courseTypeSuccessMessage]);
+  }, [statusDataCourseType, courseTypeErrorMessage]);
 
   // mensajes de las peticiones (courses)
   useEffect(() => {
-    if (courseErrorMessage !== undefined) {
-      toast.error(courseErrorMessage);
+    if (statusDataCourse !== null) {
+      messageHandler(
+        courseErrorMessage,
+        courseSuccessMessage,
+        statusDataCourse
+      );
+    } else {
+      messageHandler(courseErrorMessage);
     }
-    if (courseSuccessMessage !== undefined) {
-      toast.success(courseSuccessMessage);
-    }
-  }, [courseErrorMessage, courseSuccessMessage]);
+  }, [statusDataCourse, courseErrorMessage]);
 
   return (
     <>

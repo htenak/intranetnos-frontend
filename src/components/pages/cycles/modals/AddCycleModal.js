@@ -43,7 +43,11 @@ export const AddCycleModal = ({
   // cambios en campos
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setValues({ ...values, [name]: value.toUpperCase() });
+    if (name === "abbreviation") {
+      setValues({ ...values, [name]: value.toUpperCase() });
+    } else {
+      setValues({ ...values, [name]: value });
+    }
   };
 
   // envío de datos

@@ -27,7 +27,7 @@ import {
 import Loader from "src/components/layout/loader/Loader";
 import { friendlyDateFormat } from "src/components/helpers/";
 import imgUser from "src/assets/images/user.png";
-import { SelectSearch } from "../../helpers";
+import { SelectSearch } from "../../customComponents";
 
 export const StudentsClassModal = ({
   statusStudentsClassModal,
@@ -35,9 +35,7 @@ export const StudentsClassModal = ({
   dataClass,
 }) => {
   const dispatch = useDispatch();
-  const { studentsClassByClassId, statusDataStudentClass } = useSelector(
-    (state) => state.classes
-  );
+  const { studentsClassByClassId } = useSelector((state) => state.classes);
   const { students } = useSelector((state) => state.students);
 
   const initialStateValues = {
@@ -73,13 +71,6 @@ export const StudentsClassModal = ({
       }
     }
   }, [statusStudentsClassModal]);
-
-  // se consulta estudiantes por classId si se hizo crud
-  useEffect(() => {
-    if (statusDataStudentClass !== null) {
-      dispatch(getAllStudentsClassByClassId(dataClass.id));
-    }
-  }, [statusDataStudentClass]);
 
   // asigno registros a un estado local
   useEffect(() => {
@@ -173,6 +164,8 @@ export const StudentsClassModal = ({
       minWidth: 210,
       resizable: true,
       renderCell: ({ row }) => {
+        // hacer que se vea el nombre del usuario al crear
+        // ya que son datos que no retorna al crear
         return (
           <span
             title={`${row.student?.name} ${row.student?.lastName1} ${row.student?.lastName2}`}
