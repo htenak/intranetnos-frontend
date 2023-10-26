@@ -60,7 +60,7 @@ export const deleteStudent = (form) => {
   return async (dispatch) => {
     try {
       const { data } = await intranetApi.delete(`/user/delete/${form.id}`);
-      dispatch(onStudentDeleted({ student: data.data, message: data.message }));
+      dispatch(onStudentDeleted({ student: form, message: data.message }));
       setTimeout(() => {
         dispatch(resetDataStudent());
       }, 50);

@@ -64,9 +64,7 @@ export const deleteProfessor = (form) => {
   return async (dispatch) => {
     try {
       const { data } = await intranetApi.delete(`/user/delete/${form.id}`);
-      dispatch(
-        onProfessorDeleted({ professor: data.data, message: data.message })
-      );
+      dispatch(onProfessorDeleted({ professor: form, message: data.message }));
       setTimeout(() => {
         dispatch(resetDataProfessor());
       }, 50);

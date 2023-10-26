@@ -15,20 +15,30 @@ export const studentsSlice = createSlice({
     setStudents: (state, action) => {
       state.students = action.payload;
     },
-    onStudentCreated: (state, action) => {
+    onStudentCreated: (state, { payload }) => {
       state.statusDataStudent = "CREATED";
-      state.student = action.payload.student;
-      state.successMessage = action.payload.message;
+      state.student = payload.student;
+      state.successMessage = payload.message;
+      state.students.push(payload.student);
     },
-    onStudentUpdated: (state, action) => {
+    onStudentUpdated: (state, { payload }) => {
       state.statusDataStudent = "UPDATED";
-      state.student = action.payload.student;
-      state.successMessage = action.payload.message;
+      state.student = payload.student;
+      state.successMessage = payload.message;
+      state.students = state.students.map((element) => {
+        if (parseInt(element.id) === parseInt(payload.student.id)) {
+          return payload.student;
+        }
+        return element;
+      });
     },
-    onStudentDeleted: (state, action) => {
+    onStudentDeleted: (state, { payload }) => {
       state.statusDataStudent = "DELETED";
-      state.student = action.payload.student;
-      state.successMessage = action.payload.message;
+      state.student = payload.student;
+      state.successMessage = payload.message;
+      state.students = state.students.filter(
+        (data) => parseInt(data.id) !== parseInt(payload.student.id)
+      );
     },
     resetDataStudent: (state) => {
       state.student = null;

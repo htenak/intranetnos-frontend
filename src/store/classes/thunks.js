@@ -105,7 +105,7 @@ export const deleteClass = (form) => {
       dispatch(
         onClassCrud({
           crud: "DELETED",
-          class: data.data,
+          class: form,
           message: data.message,
         })
       );
@@ -228,7 +228,7 @@ export const deleteStudentClass = (form) => {
       dispatch(
         onStudentClassCrud({
           crud: "DELETED",
-          studentClass: data.data,
+          studentClass: form,
           message: data.message,
         })
       );

@@ -15,20 +15,30 @@ export const professorsSlice = createSlice({
     setProfessors: (state, action) => {
       state.professors = action.payload;
     },
-    onProfessorCreated: (state, action) => {
+    onProfessorCreated: (state, { payload }) => {
       state.statusDataProfessor = "CREATED";
-      state.professor = action.payload.professor;
-      state.successMessage = action.payload.message;
+      state.professor = payload.professor;
+      state.successMessage = payload.message;
+      state.professors.push(payload.professor);
     },
-    onProfessorUpdated: (state, action) => {
+    onProfessorUpdated: (state, { payload }) => {
       state.statusDataProfessor = "UPDATED";
-      state.professor = action.payload.professor;
-      state.successMessage = action.payload.message;
+      state.professor = payload.professor;
+      state.successMessage = payload.message;
+      state.professors = state.professors.map((element) => {
+        if (parseInt(element.id) === parseInt(payload.professor.id)) {
+          return payload.professor;
+        }
+        return element;
+      });
     },
-    onProfessorDeleted: (state, action) => {
+    onProfessorDeleted: (state, { payload }) => {
       state.statusDataProfessor = "DELETED";
-      state.professor = action.payload.professor;
-      state.successMessage = action.payload.message;
+      state.professor = payload.professor;
+      state.successMessage = payload.message;
+      state.professors = state.professors.filter(
+        (data) => parseInt(data.id) !== parseInt(payload.professor.id)
+      );
     },
     resetDataProfessor: (state) => {
       state.professor = null;

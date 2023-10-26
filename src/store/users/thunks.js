@@ -72,7 +72,7 @@ export const deleteUser = (form) => {
   return async (dispatch) => {
     try {
       const { data } = await intranetApi.delete(`/user/delete/${form.id}`);
-      dispatch(onUserDeleted({ user: data.data, message: data.message }));
+      dispatch(onUserDeleted({ user: form, message: data.message }));
       setTimeout(() => {
         dispatch(resetDataUser());
       }, 50);

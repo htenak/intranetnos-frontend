@@ -19,20 +19,30 @@ export const usersSlice = createSlice({
     setUsers: (state, action) => {
       state.users = action.payload;
     },
-    onUserCreated: (state, action) => {
+    onUserCreated: (state, { payload }) => {
       state.statusDataUser = "CREATED";
-      state.user = action.payload.user;
-      state.successMessage = action.payload.message;
+      state.user = payload.user;
+      state.successMessage = payload.message;
+      state.users.push(payload.user);
     },
-    onUserUpdated: (state, action) => {
+    onUserUpdated: (state, { payload }) => {
       state.statusDataUser = "UPDATED";
-      state.user = action.payload.user;
-      state.successMessage = action.payload.message;
+      state.user = payload.user;
+      state.successMessage = payload.message;
+      state.users = state.users.map((element) => {
+        if (parseInt(element.id) === parseInt(payload.user.id)) {
+          return payload.user;
+        }
+        return element;
+      });
     },
-    onUserDeleted: (state, action) => {
+    onUserDeleted: (state, { payload }) => {
       state.statusDataUser = "DELETED";
-      state.user = action.payload.user;
-      state.successMessage = action.payload.message;
+      state.user = payload.user;
+      state.successMessage = payload.message;
+      state.users = state.users.filter(
+        (data) => parseInt(data.id) !== parseInt(payload.user.id)
+      );
     },
     resetDataUser: (state) => {
       state.user = null;

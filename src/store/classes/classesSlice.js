@@ -33,10 +33,27 @@ export const classesSlice = createSlice({
     setClass: (state, action) => {
       state.class = action.payload;
     },
-    onClassCrud: (state, action) => {
-      state.statusDataClass = action.payload.crud;
-      state.class = action.payload.class;
-      state.classSuccessMessage = action.payload.message;
+    onClassCrud: (state, { payload }) => {
+      state.statusDataClass = payload.crud;
+      state.class = payload.class;
+      state.classSuccessMessage = payload.message;
+
+      if (payload.crud === "CREATED") {
+        state.classes.push(payload.class);
+      }
+      if (payload.crud === "UPDATED") {
+        state.classes = state.classes.map((element) => {
+          if (parseInt(element.id) === parseInt(payload.class.id)) {
+            return payload.class;
+          }
+          return element;
+        });
+      }
+      if (payload.crud === "DELETED") {
+        state.classes = state.classes.filter(
+          (data) => parseInt(data.id) !== parseInt(payload.class.id)
+        );
+      }
     },
     resetClassCrud: (state) => {
       state.class = null;
@@ -58,10 +75,19 @@ export const classesSlice = createSlice({
     setStudentClass: (state, action) => {
       state.studentClass = action.payload;
     },
-    onStudentClassCrud: (state, action) => {
-      state.statusDataStudentClass = action.payload.crud;
-      state.studentClass = action.payload.studentClass;
-      state.studentClassSuccessMessage = action.payload.message;
+    onStudentClassCrud: (state, { payload }) => {
+      state.statusDataStudentClass = payload.crud;
+      state.studentClass = payload.studentClass;
+      state.studentClassSuccessMessage = payload.message;
+
+      if (payload.crud === "CREATED") {
+        state.studentsClassByClassId.push(payload.studentClass);
+      }
+      if (payload.crud === "DELETED") {
+        state.studentsClassByClassId = state.studentsClassByClassId.filter(
+          (data) => parseInt(data.id) !== parseInt(payload.studentClass.id)
+        );
+      }
     },
     resetStudentClassCrud: (state) => {
       state.studentClass = null;
