@@ -1,6 +1,6 @@
 import React, { Component, Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { Flip, ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import "react-data-grid/lib/styles.css";
@@ -24,7 +24,12 @@ class App extends Component {
             <AppRouter />
           </Suspense>
         </BrowserRouter>
-        <ToastContainer />
+        <ToastContainer
+          theme="colored"
+          hideProgressBar
+          autoClose={1000}
+          transition={Flip}
+        />
       </>
     );
   }
