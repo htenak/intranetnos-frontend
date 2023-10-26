@@ -49,10 +49,3 @@ input[type="number"] {
   appearance: none;
   -moz-appearance: textfield; /* en firefox */
 }
-
-/* OCULTA BARRA de carga en las 
- * notificaciones de react-toastify 
- */
-.Toastify__progress-bar {
-  width: 0 !important;
-}
