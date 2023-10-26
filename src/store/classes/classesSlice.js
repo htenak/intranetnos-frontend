@@ -83,6 +83,16 @@ export const classesSlice = createSlice({
       if (payload.crud === "CREATED") {
         state.studentsClassByClassId.push(payload.studentClass);
       }
+      if (payload.crud === "UPDATED") {
+        state.studentsClassByClassId = state.studentsClassByClassId.map(
+          (element) => {
+            if (parseInt(element.id) === parseInt(payload.studentClass.id)) {
+              return payload.studentClass;
+            }
+            return element;
+          }
+        );
+      }
       if (payload.crud === "DELETED") {
         state.studentsClassByClassId = state.studentsClassByClassId.filter(
           (data) => parseInt(data.id) !== parseInt(payload.studentClass.id)
