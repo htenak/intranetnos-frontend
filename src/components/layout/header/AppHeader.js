@@ -19,7 +19,7 @@ import logoNor from "src/assets/images/nor_logo.png";
 
 import { setNav } from "src/store/nav";
 import { FAIcon } from "src/assets/icon/FAIcon";
-import { faBars, faRefresh } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faRotateRight } from "@fortawesome/free-solid-svg-icons";
 
 const AppHeader = () => {
   const dispatch = useDispatch();
@@ -70,7 +70,7 @@ const AppHeader = () => {
           onClick={onClickReload}
           title="Refrescar página"
         >
-          <FAIcon customClass="icon" icon={faRefresh} />
+          <FAIcon customClass="icon" icon={faRotateRight} />
         </CButton>
       </CContainer>
     </CHeader>
