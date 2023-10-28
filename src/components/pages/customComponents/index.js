@@ -1,1 +1,1 @@
-export { SelectSearch } from "./SelectSearch";
+export * from "./SelectSearch";
