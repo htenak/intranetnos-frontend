@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllDays, getAllSchedules, updateSchedule } from "src/store";
+import {
+  deleteSchedule,
+  getAllCycles,
+  getAllSchedules,
+  updateSchedule,
+} from "src/store";
 
-import { CButton, CCol, CRow } from "@coreui/react";
+import { CButton, CCol, CFormSelect, CRow } from "@coreui/react";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FAIcon } from "src/assets/icon/FAIcon";
 import DataGrid from "react-data-grid";
@@ -10,39 +15,74 @@ import Loader from "src/components/layout/loader/Loader";
 
 import { AddScheduleModal } from "../modals";
 
-export const SchedulesTab = () => {
+export const SchedulesTab = ({ careerIdTab, careerNameTab }) => {
   const dispatch = useDispatch();
   const { schedules, statusDataSchedule } = useSelector(
     (state) => state.classes
   );
+  const { cycles } = useSelector((state) => state.academic);
   const [rows, setRows] = useState([]);
   const [search, setSearch] = useState("");
   const [statusAddScheduleModal, setStatusAddScheduleModal] = useState(false);
   const [dataSchedule, setDataSchedule] = useState({});
+  const [cycleIdSchedule, setCycleIdSchedule] = useState(0);
 
   // se consultan datos al abrir
   useEffect(() => {
+    dispatch(getAllCycles());
     dispatch(getAllSchedules());
-    dispatch(getAllDays());
   }, []);
 
   // se consultan datos si se hizo crud
   useEffect(() => {
     if (statusDataSchedule !== null) {
-      dispatch(getAllSchedules());
       hideModal();
     }
   }, [statusDataSchedule]);
 
   // se asignan datos a un estado local
   useEffect(() => {
-    if (schedules) {
-      if (schedules.length !== 0) {
-        const data = [...schedules];
-        setRows(data);
+    if (careerIdTab && schedules && schedules.length !== 0) {
+      let filteredData = [...schedules];
+      if (parseInt(careerIdTab) !== 0) {
+        filteredData = filteredData.filter(
+          (d) => parseInt(d.classs?.careerId) === parseInt(careerIdTab)
+        );
       }
+      if (parseInt(cycleIdSchedule) !== 0) {
+        filteredData = filteredData.filter(
+          (d) => parseInt(d.classs?.cycleId) === parseInt(cycleIdSchedule)
+        );
+      }
+      // retorna filas validadas
+      setRows(filteredData);
+    } else {
+      setRows([]);
     }
-  }, [schedules]);
+  }, [careerIdTab, schedules, cycleIdSchedule]);
+
+  // va guardando el cycleId en localStorage
+  useEffect(() => {
+    if (cycleIdSchedule) {
+      localStorage.setItem("cycleIdSchedule", cycleIdSchedule);
+    }
+  }, [cycleIdSchedule]);
+
+  // asigna el id ciclo si hay registro y si existe, sino todos
+  useEffect(() => {
+    if (rows && rows.length !== 0) {
+      if (localStorage.getItem("cycleIdSchedule")) {
+        setCycleIdSchedule(parseInt(localStorage.getItem("cycleIdSchedule")));
+        return;
+      }
+      setCycleIdSchedule(0);
+    }
+  }, [rows]);
+
+  // guarda id de ciclo en un estado
+  const handleChangeCycle = (e) => {
+    setCycleIdSchedule(e.target.value);
+  };
 
   // datos para la grid
   const columns = [
@@ -59,6 +99,7 @@ export const SchedulesTab = () => {
         const onClickDelete = () => {
           // setDataSchedule(row);
           // setStatusDeleteCareerModal(true);
+          dispatch(deleteSchedule(row));
         };
         return (
           <div className="h-100 d-flex justify-content-around align-items-center">
@@ -144,13 +185,18 @@ export const SchedulesTab = () => {
   // buscador
   const filter = (rows) => {
     return (
-      rows.filter((row) =>
-        Object.values(row).some(
-          (value) =>
-            value?.toString().toLowerCase().includes(search.toLowerCase()) ||
-            value?.name?.toString().toLowerCase().includes(search.toLowerCase())
+      rows
+        .filter((row) =>
+          Object.values(row).some(
+            (value) =>
+              value?.toString().toLowerCase().includes(search.toLowerCase()) ||
+              value?.name
+                ?.toString()
+                .toLowerCase()
+                .includes(search.toLowerCase())
+          )
         )
-      ) || rows
+        .sort((a, b) => a.dayId - b.dayId) || rows
     );
   };
 
@@ -175,6 +221,25 @@ export const SchedulesTab = () => {
           >
             Registrar
           </CButton>
+        </CCol>
+        <CCol xs={6} lg={2}>
+          <CFormSelect
+            onChange={handleChangeCycle}
+            value={cycleIdSchedule || 0}
+          >
+            <option value={0}>Todos</option>
+            {cycles && cycles.length !== 0 ? (
+              <>
+                {cycles.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.abbreviation} ciclo
+                  </option>
+                ))}
+              </>
+            ) : (
+              <option>No hay ciclos</option>
+            )}
+          </CFormSelect>
         </CCol>
         <CCol sm={9} lg={6} className="mt-2 mt-sm-0">
           <input
@@ -215,6 +280,9 @@ export const SchedulesTab = () => {
         statusAddScheduleModal={statusAddScheduleModal}
         hideAddScheduleModal={hideModal}
         dataSchedule={dataSchedule}
+        careerIdTab={careerIdTab}
+        cycleIdSchedule={cycleIdSchedule}
+        careerNameTab={careerNameTab}
       />
     </>
   );

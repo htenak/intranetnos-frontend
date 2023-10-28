@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  CAlert,
   CButton,
   CCol,
   CForm,
   CFormInput,
   CFormLabel,
+  CFormSelect,
   CModal,
   CModalBody,
   CModalFooter,
@@ -21,9 +23,13 @@ import { faBookOpen, faCalendar } from "@fortawesome/free-solid-svg-icons";
 export const AddScheduleModal = ({
   statusAddScheduleModal,
   hideAddScheduleModal,
+  careerIdTab,
+  cycleIdSchedule,
+  careerNameTab,
   dataSchedule,
 }) => {
   const dispatch = useDispatch();
+  const { cycles } = useSelector((state) => state.academic);
   const { classes, days } = useSelector((state) => state.classes);
   const initialStateValues = {
     id: 0,
@@ -35,10 +41,12 @@ export const AddScheduleModal = ({
   const [values, setValues] = useState(initialStateValues);
   const [searchClasses, setSearchClasses] = useState([]);
   const [searchDays, setSearchDays] = useState([]);
+  const [cycleId, setCycleId] = useState(0);
   // consulta datos
   useEffect(() => {
     if (statusAddScheduleModal) {
       dispatch(getAllClasses());
+      setCycleId(cycleIdSchedule);
     }
   }, [statusAddScheduleModal]);
 
@@ -53,22 +61,31 @@ export const AddScheduleModal = ({
 
   // asigno clases para el campo
   useEffect(() => {
-    if (classes) {
-      if (classes.length !== 0) {
-        setSearchClasses(
-          classes.map((classs) => ({
-            ...classs,
-            value: classs.id,
-            label: classs.denomination,
-          }))
+    if (careerIdTab && classes && classes.length !== 0) {
+      let filteredData = [...classes];
+      filteredData = filteredData
+        .map((classs) => ({
+          ...classs,
+          value: classs.id,
+          label: classs.denomination,
+        }))
+        .filter(
+          (c) => parseInt(c.career?.id) === parseInt(careerIdTab) && c.status
         );
-      } else {
-        setSearchClasses([]);
+      if (cycleId && cycleId !== 0) {
+        // filtra también por el ciclo seleccionado
+        filteredData = filteredData.filter(
+          (c) => parseInt(c.cycleId) === parseInt(cycleId)
+        );
       }
+      setSearchClasses(filteredData);
+    } else {
+      // Si no se cumplen las condiciones, establece un array vacío
+      setSearchClasses([]);
     }
-  }, [classes]);
+  }, [classes, careerIdTab, cycleId]);
 
-  // asigno carreras para el campo
+  // asigno días para el campo
   useEffect(() => {
     if (days) {
       if (days.length !== 0) {
@@ -88,6 +105,11 @@ export const AddScheduleModal = ({
   // cambios en inputs html
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    if (name === "cycleId") {
+      setCycleId(parseInt(value));
+      setValues({ ...values, classId: value === cycleId ? values.classId : 0 });
+      return;
+    }
     setValues({ ...values, [name]: value });
   };
 
@@ -111,6 +133,19 @@ export const AddScheduleModal = ({
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (values?.classId === 0) {
+      return toast.error("Clase no seleccionada");
+    }
+    if (values?.dayId === 0) {
+      return toast.error("Día no seleccionado");
+    }
+    if (values?.startTime === "") {
+      return toast.error("Hora de inicio no seleccionada");
+    }
+    if (values?.endTime === "") {
+      return toast.error("Hora de fin no seleccionada");
+    }
+
     if (values?.id !== 0) {
       dispatch(updateSchedule(values));
     } else {
@@ -123,14 +158,13 @@ export const AddScheduleModal = ({
     hideAddScheduleModal();
   };
 
-  // console.log(values);
-
   return (
     <CModal
       alignment="center"
       visible={statusAddScheduleModal}
       onClose={hideModal}
       size="lg"
+      backdrop="static"
     >
       <CForm onSubmit={handleSubmit}>
         <CModalHeader>
@@ -142,6 +176,38 @@ export const AddScheduleModal = ({
         </CModalHeader>
         <CModalBody>
           <CRow>
+            <CCol xs={12}>
+              {careerNameTab ? (
+                <CAlert color="success" visible={true} className="text-center">
+                  {careerNameTab?.toUpperCase()}
+                </CAlert>
+              ) : (
+                <></>
+              )}
+            </CCol>
+            <CCol xs={12} lg={4}>
+              <CFormLabel className="mb-1">Filtrar clases por ciclo</CFormLabel>
+              <CFormSelect
+                value={cycleId || 0}
+                onChange={handleInputChange}
+                name="cycleId"
+              >
+                <option value={0}>Todos</option>
+                {cycles && cycles.length !== 0 ? (
+                  <>
+                    {cycles
+                      .filter((c) => c.status)
+                      .map((row) => (
+                        <option key={row.id} value={row.id}>
+                          {row.abbreviation} ciclo
+                        </option>
+                      ))}
+                  </>
+                ) : (
+                  <></>
+                )}
+              </CFormSelect>
+            </CCol>
             <CCol xs={12} className="mt-2">
               <CFormLabel className="mb-1">
                 Clase <span className="text-danger">*</span>
@@ -161,8 +227,10 @@ export const AddScheduleModal = ({
                 onChange={handleChangeClass}
               />
             </CCol>
-            <CCol xs={4} className="mt-2">
-              <CFormLabel className="mb-1">Día</CFormLabel>
+            <CCol xs={12} lg={4} className="mt-2">
+              <CFormLabel className="mb-1">
+                Día <span className="text-danger">*</span>
+              </CFormLabel>
               <SelectSearch
                 value={
                   (searchDays &&
@@ -178,8 +246,10 @@ export const AddScheduleModal = ({
                 onChange={handleChangeDay}
               />
             </CCol>
-            <CCol xs={4} className="mt-2">
-              <CFormLabel className="mb-1">Hora de inicio</CFormLabel>
+            <CCol xs={6} lg={4} className="mt-2">
+              <CFormLabel className="mb-1">
+                Hora de inicio <span className="text-danger">*</span>
+              </CFormLabel>
               <CFormInput
                 type="time"
                 name="startTime"
@@ -187,8 +257,10 @@ export const AddScheduleModal = ({
                 value={values?.startTime || ""}
               />
             </CCol>
-            <CCol xs={4} className="mt-2">
-              <CFormLabel className="mb-1">Hora de cierre</CFormLabel>
+            <CCol xs={6} lg={4} className="mt-2">
+              <CFormLabel className="mb-1">
+                Hora de cierre <span className="text-danger">*</span>
+              </CFormLabel>
               <CFormInput
                 type="time"
                 name="endTime"

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import {
   CCard,
   CCardBody,
@@ -12,25 +11,67 @@ import {
   CRow,
 } from "@coreui/react";
 import { SchedulesTab } from "./tabs";
-import { getAllCareers, getAllClasses } from "src/store";
+import { getAllCareers, getAllClasses, getAllDays } from "src/store";
+import { messageHandler } from "src/components/helpers";
 
 const Schedules = () => {
   const dispatch = useDispatch();
-  const { classes, scheduleSuccessMessage, scheduleErrorMessage } = useSelector(
-    (state) => state.classes
-  );
-  const { careers, cycles } = useSelector((state) => state.academic);
+  const { scheduleSuccessMessage, scheduleErrorMessage, statusDataSchedule } =
+    useSelector((state) => state.classes);
+  const { careers } = useSelector((state) => state.academic);
+  const [careerIdTab, setCareerIdTab] = useState(0);
+  const [careerNameTab, setCareerNameTab] = useState("");
 
-  const [rows, setRows] = useState([]);
+  // mensajes de las peticiones
+  useEffect(() => {
+    if (statusDataSchedule !== null) {
+      messageHandler(
+        scheduleErrorMessage,
+        scheduleSuccessMessage,
+        statusDataSchedule
+      );
+    } else {
+      messageHandler(scheduleErrorMessage);
+    }
+  }, [scheduleErrorMessage, statusDataSchedule]);
 
   // consulta todas las clases existentes
   useEffect(() => {
     dispatch(getAllClasses());
     dispatch(getAllCareers());
+    dispatch(getAllDays());
   }, []);
 
-  const onClickTab = (id) => {
-    localStorage.setItem("tabScheduleCareer", id);
+  // va guardando el careerIdtab en localStorage
+  useEffect(() => {
+    if (careerIdTab) {
+      localStorage.setItem("careerIdTab", careerIdTab);
+    }
+  }, [careerIdTab]);
+
+  // va guardando el careerNametab en localStorage
+  useEffect(() => {
+    if (careerNameTab) {
+      localStorage.setItem("careerNameTab", careerNameTab);
+    }
+  }, [careerNameTab]);
+
+  // asigna el tab si existe, sino asigna la primera carrera
+  useEffect(() => {
+    if (careers && careers.length !== 0) {
+      if (localStorage.getItem("careerIdTab")) {
+        setCareerIdTab(parseInt(localStorage.getItem("careerIdTab")));
+        setCareerNameTab(localStorage.getItem("careerNameTab"));
+        return;
+      }
+      setCareerIdTab(parseInt(careers[0].id));
+      setCareerNameTab(careers[0].name || "hola");
+    }
+  }, [careers]);
+
+  const onClickTab = (career) => {
+    setCareerIdTab(parseInt(career.id));
+    setCareerNameTab(career.name);
   };
 
   return (
@@ -49,17 +90,13 @@ const Schedules = () => {
                     {careers && careers.length !== 0 ? (
                       <>
                         {careers.map((c) => (
-                          <CNavItem key={c.id?.id}>
+                          <CNavItem key={c.id}>
                             <CNavLink
                               role="button"
-                              onClick={() => onClickTab(c.id)}
-                              active={
-                                localStorage.getItem("tabScheduleCareer") ==
-                                c.id
-                              }
+                              onClick={() => onClickTab(c)}
+                              active={c.id === careerIdTab}
                               className={
-                                localStorage.getItem("tabScheduleCareer") ==
-                                c.id
+                                c.id === careerIdTab
                                   ? "text-success"
                                   : "text-dark"
                               }
@@ -73,7 +110,10 @@ const Schedules = () => {
                       <></>
                     )}
                   </CNav>
-                  {/* {tab === "schedules" ? <SchedulesTab /> : <></>} */}
+                  <SchedulesTab
+                    careerIdTab={careerIdTab}
+                    careerNameTab={careerNameTab}
+                  />
                 </CCardBody>
               </CCard>
             </CCol>
