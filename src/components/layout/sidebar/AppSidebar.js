@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   CSidebar,
@@ -23,10 +23,24 @@ const AppSidebar = () => {
   const dispatch = useDispatch();
   const { sidebarShow, unfoldableShow } = useSelector((state) => state.nav);
   const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (localStorage.getItem("unfoldStoraged") === "true") {
+      dispatch(setUnfoldable(false));
+      return;
+    }
+    dispatch(setUnfoldable(true));
+  }, []);
+
+  const onClickUnfoldNav = () => {
+    dispatch(setUnfoldable(!unfoldableShow));
+    localStorage.setItem("unfoldStoraged", unfoldableShow);
+  };
+
   return (
     <CSidebar
       position="fixed"
-      unfoldable={unfoldableShow}
+      unfoldable={!unfoldableShow}
       visible={sidebarShow}
       onVisibleChange={(visible) => {
         dispatch(setNav(visible));
@@ -60,7 +74,7 @@ const AppSidebar = () => {
       <CSidebarToggler
         title="Encoger / Expandir"
         className="d-none d-lg-flex"
-        onClick={() => dispatch(setUnfoldable(!unfoldableShow))}
+        onClick={onClickUnfoldNav}
       />
     </CSidebar>
   );
