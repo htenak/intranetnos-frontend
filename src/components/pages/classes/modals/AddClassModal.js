@@ -100,11 +100,13 @@ export const AddClassModal = ({
     if (cycles) {
       if (cycles.length !== 0) {
         setSearchCycles(
-          cycles.map((cycle) => ({
-            ...cycle,
-            value: cycle.id,
-            label: cycle.abbreviation,
-          }))
+          cycles
+            .map((cycle) => ({
+              ...cycle,
+              value: cycle.id,
+              label: cycle.abbreviation,
+            }))
+            .filter((c) => c.status)
         );
       } else {
         setSearchCycles([]);
