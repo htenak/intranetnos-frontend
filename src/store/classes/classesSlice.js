@@ -119,10 +119,27 @@ export const classesSlice = createSlice({
     setSchedule: (state, action) => {
       state.schedule = action.payload;
     },
-    onScheduleCrud: (state, action) => {
-      state.statusDataSchedule = action.payload.crud;
-      state.schedule = action.payload.schedule;
-      state.scheduleSuccessMessage = action.payload.message;
+    onScheduleCrud: (state, { payload }) => {
+      state.statusDataSchedule = payload.crud;
+      state.schedule = payload.schedule;
+      state.scheduleSuccessMessage = payload.message;
+
+      if (payload.crud === "CREATED") {
+        state.schedules.push(payload.schedule);
+      }
+      if (payload.crud === "UPDATED") {
+        state.schedules = state.schedules.map((element) => {
+          if (parseInt(element.id) === parseInt(payload.schedule.id)) {
+            return payload.schedule;
+          }
+          return element;
+        });
+      }
+      if (payload.crud === "DELETED") {
+        state.schedules = state.schedules.filter(
+          (data) => parseInt(data.id) !== parseInt(payload.schedule.id)
+        );
+      }
     },
     resetScheduleCrud: (state) => {
       state.schedule = null;

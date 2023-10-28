@@ -323,7 +323,7 @@ export const updateSchedule = (form) => {
       dispatch(
         onScheduleCrud({
           crud: "UPDATED",
-          class: data.data,
+          schedule: data.data,
           message: data.message,
         })
       );
@@ -348,7 +348,7 @@ export const deleteSchedule = (form) => {
       dispatch(
         onScheduleCrud({
           crud: "DELETED",
-          schedule: data.data,
+          schedule: form,
           message: data.message,
         })
       );
