@@ -187,7 +187,7 @@ export const StudentsClassModal = ({
     },
     {
       key: "createdAt",
-      name: "Fecha",
+      name: "Fecha de inscripción",
       resizable: true,
       width: 180,
       renderCell: ({ row }) => {
