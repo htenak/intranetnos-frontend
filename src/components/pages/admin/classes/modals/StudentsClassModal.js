@@ -27,7 +27,7 @@ import {
 import Loader from "src/components/layout/loader/Loader";
 import { friendlyDateFormat } from "src/components/helpers/";
 import imgUser from "src/assets/images/user.png";
-import { SelectSearch } from "../../customComponents";
+import { SelectSearch } from "../../../customComponents";
 
 export const StudentsClassModal = ({
   statusStudentsClassModal,

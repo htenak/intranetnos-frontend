@@ -6,19 +6,27 @@ const Dashboard = React.lazy(() =>
 );
 const NotFound = React.lazy(() => import("../components/pages/404/NotFound"));
 const Profile = React.lazy(() => import("../components/pages/profile/Profile"));
-const Users = React.lazy(() => import("../components/pages/users/Users"));
+const Users = React.lazy(() => import("../components/pages/admin/users/Users"));
 const Students = React.lazy(() =>
-  import("../components/pages/students/Students")
+  import("../components/pages/admin/students/Students")
 );
 const Professors = React.lazy(() =>
-  import("../components/pages/professors/Professors")
+  import("../components/pages/admin/professors/Professors")
 );
-const Careers = React.lazy(() => import("../components/pages/careers/Careers"));
-const Cycles = React.lazy(() => import("../components/pages/cycles/Cycles"));
-const Courses = React.lazy(() => import("../components/pages/courses/Courses"));
-const Classes = React.lazy(() => import("../components/pages/classes/Classes"));
+const Careers = React.lazy(() =>
+  import("../components/pages/admin/careers/Careers")
+);
+const Cycles = React.lazy(() =>
+  import("../components/pages/admin/cycles/Cycles")
+);
+const Courses = React.lazy(() =>
+  import("../components/pages/admin/courses/Courses")
+);
+const Classes = React.lazy(() =>
+  import("../components/pages/admin/classes/Classes")
+);
 const Schedules = React.lazy(() =>
-  import("../components/pages/schedules/Schedules")
+  import("../components/pages/admin/schedules/Schedules")
 );
 
 const routes = [

@@ -22,7 +22,7 @@ import {
   saveClass,
   updateClass,
 } from "src/store";
-import { SelectSearch } from "../../customComponents";
+import { SelectSearch } from "../../../customComponents";
 import {
   faBookReader,
   faChalkboardTeacher,

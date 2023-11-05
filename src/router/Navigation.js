@@ -6,12 +6,11 @@ import {
   faBookReader,
   faCalendarAlt,
   faChalkboardTeacher,
-  faCloudDownloadAlt,
   faCoffee,
-  faEraser,
   faGraduationCap,
   faPowerOff,
   faProjectDiagram,
+  faServer,
   faUserCircle,
   faUserFriends,
   faUserGraduate,
@@ -127,23 +126,25 @@ const navigation = [
     ],
   },
   {
-    roles: [ROLE_ADMIN, ROLE_USER],
+    roles: [ROLE_ADMIN, ROLE_PROFESSOR, ROLE_USER],
     component: CNavTitle,
-    name: "Operaciones",
+    name: "Procesos",
   },
   {
     roles: [ROLE_ADMIN, ROLE_USER],
     component: CNavGroup,
-    name: "Exportación",
-    icon: <FAIcon customClass="icon nav-icon" icon={faCloudDownloadAlt} />,
+    name: "Gestionar datos",
+    icon: <FAIcon customClass="icon nav-icon" icon={faServer} />,
     items: [],
   },
+
+  // professors:
   {
-    roles: [ROLE_ADMIN, ROLE_USER],
-    component: CNavGroup,
-    name: "Eliminación",
-    icon: <FAIcon customClass="icon nav-icon" icon={faEraser} />,
-    items: [],
+    roles: [ROLE_PROFESSOR],
+    component: CNavItem,
+    name: "Mis clases",
+    to: "/professor/classes",
+    icon: <FAIcon customClass="icon nav-icon" icon={faBookOpen} />,
   },
 
   // todos:

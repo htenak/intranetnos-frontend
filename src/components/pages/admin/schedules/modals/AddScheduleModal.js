@@ -17,7 +17,7 @@ import {
 } from "@coreui/react";
 import { toast } from "react-toastify";
 import { getAllClasses, saveSchedule, updateSchedule } from "src/store";
-import { SelectSearch } from "../../customComponents";
+import { SelectSearch } from "../../../customComponents";
 import { faBookOpen, faCalendar } from "@fortawesome/free-solid-svg-icons";
 
 export const AddScheduleModal = ({
