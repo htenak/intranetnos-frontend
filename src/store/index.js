@@ -1,9 +1,12 @@
 export * from "./auth";
 export * from "./nav";
-export * from "./users";
-export * from "./students";
-export * from "./professors";
-export * from "./academic";
-export * from "./classes";
+
+export * from "./admin/users";
+export * from "./admin/students";
+export * from "./admin/professors";
+export * from "./admin/academic";
+export * from "./admin/classes";
+
+export * from "./professor/classes";
 
 export * from "./store";

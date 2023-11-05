@@ -16,7 +16,7 @@ import {
   faUserGraduate,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
-import { FAIcon } from "../assets/icon/FAIcon";
+import { FAIcon } from "src/assets/icon/FAIcon";
 import Logout from "../auth/pages/logout/Logout";
 
 import {
@@ -60,19 +60,13 @@ const navigation = [
       {
         component: CNavItem,
         name: "Usuarios",
-        to: "users/users",
+        to: "/admin/users/users",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faUserFriends} />,
       },
-      // {
-      //   component: CNavItem,
-      //   name: "Administradores",
-      //   to: "/admins",
-      //   icon: <FAIcon customClass="icon nav-icon-sub" icon={faUserCog} />,
-      // },
       {
         component: CNavItem,
         name: "Profesores",
-        to: "users/professors",
+        to: "/admin/users/professors",
         icon: (
           <FAIcon customClass="icon nav-icon-sub" icon={faChalkboardTeacher} />
         ),
@@ -80,7 +74,7 @@ const navigation = [
       {
         component: CNavItem,
         name: "Estudiantes",
-        to: "users/students",
+        to: "/admin/users/students",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faUserGraduate} />,
       },
     ],
@@ -94,13 +88,13 @@ const navigation = [
       {
         component: CNavItem,
         name: "Carreras",
-        to: "academic/careers",
+        to: "/admin/academic/careers",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faGraduationCap} />,
       },
       {
         component: CNavItem,
         name: "Ciclos",
-        to: "academic/cycles",
+        to: "/admin/academic/cycles",
         icon: (
           <FAIcon customClass="icon nav-icon-sub" icon={faProjectDiagram} />
         ),
@@ -108,25 +102,25 @@ const navigation = [
       {
         component: CNavItem,
         name: "Cursos",
-        to: "academic/courses",
+        to: "/admin/academic/courses",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faBookReader} />,
       },
       {
         component: CNavItem,
         name: "Clases",
-        to: "academic/classes",
+        to: "/admin/academic/classes",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faBookOpen} />,
       },
       {
         component: CNavItem,
         name: "Horarios",
-        to: "academic/schedules",
+        to: "/admin/academic/schedules",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faCalendarAlt} />,
       },
     ],
   },
   {
-    roles: [ROLE_ADMIN, ROLE_PROFESSOR, ROLE_USER],
+    roles: [ROLE_ADMIN, ROLE_USER],
     component: CNavTitle,
     name: "Procesos",
   },
@@ -140,11 +134,30 @@ const navigation = [
 
   // professors:
   {
-    roles: [ROLE_PROFESSOR],
+    roles: [ROLE_PROFESSOR, ROLE_USER],
+    component: CNavTitle,
+    name: "Menú",
+  },
+  {
+    roles: [ROLE_PROFESSOR, ROLE_USER],
     component: CNavItem,
     name: "Mis clases",
     to: "/professor/classes",
     icon: <FAIcon customClass="icon nav-icon" icon={faBookOpen} />,
+  },
+  {
+    roles: [ROLE_PROFESSOR, ROLE_USER],
+    component: CNavItem,
+    name: "Mis alumnos",
+    to: "/professor/students",
+    icon: <FAIcon customClass="icon nav-icon" icon={faUserGraduate} />,
+  },
+  {
+    roles: [ROLE_PROFESSOR, ROLE_USER],
+    component: CNavItem,
+    name: "Mis horarios",
+    to: "/professor/schedules",
+    icon: <FAIcon customClass="icon nav-icon" icon={faCalendarAlt} />,
   },
 
   // todos:
