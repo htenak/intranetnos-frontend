@@ -108,7 +108,13 @@ const routes = [
   // professor:
   {
     path: "/professor/classes",
-    name: "Horarios",
+    name: "Clases",
+    element: PClasses,
+    roles: [ROLE_PROFESSOR],
+  },
+  {
+    path: "/professor/classes/yours",
+    name: "Tus clases",
     element: PClasses,
     roles: [ROLE_PROFESSOR],
   },

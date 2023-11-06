@@ -1,20 +1,24 @@
 import React from "react";
-import { CNavGroup, CNavItem, CNavTitle } from "@coreui/react";
+import { CNav, CNavGroup, CNavItem, CNavTitle } from "@coreui/react";
 import {
   faBook,
   faBookOpen,
   faBookReader,
+  faBoxes,
   faCalendarAlt,
   faChalkboardTeacher,
   faCoffee,
+  faDesktop,
   faGraduationCap,
   faPowerOff,
   faProjectDiagram,
   faServer,
+  faStream,
   faUserCircle,
   faUserFriends,
   faUserGraduate,
   faUsers,
+  faWindowRestore,
 } from "@fortawesome/free-solid-svg-icons";
 import { FAIcon } from "src/assets/icon/FAIcon";
 import Logout from "../auth/pages/logout/Logout";
@@ -132,32 +136,76 @@ const navigation = [
     items: [],
   },
 
-  // professors:
+  // professors y students:
   {
-    roles: [ROLE_PROFESSOR, ROLE_USER],
+    roles: [ROLE_PROFESSOR, ROLE_STUDENT, ROLE_USER],
     component: CNavTitle,
     name: "Menú",
   },
+
+  // professors:
   {
     roles: [ROLE_PROFESSOR, ROLE_USER],
-    component: CNavItem,
-    name: "Mis clases",
-    to: "/professor/classes",
+    component: CNavGroup,
+    name: "Actividades",
+    icon: <FAIcon customClass="icon nav-icon" icon={faBoxes} />,
+    items: [
+      {
+        component: CNavItem,
+        name: "Tus actividades",
+        to: "/professor/activities/types",
+        icon: <FAIcon customClass="icon nav-icon-sub" icon={faWindowRestore} />,
+      },
+      {
+        component: CNavItem,
+        name: "Otros",
+        to: "/professor/activities/others",
+        icon: <FAIcon customClass="icon nav-icon-sub" icon={faStream} />,
+      },
+    ],
+  },
+  {
+    roles: [ROLE_PROFESSOR, ROLE_USER],
+    component: CNavGroup,
+    name: "Clases",
     icon: <FAIcon customClass="icon nav-icon" icon={faBookOpen} />,
+    items: [
+      {
+        component: CNavItem,
+        name: "Tus clases",
+        to: "/professor/classes/yours",
+        icon: (
+          <FAIcon customClass="icon nav-icon-sub" icon={faChalkboardTeacher} />
+        ),
+      },
+      {
+        component: CNavItem,
+        name: "Todos",
+        to: "/professor/classes/others",
+        icon: <FAIcon customClass="icon nav-icon-sub" icon={faDesktop} />,
+      },
+    ],
   },
   {
     roles: [ROLE_PROFESSOR, ROLE_USER],
     component: CNavItem,
-    name: "Mis alumnos",
+    name: "Tus alumnos",
     to: "/professor/students",
     icon: <FAIcon customClass="icon nav-icon" icon={faUserGraduate} />,
   },
   {
     roles: [ROLE_PROFESSOR, ROLE_USER],
-    component: CNavItem,
-    name: "Mis horarios",
-    to: "/professor/schedules",
+    component: CNavGroup,
+    name: "Horarios",
     icon: <FAIcon customClass="icon nav-icon" icon={faCalendarAlt} />,
+    items: [
+      {
+        component: CNavItem,
+        name: "Tus horarios",
+        to: "/professor/schedules/yours",
+        icon: <FAIcon customClass="icon nav-icon-sub" icon={faCalendarAlt} />,
+      },
+    ],
   },
 
   // todos:
