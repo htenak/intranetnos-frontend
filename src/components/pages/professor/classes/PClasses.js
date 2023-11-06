@@ -8,7 +8,7 @@ import {
   CCardTitle,
   CCardFooter,
 } from "@coreui/react";
-import { faBookOpen } from "@fortawesome/free-solid-svg-icons";
+import { faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FAIcon } from "src/assets/icon/FAIcon";
@@ -27,35 +27,43 @@ const PClasses = () => {
     <>
       <CCard className="mb-4">
         <CCardHeader>
-          <CCardTitle className="fs-4">Clases que tienes asignadas</CCardTitle>
+          <CCardTitle className="fs-4">Clases que enseñas</CCardTitle>
         </CCardHeader>
-        <CCardBody>
+        <CCardBody className="pt-1">
           <CRow>
             <Loader show={!classesProfessor} center={true} />
             {classesProfessor && classesProfessor.length !== 0 && (
               <>
                 {classesProfessor.map((c) => (
-                  <CCol md={4} key={c.id} className="d-flex my-2">
-                    <CCard className="border-dark flex-grow-1">
-                      <CCardHeader className="bg-dark text-white">
-                        <CCardTitle className="fs-6">
-                          {c.career?.name}
-                        </CCardTitle>
-                      </CCardHeader>
-                      <CCardBody>
-                        <p>
-                          <b>Ciclo:</b> {c.cycle.abbreviation} -{" "}
-                          {c.cycle.description}
-                        </p>
-                        <p>
-                          <b>Curso:</b> {c.course.name?.toUpperCase()}
-                        </p>
-                      </CCardBody>
-                      <CCardFooter className="text-end">
-                        <CButton color="success" className="text-white">
-                          Ver clase
-                        </CButton>
-                      </CCardFooter>
+                  <CCol md={6} lg={4} key={c.id} className="d-flex my-2">
+                    <CCard className="flex-grow-1 overflow-hidden">
+                      <div className="card-patron">
+                        <div className="card-patron-success">
+                          <CCardHeader className="bg-greener">
+                            <CCardTitle className="fs-5 text-white">
+                              {c.career?.name}
+                            </CCardTitle>
+                          </CCardHeader>
+                          <CCardBody className="text-white">
+                            <div>
+                              <p>
+                                <span className="fw-bold">Ciclo: </span>
+                                {c.cycle.abbreviation}
+                              </p>
+                              <p>
+                                <span className="fw-bold">Curso: </span>
+                                {c.course.name}
+                              </p>
+                            </div>
+                          </CCardBody>
+                          <CCardFooter className="text-end">
+                            <CButton color="warning">
+                              Estudiantes{" "}
+                              <FAIcon customClass="icon" icon={faUserFriends} />
+                            </CButton>
+                          </CCardFooter>
+                        </div>
+                      </div>
                     </CCard>
                   </CCol>
                 ))}
