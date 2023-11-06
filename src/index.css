@@ -57,3 +57,55 @@ input[type="number"] {
 * {
   font-family: "Poppins", sans-serif;
 }
+
+/*
+ * clase para fondos mas oscuros
+ */
+.bg-darker {
+  background: #2b2b2b;
+}
+
+.bg-greener {
+  background: #225d2f;
+}
+
+.bg-bluer {
+  background: #22425d;
+}
+
+.bg-yellower {
+  background: #5d5722;
+}
+
+.bg-reder {
+  background: #5d2422;
+}
+
+/*
+ * clase para fondo con imagen de patron
+ */
+.card-patron {
+  background-image: url("./assets/images/patrons.png");
+  background-size: contain;
+  height: 100%;
+}
+
+.card-patron-success {
+  background-color: rgba(33, 63, 44, 0.683);
+  height: 100%;
+}
+
+.card-patron-primary {
+  background-color: rgba(33, 44, 63, 0.683);
+  height: 100%;
+}
+
+.card-patron-warning {
+  background-color: rgba(63, 58, 33, 0.683);
+  height: 100%;
+}
+
+.card-patron-danger {
+  background-color: rgba(63, 34, 33, 0.683);
+  height: 100%;
+}
