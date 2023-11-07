@@ -180,7 +180,7 @@ const navigation = [
       },
       {
         component: CNavItem,
-        name: "Todos",
+        name: "Otras clases",
         to: "/professor/classes/others",
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faDesktop} />,
       },

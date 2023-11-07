@@ -31,6 +31,9 @@ const Schedules = React.lazy(() =>
 const PClasses = React.lazy(() =>
   import("../components/pages/professor/classes/PClasses")
 );
+const POtherClasses = React.lazy(() =>
+  import("../components/pages/professor/other-classes/POtherClasses")
+);
 
 const routes = [
   // todos:
@@ -42,64 +45,64 @@ const routes = [
 
   // admin:
   {
-    path: "admin/users",
+    path: "/admin/users",
     name: "Usuarios",
     element: Users,
     roles: [ROLE_ADMIN],
     exact: true,
   },
   {
-    path: "admin/users/users",
+    path: "/admin/users/users",
     name: "Todos",
     element: Users,
     roles: [ROLE_ADMIN],
   },
   {
-    path: "admin/users/students",
+    path: "/admin/users/students",
     name: "Estudiantes",
     element: Students,
     roles: [ROLE_ADMIN],
   },
   {
-    path: "admin/users/professors",
+    path: "/admin/users/professors",
     name: "Profesores",
     element: Professors,
     roles: [ROLE_ADMIN],
   },
 
   {
-    path: "admin/academic",
+    path: "/admin/academic",
     name: "P. Academico",
     element: Careers,
     roles: [ROLE_ADMIN],
     exact: true,
   },
   {
-    path: "admin/academic/careers",
+    path: "/admin/academic/careers",
     name: "Carreras",
     element: Careers,
     roles: [ROLE_ADMIN],
   },
   {
-    path: "admin/academic/cycles",
+    path: "/admin/academic/cycles",
     name: "Ciclos",
     element: Cycles,
     roles: [ROLE_ADMIN],
   },
   {
-    path: "admin/academic/courses",
+    path: "/admin/academic/courses",
     name: "Cursos",
     element: Courses,
     roles: [ROLE_ADMIN],
   },
   {
-    path: "admin/academic/classes",
+    path: "/admin/academic/classes",
     name: "Clases",
     element: Classes,
     roles: [ROLE_ADMIN],
   },
   {
-    path: "admin/academic/schedules",
+    path: "/admin/academic/schedules",
     name: "Horarios",
     element: Schedules,
     roles: [ROLE_ADMIN],
@@ -116,6 +119,12 @@ const routes = [
     path: "/professor/classes/yours",
     name: "Tus clases",
     element: PClasses,
+    roles: [ROLE_PROFESSOR],
+  },
+  {
+    path: "/professor/classes/others",
+    name: "Otras clases",
+    element: POtherClasses,
     roles: [ROLE_PROFESSOR],
   },
 
