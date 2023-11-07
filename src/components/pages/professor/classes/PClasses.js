@@ -7,8 +7,13 @@ import {
   CButton,
   CCardTitle,
   CCardFooter,
+  CTooltip,
 } from "@coreui/react";
-import { faUserFriends } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCalendarAlt,
+  faQuestion,
+  faUserFriends,
+} from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FAIcon } from "src/assets/icon/FAIcon";
@@ -27,7 +32,7 @@ const PClasses = () => {
     <>
       <CCard className="mb-4">
         <CCardHeader>
-          <CCardTitle className="fs-4">Clases que enseñas</CCardTitle>
+          <CCardTitle className="fs-4 m-0">Clases que enseñas</CCardTitle>
         </CCardHeader>
         <CCardBody className="pt-1">
           <CRow>
@@ -38,9 +43,15 @@ const PClasses = () => {
                   <CCol md={6} lg={4} key={c.id} className="d-flex my-2">
                     <CCard className="flex-grow-1 overflow-hidden">
                       <div className="card-patron">
-                        <div className="card-patron-success">
-                          <CCardHeader className="bg-greener">
-                            <CCardTitle className="fs-5 text-white">
+                        <div className="card-patron-success d-flex flex-column">
+                          <CCardHeader
+                            className="bg-patron-success"
+                            style={{ height: 100, overflow: "hidden" }}
+                          >
+                            <CCardTitle
+                              className="p-1 text-white"
+                              style={{ fontSize: 18 }}
+                            >
                               {c.career?.name}
                             </CCardTitle>
                           </CCardHeader>
@@ -54,12 +65,52 @@ const PClasses = () => {
                                 <span className="fw-bold">Curso: </span>
                                 {c.course.name}
                               </p>
+                              <p className="text-end m-0">
+                                <CTooltip
+                                  placement="left"
+                                  content={
+                                    c.status
+                                      ? "Esta clase está activa"
+                                      : "Esta clase está inactiva"
+                                  }
+                                  style={
+                                    c.status
+                                      ? {
+                                          "--cui-tooltip-bg":
+                                            "var(--cui-success)",
+                                        }
+                                      : {
+                                          "--cui-tooltip-bg":
+                                            "var(--cui-danger)",
+                                        }
+                                  }
+                                >
+                                  <span
+                                    className={`${
+                                      c.status ? "bg-success" : "bg-danger"
+                                    } px-1 rounded`}
+                                  >
+                                    <FAIcon
+                                      customClass="icon"
+                                      icon={faQuestion}
+                                    />
+                                  </span>
+                                </CTooltip>
+                              </p>
                             </div>
                           </CCardBody>
                           <CCardFooter className="text-end">
-                            <CButton color="warning">
-                              Estudiantes{" "}
-                              <FAIcon customClass="icon" icon={faUserFriends} />
+                            <CButton
+                              color="light"
+                              style={{ marginRight: 10 }}
+                              title="Ver horario"
+                            >
+                              <FAIcon customClass="icon" icon={faCalendarAlt} />{" "}
+                              Horario
+                            </CButton>
+                            <CButton color="warning" title="Ver alumnos">
+                              <FAIcon customClass="icon" icon={faUserFriends} />{" "}
+                              Alumnos
                             </CButton>
                           </CCardFooter>
                         </div>
