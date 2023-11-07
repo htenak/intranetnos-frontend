@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   classesProfessor: null,
+  otherClassesProfessors: null,
+  schedulesByClass: null,
   classProfessorErrorMessage: undefined,
   classProfessorSuccessMessage: undefined,
 };
@@ -20,6 +22,13 @@ export const classesProfessorSlice = createSlice({
     setClassProfessorErrorMessage: (state, { payload }) => {
       state.classProfessorErrorMessage = payload;
     },
+
+    setOtherClassesProfessors: (state, { payload }) => {
+      state.otherClassesProfessors = payload.sort((a, b) => b.id - a.id);
+    },
+    setSchedulesByClass: (state, { payload }) => {
+      state.schedulesByClass = payload;
+    },
   },
 });
 
@@ -28,4 +37,6 @@ export const {
   setClassesProfessor,
   resetClassProfessor,
   setClassProfessorErrorMessage,
+  setOtherClassesProfessors,
+  setSchedulesByClass,
 } = classesProfessorSlice.actions;
