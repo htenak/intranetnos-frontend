@@ -4,6 +4,10 @@ import {
   onCareerCrud,
   resetCareerCrud,
   setCareerErrorMessage,
+  setClassrooms,
+  onClassroomCrud,
+  resetClassroomCrud,
+  setClassroomErrorMessage,
   setCycles,
   onCycleCrud,
   resetCycleCrud,
@@ -103,6 +107,96 @@ export const deleteCareer = (form) => {
       dispatch(setCareerErrorMessage(error.response.data?.message));
       setTimeout(() => {
         dispatch(resetCareerCrud());
+      }, 50);
+    }
+  };
+};
+
+// classrooms:
+
+export const getAllClassrooms = () => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.get(`/academic/classrooms`);
+      dispatch(setClassrooms(data.data));
+    } catch (error) {
+      dispatch(setClassroomErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetClassroomCrud());
+      }, 50);
+    }
+  };
+};
+
+export const saveClassroom = (form) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.post(`/academic/classrooms`, form);
+      dispatch(
+        onClassroomCrud({
+          crud: "CREATED",
+          classroom: data.data,
+          message: data.message,
+        })
+      );
+      setTimeout(() => {
+        dispatch(resetClassroomCrud());
+      }, 50);
+    } catch (error) {
+      dispatch(setClassroomErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetClassroomCrud());
+      }, 50);
+    }
+  };
+};
+
+export const updateClassroom = (form) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.put(
+        `/academic/classrooms/${form.id}`,
+        form
+      );
+      dispatch(
+        onClassroomCrud({
+          crud: "UPDATED",
+          classroom: data.data,
+          message: data.message,
+        })
+      );
+      setTimeout(() => {
+        dispatch(resetClassroomCrud());
+      }, 50);
+    } catch (error) {
+      dispatch(setClassroomErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetClassroomCrud());
+      }, 50);
+    }
+  };
+};
+
+export const deleteClassroom = (form) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.delete(
+        `/academic/classrooms/${form.id}`
+      );
+      dispatch(
+        onClassroomCrud({
+          crud: "DELETED",
+          classroom: form,
+          message: data.message,
+        })
+      );
+      setTimeout(() => {
+        dispatch(resetClassroomCrud());
+      }, 50);
+    } catch (error) {
+      dispatch(setClassroomErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetClassroomCrud());
       }, 50);
     }
   };
