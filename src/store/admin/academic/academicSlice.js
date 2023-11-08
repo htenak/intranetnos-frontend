@@ -7,6 +7,12 @@ const initialState = {
   careerErrorMessage: undefined,
   careerSuccessMessage: undefined,
 
+  classrooms: null,
+  classroom: null,
+  statusDataClassroom: null, // 'CREATED' , 'UPDATED', 'DELETED'
+  classroomErrorMessage: undefined,
+  classroomSuccessMessage: undefined,
+
   cycles: null,
   cycle: null,
   statusDataCycle: null, // 'CREATED' , 'UPDATED', 'DELETED'
@@ -65,8 +71,44 @@ export const academicSlice = createSlice({
       state.careerErrorMessage = undefined;
       state.careerSuccessMessage = undefined;
     },
-    setCareerErrorMessage: (state, action) => {
-      state.careerErrorMessage = action.payload;
+    setClassroomErrorMessage: (state, { payload }) => {
+      state.careerErrorMessage = payload;
+    },
+
+    // classrooms:
+    setClassrooms: (state, action) => {
+      state.classrooms = action.payload;
+    },
+    onClassroomCrud: (state, { payload }) => {
+      state.statusDataClassroom = payload.crud;
+      state.classroom = payload.classroom;
+      state.classroomSuccessMessage = payload.message;
+
+      if (payload.crud === "CREATED") {
+        state.classrooms.push(payload.classroom);
+      }
+      if (payload.crud === "UPDATED") {
+        state.classrooms = state.classrooms.map((element) => {
+          if (parseInt(element.id) === parseInt(payload.classroom.id)) {
+            return payload.classroom;
+          }
+          return element;
+        });
+      }
+      if (payload.crud === "DELETED") {
+        state.classrooms = state.classrooms.filter(
+          (data) => parseInt(data.id) !== parseInt(payload.classroom.id)
+        );
+      }
+    },
+    resetClassroomCrud: (state) => {
+      state.classroom = null;
+      state.statusDataClassroom = null;
+      state.classroomErrorMessage = undefined;
+      state.classroomSuccessMessage = undefined;
+    },
+    setClassroomErrorMessage: (state, { payload }) => {
+      state.classroomErrorMessage = payload;
     },
 
     // cycles:
@@ -137,8 +179,8 @@ export const academicSlice = createSlice({
       state.courseTypeErrorMessage = undefined;
       state.courseTypeSuccessMessage = undefined;
     },
-    setCourseTypeErrorMessage: (state, action) => {
-      state.courseTypeErrorMessage = action.payload;
+    setCourseTypeErrorMessage: (state, { payload }) => {
+      state.courseTypeErrorMessage = payload;
     },
 
     // courses:
@@ -176,8 +218,8 @@ export const academicSlice = createSlice({
       state.courseErrorMessage = undefined;
       state.courseSuccessMessage = undefined;
     },
-    setCourseErrorMessage: (state, action) => {
-      state.courseErrorMessage = action.payload;
+    setCourseErrorMessage: (state, { payload }) => {
+      state.courseErrorMessage = payload;
     },
 
     // totals
