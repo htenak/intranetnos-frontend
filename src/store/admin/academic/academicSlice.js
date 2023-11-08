@@ -236,6 +236,11 @@ export const {
   resetCareerCrud,
   setCareerErrorMessage,
 
+  setClassrooms,
+  onClassroomCrud,
+  resetClassroomCrud,
+  setClassroomErrorMessage,
+
   setCycles,
   onCycleCrud,
   resetCycleCrud,
