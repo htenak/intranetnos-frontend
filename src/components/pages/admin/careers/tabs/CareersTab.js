@@ -43,6 +43,8 @@ export const CareersTab = () => {
       if (careers.length !== 0) {
         const data = [...careers];
         setRows(data.sort((a, b) => b.id - a.id));
+      } else {
+        setRows([]);
       }
     }
   }, [careers]);

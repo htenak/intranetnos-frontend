@@ -22,6 +22,7 @@ import {
   saveCourse,
   updateCourse,
 } from "src/store";
+import { ObligatoryField } from "src/components/pages/customComponents";
 
 export const AddCourseModal = ({
   statusAddCourseModal,
@@ -133,7 +134,7 @@ export const AddCourseModal = ({
           <CRow>
             <CCol xs={5} className="mt-2">
               <CFormLabel className="mb-1">
-                Abreviación <span className="text-danger">*</span>
+                Abreviación <ObligatoryField />
               </CFormLabel>
               <CFormInput
                 name="abbreviation"
@@ -144,7 +145,7 @@ export const AddCourseModal = ({
             </CCol>
             <CCol className="mt-2">
               <CFormLabel className="mb-1">
-                Tipo de curso <span className="text-danger">*</span>
+                Tipo de curso <ObligatoryField />
               </CFormLabel>
               <CFormSelect
                 value={values.courseTypeId || 0}
@@ -167,7 +168,7 @@ export const AddCourseModal = ({
             </CCol>
             <CCol xs={12} className="mt-2">
               <CFormLabel className="mb-1">
-                Nombre <span className="text-danger">*</span>
+                Nombre <ObligatoryField />
               </CFormLabel>
               <CFormInput
                 name="name"
@@ -198,7 +199,7 @@ export const AddCourseModal = ({
                 disabled={values.careerId === null}
               >
                 <option value={0} disabled>
-                  Seleccionar carrera *
+                  Seleccionar carrera <ObligatoryField />
                 </option>
                 {careers && careers.length !== 0 ? (
                   careers.map((row) => (

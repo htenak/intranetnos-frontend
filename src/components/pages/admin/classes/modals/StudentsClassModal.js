@@ -239,9 +239,7 @@ export const StudentsClassModal = ({
         <CRow className="mb-3">
           <CCol xs={12}>
             <CAlert color="primary" visible={true} className="text-center">
-              <span className="d-block">
-                {dataClass?.career?.name?.toUpperCase()}
-              </span>
+              <span className="d-block">{dataClass?.career?.name}</span>
               {dataClass?.denomination || ""}
             </CAlert>
           </CCol>

@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { FAIcon } from "src/assets/icon/FAIcon";
+import { ObligatoryField } from "src/components/pages/customComponents";
 import { saveProfessor, updateProfessor } from "src/store";
 
 export const AddProfessor = ({
@@ -146,7 +147,7 @@ export const AddProfessor = ({
                 disabled
               >
                 <option value={0} disabled>
-                  Tipo de usuario *
+                  Tipo de usuario <ObligatoryField />
                 </option>
                 {roles
                   ?.filter((role) => role.name !== "user")
@@ -166,7 +167,7 @@ export const AddProfessor = ({
           <CRow className="mt-2">
             <CCol xs={12} sm={6} lg={4} className="mt-2">
               <CFormLabel className="mb-1">
-                Nombres <span className="text-danger">*</span>
+                Nombres <ObligatoryField />
               </CFormLabel>
               <CFormInput
                 name="name"
@@ -177,7 +178,7 @@ export const AddProfessor = ({
             </CCol>
             <CCol xs={12} sm={6} lg={4} className="mt-2">
               <CFormLabel className="mb-1">
-                Apellido paterno <span className="text-danger">*</span>
+                Apellido paterno <ObligatoryField />
               </CFormLabel>
               <CFormInput
                 name="lastName1"
@@ -188,7 +189,7 @@ export const AddProfessor = ({
             </CCol>
             <CCol xs={12} sm={6} lg={4} className="mt-2">
               <CFormLabel className="mb-1">
-                Apellido materno <span className="text-danger">*</span>
+                Apellido materno <ObligatoryField />
               </CFormLabel>
               <CFormInput
                 name="lastName2"
@@ -199,7 +200,7 @@ export const AddProfessor = ({
             </CCol>
             <CCol xs={12} sm={6} lg={3} className="mt-2">
               <CFormLabel className="mb-1">
-                DNI <span className="text-danger">*</span>
+                DNI <ObligatoryField />
               </CFormLabel>
               <CFormInput
                 type="number"
@@ -211,8 +212,7 @@ export const AddProfessor = ({
             </CCol>
             <CCol xs={12} sm={6} lg={6} className="mt-2">
               <CFormLabel className="mb-1">
-                Correo electrónico{" "}
-                {values.email && <span className="text-danger">*</span>}
+                Correo electrónico {values.email && <ObligatoryField />}
               </CFormLabel>
               <CFormInput
                 type="email"
@@ -224,7 +224,7 @@ export const AddProfessor = ({
             </CCol>
             <CCol xs={12} sm={6} lg={3} className="mt-2">
               <CFormLabel className="mb-1">
-                Celular <span className="text-danger">*</span>
+                Celular <ObligatoryField />
               </CFormLabel>
               <CFormInput
                 type="number"

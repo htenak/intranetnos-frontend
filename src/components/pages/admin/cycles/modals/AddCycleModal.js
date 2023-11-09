@@ -15,6 +15,7 @@ import {
 } from "@coreui/react";
 import { toast } from "react-toastify";
 import { saveCycle, updateCycle } from "src/store";
+import { ObligatoryField } from "src/components/pages/customComponents";
 
 export const AddCycleModal = ({
   statusAddCycleModal,
@@ -97,7 +98,7 @@ export const AddCycleModal = ({
           <CRow>
             <CCol xs={12} sm={4} className="mt-2">
               <CFormLabel className="mb-1">
-                Abreviatura <span className="text-danger">*</span>
+                Abreviatura <ObligatoryField />
               </CFormLabel>
               <CFormInput
                 name="abbreviation"
@@ -108,7 +109,7 @@ export const AddCycleModal = ({
             </CCol>
             <CCol xs={12} sm={4} className="mt-2">
               <CFormLabel className="mb-1">
-                Fecha de inicio <span className="text-danger">*</span>
+                Fecha de inicio <ObligatoryField />
               </CFormLabel>
               <CFormInput
                 type="date"
@@ -119,7 +120,7 @@ export const AddCycleModal = ({
             </CCol>
             <CCol xs={12} sm={4} className="mt-2">
               <CFormLabel className="mb-1">
-                Fecha de cierre <span className="text-danger">*</span>
+                Fecha de cierre <ObligatoryField />
               </CFormLabel>
               <CFormInput
                 type="date"
@@ -130,7 +131,7 @@ export const AddCycleModal = ({
             </CCol>
             <CCol xs={12} className="mt-2">
               <CFormLabel className="mb-1">
-                Descripción <span className="text-danger">*</span>
+                Descripción <ObligatoryField />
               </CFormLabel>
               <textarea
                 className="form-control"

@@ -15,6 +15,7 @@ import {
 } from "@coreui/react";
 import { toast } from "react-toastify";
 import { saveCareer, updateCareer } from "src/store";
+import { ObligatoryField } from "src/components/pages/customComponents";
 
 export const AddCareerModal = ({
   statusAddCareerModal,
@@ -91,7 +92,7 @@ export const AddCareerModal = ({
           <CRow>
             <CCol xs={12} className="mt-2">
               <CFormLabel className="mb-1">
-                Nombre <span className="text-danger">*</span>
+                Nombre <ObligatoryField />
               </CFormLabel>
               <CFormInput
                 name="name"
@@ -102,8 +103,7 @@ export const AddCareerModal = ({
             </CCol>
             <CCol xs={12} className="mt-2">
               <CFormLabel className="mb-1">
-                Descripción{" "}
-                {values.description && <span className="text-danger">*</span>}
+                Descripción {values.description && <ObligatoryField />}
               </CFormLabel>
               <textarea
                 className="form-control"

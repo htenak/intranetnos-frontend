@@ -17,7 +17,7 @@ import {
 } from "@coreui/react";
 import { toast } from "react-toastify";
 import { getAllClasses, saveSchedule, updateSchedule } from "src/store";
-import { SelectSearch } from "../../../customComponents";
+import { ObligatoryField, SelectSearch } from "../../../customComponents";
 import { faBookOpen, faCalendar } from "@fortawesome/free-solid-svg-icons";
 
 export const AddScheduleModal = ({
@@ -179,14 +179,16 @@ export const AddScheduleModal = ({
             <CCol xs={12}>
               {careerNameTab ? (
                 <CAlert color="success" visible={true} className="text-center">
-                  {careerNameTab?.toUpperCase()}
+                  {careerNameTab}
                 </CAlert>
               ) : (
                 <></>
               )}
             </CCol>
             <CCol xs={12} lg={4}>
-              <CFormLabel className="mb-1">Filtrar clases por ciclo</CFormLabel>
+              <CFormLabel className="mb-1">
+                <i>Filtrar clases por ciclo</i>
+              </CFormLabel>
               <CFormSelect
                 value={cycleId || 0}
                 onChange={handleInputChange}
@@ -208,9 +210,9 @@ export const AddScheduleModal = ({
                 )}
               </CFormSelect>
             </CCol>
-            <CCol xs={12} className="mt-2">
+            <CCol xs={12} className="mt-3">
               <CFormLabel className="mb-1">
-                Clase <span className="text-danger">*</span>
+                Clase <ObligatoryField />
               </CFormLabel>
               <SelectSearch
                 value={
@@ -229,7 +231,7 @@ export const AddScheduleModal = ({
             </CCol>
             <CCol xs={12} lg={4} className="mt-2">
               <CFormLabel className="mb-1">
-                Día <span className="text-danger">*</span>
+                Día <ObligatoryField />
               </CFormLabel>
               <SelectSearch
                 value={
@@ -248,7 +250,7 @@ export const AddScheduleModal = ({
             </CCol>
             <CCol xs={6} lg={4} className="mt-2">
               <CFormLabel className="mb-1">
-                Hora de inicio <span className="text-danger">*</span>
+                Hora de inicio <ObligatoryField />
               </CFormLabel>
               <CFormInput
                 type="time"
@@ -259,7 +261,7 @@ export const AddScheduleModal = ({
             </CCol>
             <CCol xs={6} lg={4} className="mt-2">
               <CFormLabel className="mb-1">
-                Hora de cierre <span className="text-danger">*</span>
+                Hora de cierre <ObligatoryField />
               </CFormLabel>
               <CFormInput
                 type="time"

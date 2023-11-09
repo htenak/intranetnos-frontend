@@ -22,7 +22,7 @@ import {
   saveClass,
   updateClass,
 } from "src/store";
-import { SelectSearch } from "../../../customComponents";
+import { ObligatoryField, SelectSearch } from "../../../customComponents";
 import {
   faBookReader,
   faChalkboardTeacher,
@@ -260,7 +260,7 @@ export const AddClassModal = ({
           <CRow>
             <CCol sm={3} className="mt-2">
               <CFormLabel className="mb-1">
-                Ciclo <span className="text-danger">*</span>
+                Ciclo <ObligatoryField />
               </CFormLabel>
               <SelectSearch
                 value={
@@ -279,7 +279,7 @@ export const AddClassModal = ({
             </CCol>
             <CCol sm={9} className="mt-2">
               <CFormLabel className="mb-1">
-                Profesor(a) <span className="text-danger">*</span>
+                {"Profesor(a)"} <ObligatoryField />
               </CFormLabel>
               <SelectSearch
                 value={
@@ -298,7 +298,7 @@ export const AddClassModal = ({
             </CCol>
             <CCol xs={12} className="mt-2">
               <CFormLabel className="mb-1">
-                Carrera <span className="text-danger">*</span>
+                Carrera <ObligatoryField />
               </CFormLabel>
               <SelectSearch
                 value={
@@ -317,7 +317,7 @@ export const AddClassModal = ({
             </CCol>
             <CCol xs={12} className="mt-2">
               <CFormLabel className="mb-1">
-                Curso <span className="text-danger">*</span>
+                Curso <ObligatoryField />
               </CFormLabel>
               <SelectSearch
                 value={

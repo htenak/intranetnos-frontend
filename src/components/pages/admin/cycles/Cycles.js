@@ -32,7 +32,7 @@ const Cycles = () => {
     <>
       <CCard className="mb-4">
         <CCardBody>
-          <h1 className="fs-4 mb-3">Ciclos / Periodos</h1>
+          <h1 className="fs-4 mb-3">Ciclos</h1>
           <CRow>
             <CCol xs>
               <CCard>

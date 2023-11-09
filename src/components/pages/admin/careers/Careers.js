@@ -10,7 +10,7 @@ import {
   CNavLink,
   CRow,
 } from "@coreui/react";
-import { CareersTab } from "./tabs";
+import { CareersTab, ClassroomsTab } from "./tabs";
 import { messageHandler } from "src/components/helpers/";
 
 const Careers = () => {
@@ -36,7 +36,7 @@ const Careers = () => {
     <>
       <CCard className="mb-4">
         <CCardBody>
-          <h1 className="fs-4 mb-3">Carreras / Profesiones</h1>
+          <h1 className="fs-4 mb-3">Carreras</h1>
           <CRow>
             <CCol xs>
               <CCard>
@@ -57,8 +57,21 @@ const Careers = () => {
                         Carreras
                       </CNavLink>
                     </CNavItem>
+                    <CNavItem>
+                      <CNavLink
+                        role="button"
+                        onClick={() => setTab("classrooms")}
+                        active={tab === "classrooms"}
+                        className={
+                          tab === "classrooms" ? "text-success" : "text-dark"
+                        }
+                      >
+                        Aulas
+                      </CNavLink>
+                    </CNavItem>
                   </CNav>
                   {tab === "careers" ? <CareersTab /> : <></>}
+                  {tab === "classrooms" ? <ClassroomsTab /> : <></>}
                 </CCardBody>
               </CCard>
             </CCol>
