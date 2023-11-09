@@ -132,7 +132,7 @@ export const MyPhoto = () => {
           <CCol className="text-center">
             <>
               <p>
-                <i>.jpg, .jpeg o .png</i>
+                <i>.jpg, .jpeg, .png o .webp</i>
               </p>
               <CAlert color="success" visible={preview}>
                 Previsualización
@@ -145,7 +145,7 @@ export const MyPhoto = () => {
                 ref={fileInputRef}
                 onChange={onFileInputChange}
                 name="file"
-                accept="image/png, .jpeg, .jpg"
+                accept="image/png, .jpeg, .jpg, .webp"
               />
               <CButton
                 color="danger"
