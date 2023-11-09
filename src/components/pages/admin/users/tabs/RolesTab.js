@@ -90,12 +90,8 @@ export const RolesTab = () => {
       renderCell: ({ row }) => {
         return (
           <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
-              style={{ cursor: "default" }}
-              color={row.name !== "user" ? "success" : "danger"}
-              className="text-white"
-            >
-              {row.name !== "user" ? "En uso" : "Sin usar"}
+            <CButton disabled color={"success"} className="text-white">
+              {"En uso"}
             </CButton>
           </div>
         );
