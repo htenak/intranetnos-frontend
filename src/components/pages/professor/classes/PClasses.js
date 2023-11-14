@@ -35,6 +35,7 @@ const PClasses = () => {
           <CCardTitle className="fs-4 m-0">Clases que enseñas</CCardTitle>
         </CCardHeader>
         <CCardBody className="pt-1">
+          {/* POR HACER: agregar para filtrar por días */}
           <CRow>
             <Loader show={!classesProfessor} center={true} />
             {classesProfessor && classesProfessor.length !== 0 && (

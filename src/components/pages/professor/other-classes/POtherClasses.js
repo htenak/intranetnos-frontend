@@ -7,7 +7,6 @@ import {
   CCardHeader,
   CCardTitle,
   CCol,
-  CPopover,
   CRow,
   CTooltip,
 } from "@coreui/react";
@@ -22,6 +21,7 @@ import { intranetAvatarApi } from "src/api";
 import { FAIcon } from "src/assets/icon/FAIcon";
 import imgUser from "src/assets/images/user.png";
 import Loader from "src/components/layout/loader/Loader";
+import { PhotoModal } from "src/components/pages/customComponents";
 import { getAllOtherClassesProfessor, getSchedulesByClass } from "src/store";
 
 const POtherClasses = () => {
@@ -29,6 +29,10 @@ const POtherClasses = () => {
   const { otherClassesProfessors } = useSelector(
     (state) => state.classesProfessor
   );
+
+  const [statusPhotoModal, setStatusPhotoModal] = useState(false);
+  const [photoNameModal, setPhotoNameModal] = useState(null);
+  const [userNameModal, setUserNameModal] = useState(null);
 
   useEffect(() => {
     dispatch(getAllOtherClassesProfessor());
@@ -38,6 +42,12 @@ const POtherClasses = () => {
     dispatch(getSchedulesByClass(classId));
   };
 
+  const showPhotoModal = (photoName, userName) => {
+    setPhotoNameModal(photoName);
+    setUserNameModal(userName);
+    setStatusPhotoModal(true);
+  };
+
   return (
     <>
       <CCard className="mb-4">
@@ -45,6 +55,7 @@ const POtherClasses = () => {
           <CCardTitle className="fs-4 m-0">Otras clases</CCardTitle>
         </CCardHeader>
         <CCardBody className="pt-1">
+          {/* POR HACER: agregar para filtrar por ciclos y carreras */}
           <CRow>
             <Loader show={!otherClassesProfessors} center={true} />
             {otherClassesProfessors && otherClassesProfessors.length !== 0 && (
@@ -75,6 +86,12 @@ const POtherClasses = () => {
                                 style={{ marginLeft: "72%" }}
                                 className="position-absolute border border-dark bg-light"
                                 size="xl"
+                                onClick={() =>
+                                  showPhotoModal(
+                                    c.professor.filename,
+                                    `${c.professor.name} ${c.professor.lastName1} ${c.professor.lastName2}`
+                                  )
+                                }
                                 src={
                                   c.professor.filename
                                     ? `${intranetAvatarApi}/${c.professor.filename}`
@@ -152,6 +169,12 @@ const POtherClasses = () => {
           </CRow>
         </CCardBody>
       </CCard>
+      <PhotoModal
+        photoName={photoNameModal}
+        userName={userNameModal}
+        statusM={statusPhotoModal}
+        hideM={() => setStatusPhotoModal(false)}
+      />
     </>
   );
 };
