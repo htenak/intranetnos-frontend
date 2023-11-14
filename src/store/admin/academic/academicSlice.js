@@ -13,6 +13,13 @@ const initialState = {
   classroomErrorMessage: undefined,
   classroomSuccessMessage: undefined,
 
+  classroomsCareers: null,
+  classroomsCareerByCareerId: null, // para aula de carreras que se obtienen por careerId
+  classroomCareer: null,
+  statusDataClassroomCareer: null, // 'CREATED' , 'UPDATED', 'DELETED'
+  classroomCareerErrorMessage: undefined,
+  classroomCareerSuccessMessage: undefined,
+
   cycles: null,
   cycle: null,
   statusDataCycle: null, // 'CREATED' , 'UPDATED', 'DELETED'
@@ -71,7 +78,7 @@ export const academicSlice = createSlice({
       state.careerErrorMessage = undefined;
       state.careerSuccessMessage = undefined;
     },
-    setClassroomErrorMessage: (state, { payload }) => {
+    setCareerErrorMessage: (state, { payload }) => {
       state.careerErrorMessage = payload;
     },
 
@@ -109,6 +116,48 @@ export const academicSlice = createSlice({
     },
     setClassroomErrorMessage: (state, { payload }) => {
       state.classroomErrorMessage = payload;
+    },
+
+    // classrooms careers:
+    setClassroomsCareers: (state, action) => {
+      state.classroomsCareers = action.payload;
+    },
+    setClassroomsCareerByCareerId: (state, { payload }) => {
+      state.classroomsCareerByCareerId = payload;
+    },
+    onClassroomCareerCrud: (state, { payload }) => {
+      state.statusDataClassroomCareer = payload.crud;
+      state.classroomCareer = payload.classroomCareer;
+      state.classroomCareerSuccessMessage = payload.message;
+
+      if (payload.crud === "CREATED") {
+        state.classroomsCareerByCareerId.push(payload.classroomCareer);
+      }
+      if (payload.crud === "UPDATED") {
+        state.classroomsCareerByCareerId = state.classroomsCareerByCareerId.map(
+          (element) => {
+            if (parseInt(element.id) === parseInt(payload.classroomCareer.id)) {
+              return payload.classroomCareer;
+            }
+            return element;
+          }
+        );
+      }
+      if (payload.crud === "DELETED") {
+        state.classroomsCareerByCareerId =
+          state.classroomsCareerByCareerId.filter(
+            (data) => parseInt(data.id) !== parseInt(payload.classroomCareer.id)
+          );
+      }
+    },
+    resetClassroomCareerCrud: (state) => {
+      state.classroomCareer = null;
+      state.statusDataClassroomCareer = null;
+      state.classroomCareerErrorMessage = undefined;
+      state.classroomCareerSuccessMessage = undefined;
+    },
+    setClassroomCareerErrorMessage: (state, { payload }) => {
+      state.classroomCareerErrorMessage = payload;
     },
 
     // cycles:
@@ -240,6 +289,12 @@ export const {
   onClassroomCrud,
   resetClassroomCrud,
   setClassroomErrorMessage,
+
+  setClassroomsCareerByCareerId,
+  setClassroomsCareers,
+  onClassroomCareerCrud,
+  resetClassroomCareerCrud,
+  setClassroomCareerErrorMessage,
 
   setCycles,
   onCycleCrud,

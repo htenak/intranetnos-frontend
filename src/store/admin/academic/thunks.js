@@ -8,6 +8,10 @@ import {
   onClassroomCrud,
   resetClassroomCrud,
   setClassroomErrorMessage,
+  setClassroomsCareers,
+  onClassroomCareerCrud,
+  resetClassroomCareerCrud,
+  setClassroomCareerErrorMessage,
   setCycles,
   onCycleCrud,
   resetCycleCrud,
@@ -22,6 +26,7 @@ import {
   setCourseErrorMessage,
   setTotals,
   setCoursesByCycle,
+  setClassroomsCareerByCareerId,
 } from "../academic";
 
 // careers:
@@ -197,6 +202,115 @@ export const deleteClassroom = (form) => {
       dispatch(setClassroomErrorMessage(error.response.data?.message));
       setTimeout(() => {
         dispatch(resetClassroomCrud());
+      }, 50);
+    }
+  };
+};
+
+// classrooms careers
+
+export const getAllClassroomsCareers = () => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.get(`/academic/classrooms-careers`);
+      dispatch(setClassroomsCareers(data.data));
+    } catch (error) {
+      dispatch(setClassroomCareerErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetClassroomCareerCrud());
+      }, 50);
+    }
+  };
+};
+
+export const getAllClassroomsCareerByCareerId = (careerId) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.get(
+        `/academic/classrooms-careers/careerId/${careerId}`
+      );
+      dispatch(setClassroomsCareerByCareerId(data.data));
+    } catch (error) {
+      dispatch(setClassroomCareerErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetClassroomCareerCrud());
+      }, 50);
+    }
+  };
+};
+
+export const saveClassroomCareer = (form) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.post(
+        `/academic/classrooms-careers`,
+        form
+      );
+      dispatch(
+        onClassroomCareerCrud({
+          crud: "CREATED",
+          classroomCareer: data.data,
+          message: data.message,
+        })
+      );
+      setTimeout(() => {
+        dispatch(resetClassroomCareerCrud());
+      }, 50);
+    } catch (error) {
+      dispatch(setClassroomCareerErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetClassroomCareerCrud());
+      }, 50);
+    }
+  };
+};
+
+export const updateClassroomCareer = (form) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.put(
+        `/academic/classrooms-careers/${form.id}`,
+        form
+      );
+      dispatch(
+        onClassroomCareerCrud({
+          crud: "UPDATED",
+          classroomCareer: data.data,
+          message: data.message,
+        })
+      );
+      setTimeout(() => {
+        dispatch(resetClassroomCareerCrud());
+      }, 50);
+    } catch (error) {
+      dispatch(setClassroomCareerErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetClassroomCareerCrud());
+      }, 50);
+    }
+  };
+};
+
+export const deleteClassroomCareer = (form) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.delete(
+        `/academic/classrooms-careers/${form.id}`
+      );
+      dispatch(
+        onClassroomCareerCrud({
+          crud: "DELETED",
+          classroomCareer: form,
+          message: data.message,
+        })
+      );
+      setTimeout(() => {
+        dispatch(resetClassroomCareerCrud());
+      }, 50);
+    } catch (error) {
+      dispatch(setClassroomCareerErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetClassroomCareerCrud());
       }, 50);
     }
   };
