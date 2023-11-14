@@ -147,26 +147,6 @@ const navigation = [
   {
     roles: [ROLE_PROFESSOR, ROLE_USER],
     component: CNavGroup,
-    name: "Actividades",
-    icon: <FAIcon customClass="icon nav-icon" icon={faBoxes} />,
-    items: [
-      {
-        component: CNavItem,
-        name: "Tus actividades",
-        to: "/professor/activities/types",
-        icon: <FAIcon customClass="icon nav-icon-sub" icon={faWindowRestore} />,
-      },
-      {
-        component: CNavItem,
-        name: "Otros",
-        to: "/professor/activities/others",
-        icon: <FAIcon customClass="icon nav-icon-sub" icon={faStream} />,
-      },
-    ],
-  },
-  {
-    roles: [ROLE_PROFESSOR, ROLE_USER],
-    component: CNavGroup,
     name: "Clases",
     icon: <FAIcon customClass="icon nav-icon" icon={faBookOpen} />,
     items: [
@@ -185,6 +165,13 @@ const navigation = [
         icon: <FAIcon customClass="icon nav-icon-sub" icon={faDesktop} />,
       },
     ],
+  },
+  {
+    roles: [ROLE_PROFESSOR, ROLE_USER],
+    component: CNavItem,
+    name: "Tus actividades",
+    to: "/professor/activities",
+    icon: <FAIcon customClass="icon nav-icon" icon={faWindowRestore} />,
   },
   {
     roles: [ROLE_PROFESSOR, ROLE_USER],
