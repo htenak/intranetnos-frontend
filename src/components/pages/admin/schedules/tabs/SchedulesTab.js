@@ -141,7 +141,7 @@ export const SchedulesTab = ({ careerIdTab, careerNameTab }) => {
     {
       key: "endTime",
       name: "Hora de cierre",
-      width: 120,
+      width: 125,
       resizable: true,
     },
     {
