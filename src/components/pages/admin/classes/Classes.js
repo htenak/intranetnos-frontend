@@ -59,6 +59,7 @@ const Classes = () => {
                   Todas las clases
                 </CCardHeader>
                 <CCardBody>
+                  {/* POR HACER: cambiar por tabs de aulas */}
                   <CNav variant="tabs">
                     <CNavItem>
                       <CNavLink

@@ -47,28 +47,20 @@ export const StudentsClassModal = ({
   const [rows, setRows] = useState([]);
   const [searchStudents, setSearchStudents] = useState([]);
 
-  // asigno classId al abrir modal
+  // consulto clases de estudiantes y asigno classId al abrir modal
   useEffect(() => {
     if (statusStudentsClassModal) {
-      if (dataClass?.id) {
+      if (dataClass?.id !== 0) {
+        dispatch(getAllStudentsClassByClassId(dataClass.id));
         setValues({ ...values, classId: dataClass.id });
       }
     }
-  }, [statusStudentsClassModal, values.classId]);
+  }, [statusStudentsClassModal]);
 
   // consulto todos los estudiantes
   useEffect(() => {
     if (statusStudentsClassModal) {
       dispatch(getAllStudents());
-    }
-  }, [statusStudentsClassModal]);
-
-  // consulto estudiantes por classId
-  useEffect(() => {
-    if (statusStudentsClassModal) {
-      if (dataClass?.id !== 0) {
-        dispatch(getAllStudentsClassByClassId(dataClass.id));
-      }
     }
   }, [statusStudentsClassModal]);
 

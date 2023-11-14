@@ -180,6 +180,7 @@ export const ClassesTab = () => {
             Registrar
           </CButton>
         </CCol>
+        {/* POR HACER: agregar select para filtrar por ciclo (u otros) */}
         <CCol sm={9} lg={6} className="mt-2 mt-sm-0">
           <input
             type="search"
