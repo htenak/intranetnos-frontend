@@ -50,6 +50,17 @@ input[type="number"] {
   -moz-appearance: textfield; /* en firefox */
 }
 
+/*
+ * agrega icono a inputs type search
+ */
+input[type="search"] {
+  background-image: url("./assets/images/search.png");
+  background-repeat: no-repeat;
+  background-size: 1.5rem;
+  background-position: 97%;
+  padding-right: 40px;
+}
+
 /* 
  * fuente poppins
 */
