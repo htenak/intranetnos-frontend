@@ -47,6 +47,13 @@ export const ClassroomsTab = () => {
     dispatch(getAllClassrooms());
   }, []);
 
+  // resetea values si se hizo CREATED
+  useEffect(() => {
+    if (statusDataClassroom !== "CREATED") {
+      setValues(initialStateValues);
+    }
+  }, [statusDataClassroom]);
+
   // se asignan datos a un estado local
   useEffect(() => {
     if (classrooms) {
@@ -76,11 +83,16 @@ export const ClassroomsTab = () => {
       return toast.error("N° de aula inválido");
     }
 
-    if (values?.id === 0) {
-      dispatch(saveClassroom(values));
-      setValues(initialStateValues);
+    let mod = values;
+    mod = {
+      ...mod,
+      description: mod.description.toUpperCase(),
+    };
+
+    if (mod?.id === 0) {
+      dispatch(saveClassroom(mod));
     } else {
-      dispatch(updateClassroom(values));
+      dispatch(updateClassroom(mod));
       hideAddClassroom();
     }
   };
@@ -131,13 +143,16 @@ export const ClassroomsTab = () => {
     {
       key: "number",
       name: "N° de aula",
-      width: 150,
+      width: 105,
       resizable: true,
+      renderCell: ({ row }) => {
+        return <div className="text-center">{row.number}</div>;
+      },
     },
     {
       key: "description",
       name: "Descripción",
-      minWidth: 90,
+      minWidth: 130,
       resizable: true,
     },
   ];
@@ -162,8 +177,6 @@ export const ClassroomsTab = () => {
     setValues(initialStateValues);
     setStatusAddClassroom(false);
   };
-
-  console.log(values);
 
   return (
     <>
@@ -201,7 +214,9 @@ export const ClassroomsTab = () => {
       {statusAddClassroom && (
         <CCard className="mb-2">
           <CCardHeader className="bg-success text-white">
-            <CCardTitle className="fs-6 m-0">{"Nueva aula"}</CCardTitle>
+            <CCardTitle className="fs-6 m-0">
+              {values?.id ? "Editar aula" : "Nueva aula"}
+            </CCardTitle>
           </CCardHeader>
           <CCardBody>
             <CForm onSubmit={handleSubmit}>
@@ -239,7 +254,7 @@ export const ClassroomsTab = () => {
                     className="text-white"
                     type="submit"
                   >
-                    Guardar
+                    {values?.id !== 0 ? "Actualizar" : "Guardar"}
                   </CButton>
                 </CCol>
               </CRow>
@@ -263,7 +278,7 @@ export const ClassroomsTab = () => {
                 className="rdg-light"
                 columns={columns}
                 rows={filter(rows) || []}
-                rowHeight={50}
+                rowHeight={60}
                 style={{ height: 450 }}
                 resizable
               />

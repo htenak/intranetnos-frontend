@@ -14,12 +14,21 @@ import { CareersTab, ClassroomsTab } from "./tabs";
 import { messageHandler } from "src/components/helpers/";
 
 const Careers = () => {
-  const { careerSuccessMessage, careerErrorMessage, statusDataCareer } =
-    useSelector((state) => state.academic);
+  const {
+    careerSuccessMessage,
+    careerErrorMessage,
+    statusDataCareer,
+    statusDataClassroom,
+    classroomErrorMessage,
+    classroomSuccessMessage,
+    statusDataClassroomCareer,
+    classroomCareerErrorMessage,
+    classroomCareerSuccessMessage,
+  } = useSelector((state) => state.academic);
 
   const [tab, setTab] = useState("careers");
 
-  // mensajes de las peticiones
+  // mensajes de las peticiones (careers)
   useEffect(() => {
     if (statusDataCareer !== null) {
       messageHandler(
@@ -31,6 +40,32 @@ const Careers = () => {
       messageHandler(careerErrorMessage);
     }
   }, [statusDataCareer, careerErrorMessage]);
+
+  // mensajes de las peticiones (classrooms)
+  useEffect(() => {
+    if (statusDataClassroom !== null) {
+      messageHandler(
+        classroomErrorMessage,
+        classroomSuccessMessage,
+        statusDataClassroom
+      );
+    } else {
+      messageHandler(classroomErrorMessage);
+    }
+  }, [statusDataClassroom, classroomErrorMessage]);
+
+  // mensajes de las peticiones (classrooms careers)
+  useEffect(() => {
+    if (statusDataClassroomCareer !== null) {
+      messageHandler(
+        classroomCareerErrorMessage,
+        classroomCareerSuccessMessage,
+        statusDataClassroomCareer
+      );
+    } else {
+      messageHandler(classroomCareerErrorMessage);
+    }
+  }, [statusDataClassroomCareer, classroomCareerErrorMessage]);
 
   return (
     <>

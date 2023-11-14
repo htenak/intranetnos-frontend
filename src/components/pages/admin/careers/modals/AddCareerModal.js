@@ -62,10 +62,16 @@ export const AddCareerModal = ({
       return toast.error("Descripción inválida");
     }
 
-    if (parseInt(values?.id) !== 0) {
-      dispatch(updateCareer(values));
+    let mod = values;
+    mod = {
+      ...mod,
+      name: mod.name?.toUpperCase(),
+    };
+
+    if (parseInt(mod?.id) !== 0) {
+      dispatch(updateCareer(mod));
     } else {
-      dispatch(saveCareer(values));
+      dispatch(saveCareer(mod));
     }
   };
 

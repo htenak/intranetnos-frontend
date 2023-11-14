@@ -1,15 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCareers } from "src/store";
+import {
+  getAllCareers,
+  getAllClassrooms,
+  getAllClassroomsCareers,
+  setClassroomsCareerByCareerId,
+} from "src/store";
 
 import { CButton, CCol, CRow } from "@coreui/react";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faSitemap,
+  faStore,
+  faThLarge,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { FAIcon } from "src/assets/icon/FAIcon";
 import DataGrid from "react-data-grid";
 import Loader from "src/components/layout/loader/Loader";
 
 import {
   AddCareerModal,
+  ClassroomsCareerModal,
   CoursesCareerModal,
   DeleteCareerModal,
 } from "../modals";
@@ -20,6 +32,7 @@ export const CareersTab = () => {
   const [rows, setRows] = useState([]);
   const [search, setSearch] = useState("");
   const [statusAddCareerModal, setStatusAddCareerModal] = useState(false);
+  const [statusCCModal, setStatusCCModal] = useState(false);
   const [statusDeleteCareerModal, setStatusDeleteCareerModal] = useState(false);
   const [statusCoursesCareerModal, setStatusCoursesCareerModal] =
     useState(false);
@@ -28,6 +41,8 @@ export const CareersTab = () => {
   // se consultan datos al abrir
   useEffect(() => {
     dispatch(getAllCareers());
+    dispatch(getAllClassrooms());
+    dispatch(getAllClassroomsCareers());
   }, []);
 
   // se cierra modal si hay crud
@@ -55,11 +70,15 @@ export const CareersTab = () => {
       key: "actions",
       name: "Acciones",
       resizable: true,
-      width: 110,
+      width: 165,
       renderCell: ({ row }) => {
         const onClickEdit = () => {
           setDataCareer(row);
           showAddCareerModal();
+        };
+        const onClickClassrooms = () => {
+          setDataCareer(row);
+          showCCModal();
         };
         const onClickDelete = () => {
           setDataCareer(row);
@@ -74,6 +93,9 @@ export const CareersTab = () => {
               onClick={onClickEdit}
             >
               <FAIcon customClass="icon" icon={faEdit} />
+            </CButton>
+            <CButton title="Aulas" color="warning" onClick={onClickClassrooms}>
+              <FAIcon customClass="icon" icon={faSitemap} />
             </CButton>
             <CButton
               title="Eliminar"
@@ -90,7 +112,7 @@ export const CareersTab = () => {
     {
       key: "name",
       name: "Carreras",
-      minWidth: 180,
+      minWidth: 170,
       resizable: true,
     },
     {
@@ -98,6 +120,22 @@ export const CareersTab = () => {
       name: "Descripción",
       minWidth: 90,
       resizable: true,
+    },
+    {
+      key: "classroomsCareer",
+      name: "Aulas",
+      width: 70,
+      resizable: true,
+      renderCell: ({ row }) => {
+        return (
+          <div
+            className="text-center"
+            title={`${row.classroomsCareer?.length} aulas`}
+          >
+            <span>{row.classroomsCareer?.length}</span>
+          </div>
+        );
+      },
     },
     {
       key: "courses",
@@ -112,7 +150,7 @@ export const CareersTab = () => {
         return (
           <div className="h-100 d-flex justify-content-around align-items-center">
             <CButton
-              title="Cambiar estado"
+              title="Todos los cursos en esta carrera"
               className="text-white"
               onClick={onClick}
             >
@@ -140,8 +178,14 @@ export const CareersTab = () => {
     setStatusAddCareerModal(true);
   };
 
+  // muestra modal de aulas de carrera
+  const showCCModal = () => {
+    setStatusCCModal(true);
+  };
+
   const hideModal = () => {
     setDataCareer({});
+    setStatusCCModal(false);
     setStatusAddCareerModal(false);
     setStatusDeleteCareerModal(false);
     setStatusCoursesCareerModal(false);
@@ -197,6 +241,11 @@ export const CareersTab = () => {
       <AddCareerModal
         statusAddCareerModal={statusAddCareerModal}
         hideAddCareerModal={hideModal}
+        dataCareer={dataCareer}
+      />
+      <ClassroomsCareerModal
+        statusCCModal={statusCCModal}
+        hideCCModal={hideModal}
         dataCareer={dataCareer}
       />
       <DeleteCareerModal
