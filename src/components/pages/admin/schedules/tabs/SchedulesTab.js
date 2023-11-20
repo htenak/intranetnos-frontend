@@ -134,14 +134,14 @@ export const SchedulesTab = ({ careerIdTab, careerNameTab }) => {
     },
     {
       key: "startTime",
-      name: "Hora de inicio",
-      width: 120,
+      name: "Inicio",
+      width: 75,
       resizable: true,
     },
     {
       key: "endTime",
-      name: "Hora de cierre",
-      width: 125,
+      name: "Cierre",
+      width: 75,
       resizable: true,
     },
     {
@@ -193,6 +193,10 @@ export const SchedulesTab = ({ careerIdTab, careerNameTab }) => {
               value?.name
                 ?.toString()
                 .toLowerCase()
+                .includes(search.toLowerCase()) ||
+              value?.denomination
+                ?.toString()
+                .toLowerCase()
                 .includes(search.toLowerCase())
           )
         )
@@ -222,12 +226,12 @@ export const SchedulesTab = ({ careerIdTab, careerNameTab }) => {
             Registrar
           </CButton>
         </CCol>
-        <CCol xs={6} lg={2}>
+        <CCol xs={7} lg={3}>
           <CFormSelect
             onChange={handleChangeCycle}
             value={cycleIdSchedule || 0}
           >
-            <option value={0}>Todos</option>
+            <option value={0}>Todos los ciclos</option>
             {cycles && cycles.length !== 0 ? (
               <>
                 {cycles.map((c) => (
@@ -241,7 +245,7 @@ export const SchedulesTab = ({ careerIdTab, careerNameTab }) => {
             )}
           </CFormSelect>
         </CCol>
-        <CCol sm={9} lg={6} className="mt-2 mt-sm-0">
+        <CCol xs={12} lg={6} className="mt-2 mt-lg-0">
           <input
             type="search"
             className="form-control"
