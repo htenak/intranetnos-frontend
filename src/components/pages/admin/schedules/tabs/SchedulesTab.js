@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteSchedule,
-  getAllCycles,
-  getAllSchedules,
-  updateSchedule,
-} from "src/store";
+import { getAllCycles, getAllSchedules, updateSchedule } from "src/store";
 
 import { CButton, CCol, CFormSelect, CRow } from "@coreui/react";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FAIcon } from "src/assets/icon/FAIcon";
 import DataGrid from "react-data-grid";
 import Loader from "src/components/layout/loader/Loader";
+import { hourAmPmFormat } from "src/components/helpers/hourAmPmFormat";
 
-import { AddScheduleModal } from "../modals";
+import { AddScheduleModal, DeleteScheduleModal } from "../modals";
 
 export const SchedulesTab = ({ careerIdTab, careerNameTab }) => {
   const dispatch = useDispatch();
@@ -24,6 +20,8 @@ export const SchedulesTab = ({ careerIdTab, careerNameTab }) => {
   const [rows, setRows] = useState([]);
   const [search, setSearch] = useState("");
   const [statusAddScheduleModal, setStatusAddScheduleModal] = useState(false);
+  const [statusDeleteScheduleModal, setStatusDeleteScheduleModal] =
+    useState(false);
   const [dataSchedule, setDataSchedule] = useState({});
   const [cycleIdSchedule, setCycleIdSchedule] = useState(0);
 
@@ -97,9 +95,8 @@ export const SchedulesTab = ({ careerIdTab, careerNameTab }) => {
           showAddScheduleModal();
         };
         const onClickDelete = () => {
-          // setDataSchedule(row);
-          // setStatusDeleteCareerModal(true);
-          dispatch(deleteSchedule(row));
+          setDataSchedule(row);
+          setStatusDeleteScheduleModal(true);
         };
         return (
           <div className="h-100 d-flex justify-content-around align-items-center">
@@ -135,14 +132,28 @@ export const SchedulesTab = ({ careerIdTab, careerNameTab }) => {
     {
       key: "startTime",
       name: "Inicio",
-      width: 75,
+      width: 90,
       resizable: true,
+      renderCell: ({ row }) => {
+        return (
+          <span title={hourAmPmFormat(row.startTime)}>
+            {hourAmPmFormat(row.startTime)}
+          </span>
+        );
+      },
     },
     {
       key: "endTime",
       name: "Cierre",
-      width: 75,
+      width: 90,
       resizable: true,
+      renderCell: ({ row }) => {
+        return (
+          <span title={hourAmPmFormat(row.endTime)}>
+            {hourAmPmFormat(row.endTime)}
+          </span>
+        );
+      },
     },
     {
       key: "classId",
@@ -212,6 +223,7 @@ export const SchedulesTab = ({ careerIdTab, careerNameTab }) => {
   const hideModal = () => {
     setDataSchedule({});
     setStatusAddScheduleModal(false);
+    setStatusDeleteScheduleModal(false);
   };
 
   return (
@@ -287,6 +299,11 @@ export const SchedulesTab = ({ careerIdTab, careerNameTab }) => {
         careerIdTab={careerIdTab}
         cycleIdSchedule={cycleIdSchedule}
         careerNameTab={careerNameTab}
+      />
+      <DeleteScheduleModal
+        statusDeleteScheduleModal={statusDeleteScheduleModal}
+        hideDeleteScheduleModal={hideModal}
+        dataSchedule={dataSchedule}
       />
     </>
   );
