@@ -16,6 +16,7 @@ import {
 import { toast } from "react-toastify";
 import {
   getAllCareers,
+  getAllClassroomsCareerByCareerId,
   getAllCourses,
   getAllCycles,
   getAllProfessors,
@@ -28,7 +29,9 @@ import {
   faChalkboardTeacher,
   faGraduationCap,
   faProjectDiagram,
+  faSitemap,
 } from "@fortawesome/free-solid-svg-icons";
+import { element } from "prop-types";
 
 export const AddClassModal = ({
   statusAddClassModal,
@@ -36,12 +39,15 @@ export const AddClassModal = ({
   dataClass,
 }) => {
   const dispatch = useDispatch();
-  const { careers, cycles, courses } = useSelector((state) => state.academic);
+  const { careers, classroomsCareerByCareerId, cycles, courses } = useSelector(
+    (state) => state.academic
+  );
   const { professors } = useSelector((state) => state.professors);
   const initialStateValues = {
     id: 0,
     cycleId: 0,
     careerId: 0,
+    classroomCareerId: 0,
     courseId: 0,
     professorUserId: 0,
     denomination: "",
@@ -49,6 +55,7 @@ export const AddClassModal = ({
   const [values, setValues] = useState(initialStateValues);
   const [searchCycles, setSearchCycles] = useState([]);
   const [searchCareers, setSearchCareers] = useState([]);
+  const [searchClassroomsCareer, setSearchClassroomsCareer] = useState([]);
   const [searchProfessors, setSearchProfessors] = useState([]);
   const [searchCourses, setSearchCourses] = useState([]);
 
@@ -69,19 +76,24 @@ export const AddClassModal = ({
     const professor = searchProfessors?.find(
       (i) => i.id == values.professorUserId
     );
+    const cc = searchClassroomsCareer?.find(
+      (i) => i.id == values.classroomCareerId
+    );
     setValues({
       ...values,
       denomination: `${cycle?.abbreviation || "ciclo"} - ${
         course?.name || "curso"
       } - ${professor?.name || "profesor"} ${professor?.lastName1 || ""} ${
         professor?.lastName2 || ""
-      }`,
+      } | ${cc?.denomination?.split("-")[0] || "aula"}`,
     });
   }, [
     values?.cycleId,
     values?.courseId,
     values?.professorUserId,
+    values?.classroomCareerId,
     searchCycles,
+    searchClassroomsCareer,
     searchCourses,
     searchProfessors,
   ]);
@@ -131,6 +143,25 @@ export const AddClassModal = ({
     }
   }, [careers]);
 
+  // asingo aulas de la carrera seleccionada para el campo
+  useEffect(() => {
+    if (classroomsCareerByCareerId) {
+      if (classroomsCareerByCareerId.length !== 0) {
+        setSearchClassroomsCareer(
+          classroomsCareerByCareerId
+            .map((cc) => ({
+              ...cc,
+              value: cc.id,
+              label: `N° ${cc.classroom.number} - ${cc.classroom.description}`,
+            }))
+            .filter((cc) => cc.careerId === values.careerId && cc.status)
+        );
+      } else {
+        setSearchClassroomsCareer([]);
+      }
+    }
+  }, [classroomsCareerByCareerId]);
+
   // asigno profesores para el campo
   useEffect(() => {
     if (professors) {
@@ -152,7 +183,8 @@ export const AddClassModal = ({
 
   // asigno cursos para el campo
   useEffect(() => {
-    if (values.careerId) {
+    if (values.careerId !== 0) {
+      dispatch(getAllClassroomsCareerByCareerId(values.careerId));
       if (courses) {
         if (courses.length !== 0) {
           setSearchCourses(
@@ -201,6 +233,10 @@ export const AddClassModal = ({
       careerId: element.id,
       courseId: element.id !== values.careerId ? 0 : values.courseId,
     });
+  };
+
+  const handleChangeClassroomCareer = (element) => {
+    setValues({ ...values, classroomCareerId: element.id });
   };
 
   // cambios en curso
@@ -296,7 +332,7 @@ export const AddClassModal = ({
                 onChange={handleChangeProfessor}
               />
             </CCol>
-            <CCol xs={12} className="mt-2">
+            <CCol xs={12} lg={7} className="mt-2">
               <CFormLabel className="mb-1">
                 Carrera <ObligatoryField />
               </CFormLabel>
@@ -313,6 +349,25 @@ export const AddClassModal = ({
                 icon={faGraduationCap}
                 noResultsMessage={"Carrera no encontrada"}
                 onChange={handleChangeCareer}
+              />
+            </CCol>
+            <CCol xs={12} lg={5} className="mt-2">
+              <CFormLabel className="mb-1">
+                Aula <ObligatoryField />
+              </CFormLabel>
+              <SelectSearch
+                value={
+                  (searchClassroomsCareer &&
+                    searchClassroomsCareer.find(
+                      (element) => element.value === values.classroomCareerId
+                    )) ||
+                  ""
+                }
+                placeholder="Buscar aula"
+                options={searchClassroomsCareer}
+                icon={faSitemap}
+                noResultsMessage={"Aula no encontrada"}
+                onChange={handleChangeClassroomCareer}
               />
             </CCol>
             <CCol xs={12} className="mt-2">
