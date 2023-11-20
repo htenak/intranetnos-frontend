@@ -250,14 +250,14 @@ export const UsersTab = () => {
             Registrar
           </CButton>
         </CCol>
-        <CCol xs={6} lg={2}>
+        <CCol xs={7} lg={3}>
           <CFormSelect onChange={handleChangeQuery}>
-            <option value="*">TODOS</option>
-            <option value="true">ACTIVOS</option>
-            <option value="false">INACTIVOS</option>
+            <option value="*">Todos los usuarios</option>
+            <option value="true">Usuarios activos</option>
+            <option value="false">Usuarios inactivos</option>
           </CFormSelect>
         </CCol>
-        <CCol sm={9} lg={6} className="mt-2 mt-sm-0">
+        <CCol sm={12} lg={6} className="mt-2 mt-lg-0">
           <input
             type="search"
             className="form-control"
