@@ -7,8 +7,8 @@ import {
   CButton,
   CCardTitle,
   CCardFooter,
-  CTooltip,
 } from "@coreui/react";
+import { Tooltip } from "antd";
 import {
   faCalendarAlt,
   faQuestion,
@@ -67,24 +67,14 @@ const PClasses = () => {
                                 {c.course.name}
                               </p>
                               <p className="text-end m-0">
-                                <CTooltip
+                                <Tooltip
                                   placement="left"
-                                  content={
+                                  title={
                                     c.status
                                       ? "Esta clase está activa"
                                       : "Esta clase está inactiva"
                                   }
-                                  style={
-                                    c.status
-                                      ? {
-                                          "--cui-tooltip-bg":
-                                            "var(--cui-success)",
-                                        }
-                                      : {
-                                          "--cui-tooltip-bg":
-                                            "var(--cui-danger)",
-                                        }
-                                  }
+                                  color={c.status ? "green" : "red"}
                                 >
                                   <span
                                     className={`${
@@ -96,7 +86,7 @@ const PClasses = () => {
                                       icon={faQuestion}
                                     />
                                   </span>
-                                </CTooltip>
+                                </Tooltip>
                               </p>
                             </div>
                           </CCardBody>
