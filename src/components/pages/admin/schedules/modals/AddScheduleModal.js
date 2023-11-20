@@ -60,6 +60,7 @@ export const AddScheduleModal = ({
   }, [statusAddScheduleModal]);
 
   // asigno clases para el campo
+  // verificar porque no sale la clase
   useEffect(() => {
     if (careerIdTab && classes && classes.length !== 0) {
       let filteredData = [...classes];
@@ -67,7 +68,7 @@ export const AddScheduleModal = ({
         .map((classs) => ({
           ...classs,
           value: classs.id,
-          label: classs.denomination,
+          label: `${classs.denomination}`,
         }))
         .filter(
           (c) => parseInt(c.career?.id) === parseInt(careerIdTab) && c.status
