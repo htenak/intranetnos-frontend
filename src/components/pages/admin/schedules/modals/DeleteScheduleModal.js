@@ -7,6 +7,7 @@ import {
   CModalTitle,
 } from "@coreui/react";
 import { useDispatch } from "react-redux";
+import { hourAmPmFormat } from "src/components/helpers/hourAmPmFormat";
 import { deleteSchedule } from "src/store";
 
 export const DeleteScheduleModal = ({
@@ -33,8 +34,9 @@ export const DeleteScheduleModal = ({
       <CModalBody style={{ background: "#333", color: "#fff" }}>
         <p>
           Estas a punto de eliminar el horario de{" "}
-          <b>{dataSchedule.startTime}</b> a <b>{dataSchedule.endTime}</b> para
-          la clase <b>{dataSchedule.classs?.denomination}</b>
+          <b>{hourAmPmFormat(dataSchedule.startTime)}</b> a{" "}
+          <b>{hourAmPmFormat(dataSchedule.endTime)}</b> para la clase{" "}
+          <b>{dataSchedule.classs?.denomination}</b>
           {", "}
           ¿desea realmente continuar?
         </p>
