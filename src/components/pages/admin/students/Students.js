@@ -33,7 +33,7 @@ const Students = () => {
     <>
       <CCard className="mb-4">
         <CCardBody>
-          <h1 className="fs-4 mb-3">Estudiantes</h1>
+          <h1 className="fs-5 mb-3">Estudiantes</h1>
           <CRow>
             <CCol xs>
               <CCard>

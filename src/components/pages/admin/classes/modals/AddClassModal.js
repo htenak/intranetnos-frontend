@@ -81,11 +81,17 @@ export const AddClassModal = ({
     );
     setValues({
       ...values,
-      denomination: `${cycle?.abbreviation || "ciclo"} - ${
-        course?.name || "curso"
-      } - ${professor?.name || "profesor"} ${professor?.lastName1 || ""} ${
-        professor?.lastName2 || ""
-      } | ${cc?.denomination?.split("-")[0] || "aula"}`,
+      denomination: `${cycle ? `${cycle.abbreviation} ciclo` : "ciclo"} - ${
+        course ? course.name : "curso"
+      } - ${
+        professor
+          ? professor.name +
+            " " +
+            professor.lastName1 +
+            " " +
+            professor.lastName2
+          : "profesor"
+      } | ${cc ? cc.denomination.split("-")[0] : "aula"}`,
     });
   }, [
     values?.cycleId,

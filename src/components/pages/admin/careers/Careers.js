@@ -71,7 +71,7 @@ const Careers = () => {
     <>
       <CCard className="mb-4">
         <CCardBody>
-          <h1 className="fs-4 mb-3">Carreras</h1>
+          <h1 className="fs-5 mb-3">Carreras</h1>
           <CRow>
             <CCol xs>
               <CCard>

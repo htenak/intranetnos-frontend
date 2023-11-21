@@ -78,7 +78,7 @@ const Schedules = () => {
     <>
       <CCard className="mb-4">
         <CCardBody>
-          <h1 className="fs-4 mb-3">Horarios</h1>
+          <h1 className="fs-5 mb-3">Horarios</h1>
           <CRow>
             <CCol xs>
               <CCard>
