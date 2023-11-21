@@ -2,9 +2,15 @@ import { CModal, CModalBody, CModalHeader } from "@coreui/react";
 import { intranetAvatarApi } from "src/api";
 import imgUser from "src/assets/images/user.png";
 
-export const PhotoModal = ({ statusM, hideM, photoName, userName }) => {
+export const PhotoModal = ({
+  statusM,
+  hideM,
+  sizeM = "sm",
+  photoName,
+  userName,
+}) => {
   return (
-    <CModal visible={statusM} onClose={hideM} alignment="center" size="sm">
+    <CModal visible={statusM} onClose={hideM} alignment="center" size={sizeM}>
       <CModalHeader style={{ background: "#111", color: "#fff" }}>
         {userName}
       </CModalHeader>
