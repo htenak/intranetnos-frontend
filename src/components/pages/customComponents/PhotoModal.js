@@ -11,16 +11,14 @@ export const PhotoModal = ({
 }) => {
   return (
     <CModal visible={statusM} onClose={hideM} alignment="center" size={sizeM}>
-      <CModalHeader style={{ background: "#111", color: "#fff" }}>
-        {userName}
-      </CModalHeader>
-      <CModalBody style={{ background: "#111" }}>
+      <CModalHeader>{userName}</CModalHeader>
+      <CModalBody>
         <img
           alt="Foto del perfil"
           src={
             photoName !== null ? `${intranetAvatarApi}/${photoName}` : imgUser
           }
-          className="w-100"
+          className="w-100 rounded"
         />
       </CModalBody>
     </CModal>
