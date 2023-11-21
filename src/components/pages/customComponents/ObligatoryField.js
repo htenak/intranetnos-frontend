@@ -1,11 +1,11 @@
-import { CTooltip } from "@coreui/react";
+import { Tooltip } from "antd";
 
 export const ObligatoryField = ({ text }) => {
   return (
-    <CTooltip content={text ? text : "Campo obligatorio"}>
+    <Tooltip title={text ? text : "Campo obligatorio"}>
       <span className="text-danger">
         <b>*</b>
       </span>
-    </CTooltip>
+    </Tooltip>
   );
 };
