@@ -7,7 +7,7 @@ const Profile = () => {
     <>
       <CCard className="mb-4">
         <CCardBody>
-          <h1 className="fs-4 mb-3">Mi perfil</h1>
+          <h1 className="fs-5 mb-3">Mi perfil</h1>
           <CRow>
             <CCol xs>
               <MyData />
