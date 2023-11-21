@@ -20,7 +20,7 @@ const Dashboard = () => {
     <>
       <CCard>
         <CCardBody>
-          <h1 className="fs-4 mb-3">Menú principal</h1>
+          <h1 className="fs-5 mb-3">Menú principal</h1>
           <CRow>
             <CCol>
               <CCard>
