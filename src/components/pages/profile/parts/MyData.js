@@ -91,23 +91,23 @@ export const MyData = () => {
                     <CFormLabel className="mb-1 mt-2">Nombres</CFormLabel>
                     <CFormInput value={user.name} disabled />
                   </CCol>
-                  <CCol xs={6} sm={4} md={3}>
+                  <CCol sm={4} md={3}>
                     <CFormLabel className="mb-1 mt-2">
                       Apellido paterno
                     </CFormLabel>
                     <CFormInput value={user.lastName1} disabled />
                   </CCol>
-                  <CCol xs={6} sm={4} md={3}>
+                  <CCol sm={4} md={3}>
                     <CFormLabel className="mb-1 mt-2">
                       Apellido materno
                     </CFormLabel>
                     <CFormInput value={user.lastName2} disabled />
                   </CCol>
-                  <CCol xs={5} sm={4} md={3}>
+                  <CCol sm={4} md={3}>
                     <CFormLabel className="mb-1 mt-2">DNI</CFormLabel>
                     <CFormInput value={user.dni} disabled />
                   </CCol>
-                  <CCol xs={7} sm={6} md={6}>
+                  <CCol sm={6} md={6}>
                     <CFormLabel className="mb-1 mt-2">
                       Correo electrónico
                     </CFormLabel>
@@ -134,7 +134,7 @@ export const MyData = () => {
                     <CFormLabel className="mb-1 mt-2">Usuario</CFormLabel>
                     <CFormInput value={user.username} disabled />
                   </CCol>
-                  <CCol xs={6} md={5}>
+                  <CCol sm={6}>
                     <CFormLabel className="mb-1 mt-2">Apodo</CFormLabel>
                     <CFormInput
                       name="nickname"
@@ -143,7 +143,7 @@ export const MyData = () => {
                       disabled={editing ? false : true}
                     />
                   </CCol>
-                  <CCol xs={6} sm={4}>
+                  <CCol sm={6} md={3}>
                     <CFormLabel className="mb-1 mt-2">Cargo</CFormLabel>
                     <CFormInput
                       value={
