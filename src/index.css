@@ -68,3 +68,7 @@ input[type="search"] {
 * {
   font-family: "Poppins", sans-serif;
 }
+
+.fs-14px-all * {
+  font-size: 14px;
+}
