@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   classesProfessor: null,
   otherClassesProfessors: null,
+  loadingOtherClassesP: false,
   schedulesByClass: null,
   classProfessorErrorMessage: undefined,
   classProfessorSuccessMessage: undefined,
@@ -26,6 +27,9 @@ export const classesProfessorSlice = createSlice({
     setOtherClassesProfessors: (state, { payload }) => {
       state.otherClassesProfessors = payload.sort((a, b) => b.id - a.id);
     },
+    setLoadingOtherClassesP: (state, { payload }) => {
+      state.loadingOtherClassesP = payload;
+    },
     setSchedulesByClass: (state, { payload }) => {
       state.schedulesByClass = payload;
     },
@@ -37,6 +41,7 @@ export const {
   setClassesProfessor,
   resetClassProfessor,
   setClassProfessorErrorMessage,
+  setLoadingOtherClassesP,
   setOtherClassesProfessors,
   setSchedulesByClass,
 } = classesProfessorSlice.actions;

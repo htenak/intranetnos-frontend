@@ -1,2 +1,2 @@
-export * from "./classesSliceProfessor";
+export * from "./classesProfessorSlice";
 export * from "./thunks";

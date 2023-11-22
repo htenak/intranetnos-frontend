@@ -3,9 +3,10 @@ import {
   resetClassProfessor,
   setClassProfessorErrorMessage,
   setClassesProfessor,
+  setLoadingOtherClassesP,
   setOtherClassesProfessors,
   setSchedulesByClass,
-} from "./classesSliceProfessor";
+} from "../classes";
 
 export const getAllClassesProfessor = () => {
   return async (dispatch) => {
@@ -21,11 +22,17 @@ export const getAllClassesProfessor = () => {
   };
 };
 
-export const getAllOtherClassesProfessor = () => {
+export const getAllOtherClassesProfessor = (parameters = [0, 0, 0]) => {
   return async (dispatch) => {
+    dispatch(setLoadingOtherClassesP(true));
     try {
-      const { data } = await intranetApi.get(`/professor/other-classes`);
+      const { data } = await intranetApi.get(
+        `/professor/other-classes/${parameters}`
+      );
       dispatch(setOtherClassesProfessors(data.data));
+      setTimeout(() => {
+        dispatch(setLoadingOtherClassesP(false));
+      }, 500);
     } catch (error) {
       dispatch(setClassProfessorErrorMessage(error.response.data?.message));
       setTimeout(() => {
