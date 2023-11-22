@@ -60,7 +60,6 @@ export const AddScheduleModal = ({
   }, [statusAddScheduleModal]);
 
   // asigno clases para el campo
-  // verificar porque no sale la clase
   useEffect(() => {
     if (careerIdTab && classes && classes.length !== 0) {
       let filteredData = [...classes];
