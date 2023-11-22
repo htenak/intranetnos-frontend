@@ -216,7 +216,7 @@ const POtherClasses = () => {
                               }
                             />
                           }
-                        ></Meta>
+                        />
                       </Card>
                     </CCol>
                   ))}
