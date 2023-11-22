@@ -24,7 +24,7 @@ import {
   getAllOtherClassesProfessor,
   getSchedulesByClass,
 } from "src/store";
-import { ViewScheduleModal } from "./modals";
+import { ViewScheduleModal } from "../modals";
 import defaultClassImg from "src/assets/images/defaultClassImg.jpg";
 
 const POtherClasses = () => {
