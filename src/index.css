@@ -72,3 +72,21 @@ input[type="search"] {
 .fs-14px-all * {
   font-size: 14px;
 }
+
+@media screen and (max-width: 576px) {
+  * {
+    font-size: 0.82rem !important;
+  }
+}
+
+@media screen and (min-width: 577px) and (max-width: 992px) {
+  * {
+    font-size: 0.89rem;
+  }
+}
+
+@media screen and (min-width: 993px) {
+  * {
+    font-size: 0.96rem !important;
+  }
+}
