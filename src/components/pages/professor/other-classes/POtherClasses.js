@@ -8,15 +8,19 @@ import {
   CFormSelect,
   CRow,
 } from "@coreui/react";
-import { Avatar, Card, Divider, Spin, Tag } from "antd";
-import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
+import { Avatar, Card, Divider, Image, Spin, Tag } from "antd";
+import {
+  faCalendarAlt,
+  faChalkboard,
+  faDesktop,
+} from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { intranetAvatarApi } from "src/api";
+import { intranetAvatarApi, intranetClassPhotoApi } from "src/api";
 import { FAIcon } from "src/assets/icon/FAIcon";
 import imgUser from "src/assets/images/user.png";
 import Loader from "src/components/layout/loader/Loader";
-import { PhotoModal } from "src/components/pages/customComponents";
+import { friendlyDateFormat } from "src/components/helpers";
 import {
   getAllCareersProfessor,
   getAllColleaguesProfessor,
@@ -37,9 +41,6 @@ const POtherClasses = () => {
     (state) => state.classesProfessor
   );
 
-  const [statusPhotoModal, setStatusPhotoModal] = useState(false);
-  const [photoNameModal, setPhotoNameModal] = useState(null);
-  const [userNameModal, setUserNameModal] = useState(null);
   const [statusScheduleModal, setStatusScheduleModal] = useState(false);
   const [rowsData, setRowsData] = useState([]);
   const [careerId, setCareerId] = useState(0);
@@ -88,17 +89,13 @@ const POtherClasses = () => {
     setStatusScheduleModal(true);
   };
 
-  const showPhotoModal = (photoName, userName) => {
-    setPhotoNameModal(photoName);
-    setUserNameModal(userName);
-    setStatusPhotoModal(true);
-  };
-
   return (
     <>
       <CCard className="mb-4">
-        <CCardHeader>
-          <CCardTitle className="fs-5 m-0">Otras clases</CCardTitle>
+        <CCardHeader style={{ background: "#fff", padding: 13 }}>
+          <CCardTitle className="fs-6 m-0 d-flex justify-content-between">
+            Otras clases <FAIcon icon={faChalkboard} />
+          </CCardTitle>
         </CCardHeader>
         <CCardBody className="pt-2">
           <Divider>Filtros:</Divider>
@@ -173,46 +170,59 @@ const POtherClasses = () => {
                     >
                       <Card
                         cover={
-                          <img alt="Imagen de clase" src={defaultClassImg} />
+                          <img
+                            alt="Imagen de la clase"
+                            src={
+                              !c.filename
+                                ? defaultClassImg
+                                : `${intranetClassPhotoApi}/${c.filename}`
+                            }
+                            style={{ objectFit: "cover", height: 170 }}
+                          />
                         }
                         actions={[
-                          <span>
-                            <Tag
-                              style={{ cursor: "not-allowed" }}
-                              color={c.status ? "#87d068" : "#cf3c3c"}
-                            >
-                              {c.status ? "Clase activa" : "Clase inactiva"}
-                            </Tag>
-                          </span>,
+                          <Tag
+                            style={{ cursor: "not-allowed" }}
+                            color={c.status ? "#87d068" : "#cf3c3c"}
+                          >
+                            {c.status ? "Clase activa" : "Clase inactiva"}
+                          </Tag>,
                           <span
                             onClick={() => onClickSchedule(c.id)}
-                            className="text-success"
+                            className="text-dark"
                           >
                             <FAIcon customClass="icon" icon={faCalendarAlt} />{" "}
-                            Ver Horario
+                            Horario
                           </span>,
                         ]}
                       >
                         <Meta
                           description={
-                            <div style={{ height: 140, overflow: "auto" }}>
+                            <div
+                              style={{
+                                height: 180,
+                                overflow: "auto",
+                              }}
+                            >
                               <b className="text-dark">{c.career.name}</b>{" "}
                               <span className="d-block">{c.denomination}</span>
+                              <span className="d-block">
+                                <strong>Fecha:</strong>{" "}
+                                {friendlyDateFormat(c.createdAt)}
+                              </span>
                             </div>
                           }
                           avatar={
                             <Avatar
-                              size="md"
-                              onClick={() =>
-                                showPhotoModal(
-                                  c.professor.filename,
-                                  `${c.professor.name} ${c.professor.lastName1} ${c.professor.lastName2}`
-                                )
-                              }
+                              // size="large"
                               src={
-                                c.professor.filename
-                                  ? `${intranetAvatarApi}/${c.professor.filename}`
-                                  : imgUser
+                                <Image
+                                  src={
+                                    c.professor.filename
+                                      ? `${intranetAvatarApi}/${c.professor.filename}`
+                                      : imgUser
+                                  }
+                                />
                               }
                             />
                           }
@@ -226,12 +236,7 @@ const POtherClasses = () => {
           </Spin>
         </CCardBody>
       </CCard>
-      <PhotoModal
-        photoName={photoNameModal}
-        userName={userNameModal}
-        statusM={statusPhotoModal}
-        hideM={() => setStatusPhotoModal(false)}
-      />
+
       <ViewScheduleModal
         statusModal={statusScheduleModal}
         hideModal={() => setStatusScheduleModal(false)}

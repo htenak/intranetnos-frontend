@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { CAlert, CButton, CCol, CRow } from "@coreui/react";
 import { faSave, faTrash, faUpload } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
@@ -8,10 +8,12 @@ import { FAIcon } from "src/assets/icon/FAIcon";
 import { useDispatch, useSelector } from "react-redux";
 import { intranetAvatarApi } from "src/api";
 import { uploadMyPhoto } from "src/store";
+import { resizeImageToUpload } from "src/components/helpers";
 
 import imgUser from "src/assets/images/user.png";
 
 import { ConfirmDeletePhoto } from "../modals";
+import { Avatar, Image } from "antd";
 
 export const MyPhoto = () => {
   const dispatch = useDispatch();
@@ -29,45 +31,16 @@ export const MyPhoto = () => {
   const onFileInputChange = async (e) => {
     const { files } = e.target;
     if (files[0]) {
-      const resizedImg = await resizeImage(files[0], 300);
-      setFilePreview(URL.createObjectURL(resizedImg));
+      // const resizedImg = await resizeImageToUpload(files[0], 400);
+      // setFilePreview(URL.createObjectURL(resizedImg));
+      setFilePreview(URL.createObjectURL(files[0]));
       setPreview(true);
 
       const formData = new FormData();
-      formData.append("file", resizedImg);
+      // formData.append("file", resizedImg);
+      formData.append("file", files[0]);
       setFileUpload(formData);
     }
-  };
-
-  // redimensiona imagen (solo alto maximo)
-  const resizeImage = async (file, maxHeight) => {
-    const image = new Image();
-    image.src = URL.createObjectURL(file);
-
-    return new Promise((resolve) => {
-      image.onload = () => {
-        const width = image.width;
-        const height = image.height;
-        let newWidth, newHeight;
-
-        if (height > maxHeight) {
-          newHeight = maxHeight;
-          newWidth = (maxHeight / height) * width;
-        } else {
-          newHeight = height;
-          newWidth = width;
-        }
-
-        const canvas = document.createElement("canvas");
-        canvas.width = newWidth;
-        canvas.height = newHeight;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(image, 0, 0, newWidth, newHeight);
-        canvas.toBlob((blob) => {
-          resolve(new File([blob], file.name));
-        }, file.type);
-      };
-    });
   };
 
   // sube foto de perfil
@@ -85,17 +58,6 @@ export const MyPhoto = () => {
     setFilePreview(null);
   };
 
-  // abre pestaña de la foto
-  const goImageURL = () => {
-    if (!filename && !preview) {
-      window.open(imgUser, "_blank");
-    } else if (filename && !preview) {
-      window.open(`${intranetAvatarApi}/${filename}`, "_blank");
-    } else {
-      window.open(filePreview, "_blank");
-    }
-  };
-
   return (
     <>
       <CCol lg={4} className="d-flex flex-column justify-content-center">
@@ -103,28 +65,26 @@ export const MyPhoto = () => {
           <CCol
             xs={12}
             style={{
-              maxHeight: 220,
+              maxHeight: 250,
               width: "auto",
               maxWidth: "90%",
               overflow: "hidden",
             }}
             className=" d-flex justify-content-center align-items-center"
           >
-            <img
-              style={{
-                maxHeight: "100%",
-                width: "auto",
-                maxWidth: "100%",
-                borderRadius: 3,
-                cursor: "pointer",
-              }}
-              alt="Foto de perfil - NOS"
+            <Avatar
+              size={200}
               src={
-                (filename && !preview && `${intranetAvatarApi}/${filename}`) ||
-                (preview && filePreview) ||
-                (!filename && !preview && imgUser)
+                <Image
+                  src={
+                    (filename &&
+                      !preview &&
+                      `${intranetAvatarApi}/${filename}`) ||
+                    (preview && filePreview) ||
+                    (!filename && !preview && imgUser)
+                  }
+                />
               }
-              onClick={goImageURL}
             />
           </CCol>
         </CRow>

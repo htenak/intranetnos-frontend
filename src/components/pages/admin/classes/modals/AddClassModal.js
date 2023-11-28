@@ -289,6 +289,7 @@ export const AddClassModal = ({
       visible={statusAddClassModal}
       onClose={hideModal}
       size="lg"
+      backdrop="static"
     >
       <CForm onSubmit={handleSubmit}>
         <CModalHeader>
