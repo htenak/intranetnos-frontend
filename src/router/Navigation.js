@@ -1,19 +1,16 @@
 import React from "react";
-import { CNav, CNavGroup, CNavItem, CNavTitle } from "@coreui/react";
+import { CNavGroup, CNavItem, CNavTitle } from "@coreui/react";
 import {
   faBook,
-  faBookOpen,
   faBookReader,
-  faBoxes,
   faCalendarAlt,
+  faChalkboard,
   faChalkboardTeacher,
   faCoffee,
-  faDesktop,
   faGraduationCap,
   faPowerOff,
   faProjectDiagram,
   faServer,
-  faStream,
   faUserCircle,
   faUserFriends,
   faUserGraduate,
@@ -113,7 +110,7 @@ const navigation = [
         component: CNavItem,
         name: "Clases",
         to: "/admin/academic/classes",
-        icon: <FAIcon customClass="icon nav-icon-sub" icon={faBookOpen} />,
+        icon: <FAIcon customClass="icon nav-icon-sub" icon={faChalkboard} />,
       },
       {
         component: CNavItem,
@@ -148,7 +145,7 @@ const navigation = [
     roles: [ROLE_PROFESSOR, ROLE_USER],
     component: CNavGroup,
     name: "Clases",
-    icon: <FAIcon customClass="icon nav-icon" icon={faBookOpen} />,
+    icon: <FAIcon customClass="icon nav-icon" icon={faChalkboard} />,
     items: [
       {
         component: CNavItem,
@@ -162,7 +159,7 @@ const navigation = [
         component: CNavItem,
         name: "Otras clases",
         to: "/professor/classes/others",
-        icon: <FAIcon customClass="icon nav-icon-sub" icon={faDesktop} />,
+        icon: <FAIcon customClass="icon nav-icon-sub" icon={faChalkboard} />,
       },
     ],
   },
