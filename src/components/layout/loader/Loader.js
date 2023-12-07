@@ -35,8 +35,8 @@ const Loader = ({ show, center, isbd = true }) => {
         alt="img-loader"
         style={{
           zIndex: zindex,
-          height: 200,
-          width: 200,
+          height: 100,
+          width: 100,
           objectFit: "fill",
         }}
       ></img>
