@@ -1,11 +1,14 @@
 import React from "react";
 import { ROLE_ADMIN, ROLE_PROFESSOR } from "src/constants";
 
+// todos:
 const Dashboard = React.lazy(() =>
   import("../components/pages/dashboard/Dashboard")
 );
 const NotFound = React.lazy(() => import("../components/pages/404/NotFound"));
 const Profile = React.lazy(() => import("../components/pages/profile/Profile"));
+
+// admin:
 const Users = React.lazy(() => import("../components/pages/admin/users/Users"));
 const Students = React.lazy(() =>
   import("../components/pages/admin/students/Students")
@@ -28,11 +31,16 @@ const Classes = React.lazy(() =>
 const Schedules = React.lazy(() =>
   import("../components/pages/admin/schedules/Schedules")
 );
+
+// professor:
 const PClasses = React.lazy(() =>
   import("../components/pages/professor/classes/PClasses")
 );
-const POtherClasses = React.lazy(() =>
-  import("../components/pages/professor/other-classes/POtherClasses")
+const PActivities = React.lazy(() =>
+  import("../components/pages/professor/activities/PActivities")
+);
+const PPupils = React.lazy(() =>
+  import("../components/pages/professor/pupils/PPupils")
 );
 
 const routes = [
@@ -116,18 +124,17 @@ const routes = [
     roles: [ROLE_PROFESSOR],
   },
   {
-    path: "/professor/classes/yours",
-    name: "Tus clases",
-    element: PClasses,
+    path: "/professor/activities",
+    name: "Actividades",
+    element: PActivities,
     roles: [ROLE_PROFESSOR],
   },
   {
-    path: "/professor/classes/others",
-    name: "Otras clases",
-    element: POtherClasses,
+    path: "/professor/students",
+    name: "Alumnos",
+    element: PPupils,
     roles: [ROLE_PROFESSOR],
   },
-
   // student:
 ];
 

@@ -143,37 +143,22 @@ const navigation = [
   // professors:
   {
     roles: [ROLE_PROFESSOR, ROLE_USER],
-    component: CNavGroup,
+    component: CNavItem,
     name: "Clases",
-    icon: <FAIcon customClass="icon nav-icon" icon={faChalkboard} />,
-    items: [
-      {
-        component: CNavItem,
-        name: "Tus clases",
-        to: "/professor/classes/yours",
-        icon: (
-          <FAIcon customClass="icon nav-icon-sub" icon={faChalkboardTeacher} />
-        ),
-      },
-      {
-        component: CNavItem,
-        name: "Otras clases",
-        to: "/professor/classes/others",
-        icon: <FAIcon customClass="icon nav-icon-sub" icon={faChalkboard} />,
-      },
-    ],
+    to: "/professor/classes",
+    icon: <FAIcon customClass="icon nav-icon" icon={faChalkboardTeacher} />,
   },
   {
     roles: [ROLE_PROFESSOR, ROLE_USER],
     component: CNavItem,
-    name: "Tus actividades",
+    name: "Actividades",
     to: "/professor/activities",
     icon: <FAIcon customClass="icon nav-icon" icon={faWindowRestore} />,
   },
   {
     roles: [ROLE_PROFESSOR, ROLE_USER],
     component: CNavItem,
-    name: "Tus alumnos",
+    name: "Alumnos",
     to: "/professor/students",
     icon: <FAIcon customClass="icon nav-icon" icon={faUserGraduate} />,
   },
