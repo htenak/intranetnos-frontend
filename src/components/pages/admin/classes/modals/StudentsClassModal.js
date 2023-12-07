@@ -40,7 +40,7 @@ export const StudentsClassModal = ({
 
   const initialStateValues = {
     id: 0,
-    classId: 0,
+    classId: dataClass.id,
     studentUserId: 0,
   };
   const [values, setValues] = useState(initialStateValues);
