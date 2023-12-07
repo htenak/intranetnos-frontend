@@ -9,5 +9,6 @@ export * from "./admin/classes";
 
 export * from "./professor/classes";
 export * from "./professor/academic";
+export * from "./professor/pupils";
 
 export * from "./store";

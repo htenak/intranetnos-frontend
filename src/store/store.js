@@ -9,6 +9,7 @@ import {
   classesSlice,
   classesProfessorSlice,
   academicProfessorSlice,
+  pupilsProfessorSlice,
 } from "./";
 
 export const store = configureStore({
@@ -23,6 +24,7 @@ export const store = configureStore({
 
     classesProfessor: classesProfessorSlice.reducer,
     academicProfessor: academicProfessorSlice.reducer,
+    pupilsProfessor: pupilsProfessorSlice.reducer,
   },
   devTools: process.env.NODE_ENV !== "production", // habilita DevTools en desarrollo
 });
