@@ -9,7 +9,7 @@ import {
   CFormSelect,
   CRow,
 } from "@coreui/react";
-import { faFileExcel, faUserGraduate } from "@fortawesome/free-solid-svg-icons";
+import { faUserGraduate } from "@fortawesome/free-solid-svg-icons";
 import { Avatar, Image, List, Spin } from "antd";
 import { FAIcon } from "src/assets/icon/FAIcon";
 import Loader from "src/components/layout/loader/Loader";
@@ -68,9 +68,6 @@ const PPupils = () => {
       setCycleId(value);
     }
   };
-
-  console.log("cycleId:", cycleId);
-  console.log("careerId:", careerId);
 
   return (
     <>
@@ -149,14 +146,7 @@ const PPupils = () => {
                     itemLayout="horizontal"
                     dataSource={searcher(rows, search) || []}
                     locale={{
-                      emptyText: (
-                        <>
-                          <p>
-                            Ningún registro encontrado <br />
-                            <FAIcon icon={faFileExcel} />
-                          </p>
-                        </>
-                      ),
+                      emptyText: "Ningún registro encontrado",
                     }}
                     renderItem={(item) => (
                       <List.Item
