@@ -104,3 +104,96 @@ export const deleteActivityType = (form) => {
     }
   };
 };
+
+// activities:
+
+export const getAllActivities = () => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.get(`/activity/professor/activities`);
+      dispatch(setActivities(data.data));
+    } catch (error) {
+      dispatch(setActivityErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetActivityCrud());
+      }, 50);
+    }
+  };
+};
+
+export const saveActivity = (form) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.post(
+        `/activity/professor/activities`,
+        form
+      );
+      dispatch(
+        onActivityCrud({
+          crud: "CREATED",
+          activity: data.data,
+          message: data.message,
+        })
+      );
+      setTimeout(() => {
+        dispatch(resetActivityCrud());
+      }, 50);
+    } catch (error) {
+      dispatch(setActivityErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetActivityCrud());
+      }, 50);
+    }
+  };
+};
+
+export const updateActivity = (form) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.put(
+        `/activity/professor/activities/${form.id}`,
+        form
+      );
+      dispatch(
+        onActivityCrud({
+          crud: "UPDATED",
+          activity: data.data,
+          message: data.message,
+        })
+      );
+      setTimeout(() => {
+        dispatch(resetActivityCrud());
+      }, 50);
+    } catch (error) {
+      dispatch(setActivityErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetActivityCrud());
+      }, 50);
+    }
+  };
+};
+
+export const deleteActivity = (form) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await intranetApi.delete(
+        `/activity/professor/activities/${form.id}`
+      );
+      dispatch(
+        onActivityCrud({
+          crud: "DELETED",
+          activity: form,
+          message: data.message,
+        })
+      );
+      setTimeout(() => {
+        dispatch(resetActivityCrud());
+      }, 50);
+    } catch (error) {
+      dispatch(setActivityErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetActivityCrud());
+      }, 50);
+    }
+  };
+};
