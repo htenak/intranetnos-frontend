@@ -75,9 +75,7 @@ const Careers = () => {
           <CRow>
             <CCol xs>
               <CCard>
-                <CCardHeader style={{ fontSize: "18px", fontWeight: 500 }}>
-                  Todas las carreras
-                </CCardHeader>
+                <CCardHeader className="fs-6">Todas las carreras</CCardHeader>
                 <CCardBody>
                   <CNav variant="tabs">
                     <CNavItem>

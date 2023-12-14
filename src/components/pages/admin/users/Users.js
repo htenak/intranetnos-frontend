@@ -37,9 +37,7 @@ const Users = () => {
           <CRow>
             <CCol xs>
               <CCard>
-                <CCardHeader style={{ fontSize: "18px", fontWeight: 500 }}>
-                  Todos los usuarios
-                </CCardHeader>
+                <CCardHeader className="fs-6">Todos los usuarios</CCardHeader>
                 <CCardBody>
                   <CNav variant="tabs">
                     <CNavItem>

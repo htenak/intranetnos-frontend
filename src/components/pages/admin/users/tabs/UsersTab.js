@@ -17,6 +17,7 @@ import { intranetAvatarApi } from "src/api";
 
 import Loader from "src/components/layout/loader/Loader";
 import { AddUser, ConfirmChangeStatus, ConfirmDeleteUser } from "../modals";
+import { Button, Space } from "antd";
 
 export const UsersTab = () => {
   const dispatch = useDispatch();
@@ -130,24 +131,19 @@ export const UsersTab = () => {
           handleRemoveUser(row);
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
-              title="Editar"
-              color="info"
-              className="text-white"
-              onClick={onClickEdit}
-            >
+          <Space className="d-flex justify-content-center">
+            <Button title="Editar" className="p-0 px-2" onClick={onClickEdit}>
               <FAIcon customClass="icon" icon={faEdit} />
-            </CButton>
-            <CButton
+            </Button>
+            <Button
               title="Eliminar"
-              color="danger"
-              className="text-white"
+              className="p-0 px-2"
+              style={{ color: "red" }}
               onClick={onClickDelete}
             >
               <FAIcon customClass="icon" icon={faTrash} />
-            </CButton>
-          </div>
+            </Button>
+          </Space>
         );
       },
     },
@@ -157,11 +153,6 @@ export const UsersTab = () => {
       minWidth: 210,
       resizable: true,
       renderCell: ({ row }) => {
-        const goImageURL = () => {
-          if (row.filename) {
-            window.open(`${intranetAvatarApi}/${row.filename}`, "_blank");
-          }
-        };
         return (
           <span title={`${row.name} ${row.lastName1} ${row.lastName2}`}>
             {" "}
@@ -170,8 +161,7 @@ export const UsersTab = () => {
               src={
                 !row.filename ? imgUser : `${intranetAvatarApi}/${row.filename}`
               }
-              style={{ marginRight: 10, overflow: "hidden", cursor: "pointer" }}
-              onClick={goImageURL}
+              style={{ marginRight: 10, overflow: "hidden" }}
             />
             {`${row.name} ${row.lastName1} ${row.lastName2}`}
           </span>
@@ -183,7 +173,7 @@ export const UsersTab = () => {
     {
       key: "phone",
       name: "Celular",
-      minWidth: 90,
+      minWidth: 80,
       resizable: true,
     },
     {
@@ -205,7 +195,7 @@ export const UsersTab = () => {
     {
       key: "status",
       name: "Estado",
-      width: 95,
+      width: 110,
       resizable: true,
       renderCell: ({ row }) => {
         const onClickStatus = () => {
@@ -213,14 +203,14 @@ export const UsersTab = () => {
         };
         return (
           <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
+            <Button
               title="Cambiar estado"
-              color={row.status ? "success" : "danger"}
-              className="text-white"
+              type="primary"
+              className={row.status ? "bg-success" : "bg-danger"}
               onClick={onClickStatus}
             >
               {row.status ? "Activo" : "Inactivo"}
-            </CButton>
+            </Button>
           </div>
         );
       },
@@ -242,16 +232,19 @@ export const UsersTab = () => {
     <>
       <CRow className="mt-3 mb-2">
         <CCol>
-          <CButton
-            color="success"
-            className="text-white"
+          <Button
+            type="primary"
+            style={{ background: "green" }}
             onClick={showAddUserModal}
           >
             Registrar
-          </CButton>
+          </Button>
         </CCol>
         <CCol xs={7} lg={3}>
-          <CFormSelect onChange={handleChangeQuery}>
+          <CFormSelect
+            onChange={handleChangeQuery}
+            style={{ fontSize: "99.5%" }}
+          >
             <option value="*">Todos los usuarios</option>
             <option value="true">Usuarios activos</option>
             <option value="false">Usuarios inactivos</option>

@@ -8,7 +8,6 @@ import {
 } from "src/store";
 
 import {
-  CButton,
   CCard,
   CCardBody,
   CCardHeader,
@@ -25,6 +24,7 @@ import DataGrid from "react-data-grid";
 import Loader from "src/components/layout/loader/Loader";
 import { toast } from "react-toastify";
 import { ObligatoryField } from "src/components/pages/customComponents";
+import { Button, Space } from "antd";
 
 export const ClassroomsTab = () => {
   const dispatch = useDispatch();
@@ -119,24 +119,25 @@ export const ClassroomsTab = () => {
           }
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
+          <Space className="d-flex justify-content-center">
+            <Button
               title="Editar"
-              color="info"
-              className="text-white"
+              type="default"
+              className="p-0 px-2"
               onClick={onClickEdit}
             >
               <FAIcon customClass="icon" icon={faEdit} />
-            </CButton>
-            <CButton
+            </Button>
+            <Button
               title="Eliminar"
-              color="danger"
-              className="text-white"
+              type="default"
+              style={{ color: "red" }}
+              className="p-0 px-2"
               onClick={onClickDelete}
             >
               <FAIcon customClass="icon" icon={faTrash} />
-            </CButton>
-          </div>
+            </Button>
+          </Space>
         );
       },
     },
@@ -182,22 +183,23 @@ export const ClassroomsTab = () => {
     <>
       <CRow className="mt-3 mb-2">
         <CCol>
-          <CButton
-            color="success"
-            className="text-white"
+          <Button
+            type="primary"
+            style={{ background: "green" }}
             onClick={showAddClassroomModal}
           >
             Registrar
-          </CButton>
+          </Button>
           {statusAddClassroom && (
-            <CButton
-              color="danger"
-              className="mx-2 text-white"
+            <Button
+              type="primary"
               title="Ocultar formulario"
+              style={{ marginLeft: 8 }}
+              danger
               onClick={hideAddClassroom}
             >
               <FAIcon customClass="icon" icon={faTimes} />
-            </CButton>
+            </Button>
           )}
         </CCol>
         {!statusAddClassroom && (
@@ -212,8 +214,8 @@ export const ClassroomsTab = () => {
         )}
       </CRow>
       {statusAddClassroom && (
-        <CCard className="mb-2">
-          <CCardHeader className="bg-success text-white">
+        <CCard className="mb-3">
+          <CCardHeader style={{ background: "green", color: "#fff" }}>
             <CCardTitle className="fs-6 m-0">
               {values?.id ? "Editar aula" : "Nueva aula"}
             </CCardTitle>
@@ -226,6 +228,7 @@ export const ClassroomsTab = () => {
                     N° de aula <ObligatoryField />
                   </CFormLabel>
                   <CFormInput
+                    style={{ fontSize: "99%" }}
                     type="number"
                     min={1}
                     step={1}
@@ -238,6 +241,7 @@ export const ClassroomsTab = () => {
                 <CCol lg={8} className="mt-2 mt-lg-0">
                   <CFormLabel className="mb-1">Descripción</CFormLabel>
                   <CFormInput
+                    style={{ fontSize: "99%" }}
                     type="text"
                     placeholder="Breve descripción"
                     name="description"
@@ -249,13 +253,13 @@ export const ClassroomsTab = () => {
                   lg={2}
                   className="mt-3 mt-lg-0 text-center text-lg-start align-self-end"
                 >
-                  <CButton
-                    color={"success"}
-                    className="text-white"
-                    type="submit"
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    style={{ background: "green" }}
                   >
                     {values?.id !== 0 ? "Actualizar" : "Guardar"}
-                  </CButton>
+                  </Button>
                 </CCol>
               </CRow>
             </CForm>
@@ -278,7 +282,7 @@ export const ClassroomsTab = () => {
                 className="rdg-light"
                 columns={columns}
                 rows={filter(rows) || []}
-                rowHeight={60}
+                rowHeight={50}
                 style={{ height: 450 }}
                 resizable
               />

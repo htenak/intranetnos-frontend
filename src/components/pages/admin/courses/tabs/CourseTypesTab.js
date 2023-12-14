@@ -13,6 +13,7 @@ import {
   DeleteCourseTypeModal,
   InfoCoursesModal,
 } from "../modals";
+import { Button, Space } from "antd";
 
 export const CourseTypesTab = () => {
   const dispatch = useDispatch();
@@ -67,31 +68,32 @@ export const CourseTypesTab = () => {
           setStatusDeleteCourseTypeModal(true);
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
+          <Space className="d-flex justify-content-center">
+            <Button
+              type="default"
               title="Editar"
-              color="info"
-              className="text-white"
+              className="p-0 px-2"
               onClick={onClickEdit}
             >
               <FAIcon customClass="icon" icon={faEdit} />
-            </CButton>
-            <CButton
+            </Button>
+            <Button
+              type="default"
               title="Eliminar"
-              color="danger"
-              className="text-white"
+              style={{ color: "red" }}
+              className="p-0 px-2"
               onClick={onClickDelete}
             >
               <FAIcon customClass="icon" icon={faTrash} />
-            </CButton>
-          </div>
+            </Button>
+          </Space>
         );
       },
     },
     {
       key: "name",
       name: "Tipo de curso",
-      minWidth: 150,
+      minWidth: 130,
       resizable: true,
     },
     {
@@ -103,7 +105,7 @@ export const CourseTypesTab = () => {
     {
       key: "courses",
       name: "Cursos",
-      width: 130,
+      width: 135,
       resizable: true,
       renderCell: ({ row }) => {
         const onClick = () => {
@@ -111,16 +113,16 @@ export const CourseTypesTab = () => {
           setStatusInfoCoursesModal(true);
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
+          <Space className="d-flex justify-content-center">
+            <Button
               title="Cambiar estado"
-              color="primary"
-              className="text-white"
+              type="primary"
+              className="bg-primary"
               onClick={onClick}
             >
               Ver cursos
-            </CButton>
-          </div>
+            </Button>
+          </Space>
         );
       },
     },

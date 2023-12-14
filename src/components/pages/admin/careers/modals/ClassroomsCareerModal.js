@@ -13,11 +13,11 @@ import {
   CRow,
 } from "@coreui/react";
 import { faToggleOff, faToggleOn } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { FAIcon } from "src/assets/icon/FAIcon";
-import Loader from "src/components/layout/loader/Loader";
 import {
   deleteClassroomCareer,
   getAllClassroomsCareerByCareerId,
@@ -154,12 +154,14 @@ export const ClassroomsCareerModal = ({
                   <>
                     {classroomss.map((c) => (
                       <div className="my-2" key={c.id}>
-                        <CButton
-                          color="dark"
-                          className="text-white w-100"
+                        <Button
+                          type="primary"
+                          className="w-100"
                           onClick={() => handleSaveCC(c.id)}
                           disabled={alreadyAdded(c.id)}
-                        >{`N° ${c.number} - ${c.description}`}</CButton>
+                        >
+                          {`N° ${c.number} - ${c.description}`}
+                        </Button>
                       </div>
                     ))}
                   </>
@@ -181,23 +183,29 @@ export const ClassroomsCareerModal = ({
                           className="my-2 d-flex justify-content-between"
                           key={cc.id}
                         >
-                          <CButton
-                            color="primary"
-                            className="text-white "
+                          <Button
+                            type="primary"
+                            className={`${
+                              cc.status ? "bg-success" : "bg-danger"
+                            }`}
                             style={{ width: "87%" }}
                             onClick={() => handleRemoveCC(cc)}
-                          >{`N° ${cc.classroom?.number} - ${cc.classroom?.description}`}</CButton>
-                          <CButton
-                            color={cc.status ? "success" : "danger"}
-                            className="text-white rounded"
+                          >
+                            {`N° ${cc.classroom?.number} - ${cc.classroom?.description}`}
+                          </Button>
+                          <Button
+                            type="primary"
+                            className={`${
+                              cc.status ? "bg-success" : "bg-danger"
+                            }`}
                             onClick={() => handleUpdateStatusCC(cc)}
                           >
                             {cc.status ? (
-                              <FAIcon customClass="icon" icon={faToggleOn} />
+                              <FAIcon icon={faToggleOn} />
                             ) : (
-                              <FAIcon customClass="icon" icon={faToggleOff} />
+                              <FAIcon icon={faToggleOff} />
                             )}
-                          </CButton>
+                          </Button>
                         </div>
                       ))}
                     </>

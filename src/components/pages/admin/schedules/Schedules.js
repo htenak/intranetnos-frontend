@@ -82,9 +82,7 @@ const Schedules = () => {
           <CRow>
             <CCol xs>
               <CCard>
-                <CCardHeader style={{ fontSize: "18px", fontWeight: 500 }}>
-                  Todos lo horarios
-                </CCardHeader>
+                <CCardHeader className="fs-6">Todos lo horarios</CCardHeader>
                 <CCardBody>
                   <CNav variant="tabs">
                     {careers && careers.length !== 0 ? (

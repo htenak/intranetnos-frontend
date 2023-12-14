@@ -28,6 +28,7 @@ import Loader from "src/components/layout/loader/Loader";
 import { friendlyDateFormat } from "src/components/helpers/";
 import imgUser from "src/assets/images/user.png";
 import { SelectSearch } from "../../../customComponents";
+import { Button, Space } from "antd";
 
 export const StudentsClassModal = ({
   statusStudentsClassModal,
@@ -137,16 +138,17 @@ export const StudentsClassModal = ({
           }
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
+          <Space className="d-flex justify-content-center">
+            <Button
               title="Eliminar"
-              color="danger"
-              className="text-white"
+              type="default"
+              style={{ color: "red" }}
+              className="p-0 px-2"
               onClick={onClickDelete}
             >
               <FAIcon customClass="icon" icon={faTrash} />
-            </CButton>
-          </div>
+            </Button>
+          </Space>
         );
       },
     },
@@ -189,23 +191,23 @@ export const StudentsClassModal = ({
     {
       key: "status",
       name: "Estado",
-      width: 120,
+      width: 130,
       resizable: true,
       renderCell: ({ row }) => {
         const onClickStatus = () => {
           dispatch(updateStudentClass({ id: row.id, status: !row.status }));
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
+          <Space className="d-flex justify-content-center">
+            <Button
               title="Cambiar estado"
-              color={row.status ? "success" : "danger"}
-              className="text-white"
+              type="primary"
+              className={row.status ? "bg-success" : "bg-danger"}
               onClick={onClickStatus}
             >
               {row.status ? "Cursando" : "Concluido"}
-            </CButton>
-          </div>
+            </Button>
+          </Space>
         );
       },
     },

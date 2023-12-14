@@ -5,106 +5,107 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import DataGrid from "react-data-grid";
 import { CAvatar, CButton, CCol, CRow } from "@coreui/react";
 import { FAIcon } from "src/assets/icon/FAIcon";
-import Loader from "src/components/layout/loader/Loader";
-import imgUser from "src/assets/images/user.png";
 
 import {
   getAllRoles,
-  getAllProfessors,
-  deleteProfessor,
-  updateStatusProfessor,
+  getAllStudents,
+  deleteStudent,
+  updateStatusStudent,
 } from "src/store";
-import { intranetAvatarApi } from "src/api";
+import imgUser from "src/assets/images/user.png";
+import Loader from "src/components/layout/loader/Loader";
 
 import {
-  AddProfessor,
+  AddStudent,
   ConfirmChangeStatus,
-  ConfirmDeleteProfessor,
+  ConfirmDeleteStudent,
 } from "../modals";
+import { intranetAvatarApi } from "src/api";
+import { Button, Space } from "antd";
 
-export const ProfessorsTab = () => {
+export const StudentsRecords = () => {
   const dispatch = useDispatch();
-  const { professors, statusDataProfessor } = useSelector(
-    (state) => state.professors
+  const { students, statusDataStudent } = useSelector(
+    (state) => state.students
   );
 
   const [rows, setRows] = useState([]);
   const [search, setSearch] = useState("");
-  const [statusStatusProfessorModal, setStatusStatusProfessorModal] =
+  const [statusStatusStudentModal, setStatusStatusStudentModal] =
     useState(false);
-  const [statusAddProfessorModal, setStatusAddProfessorModal] = useState(false);
-  const [statusDeleteProfessorModal, setStatusDeleteProfessorModal] =
+  const [statusAddStudentModal, setStatusAddStudentModal] = useState(false);
+  const [statusDeleteStudentModal, setStatusDeleteStudentModal] =
     useState(false);
-  const [dataProfessor, setDataProfessor] = useState({});
+  const [dataStudent, setDataStudent] = useState({});
 
   // se consultan datos al abrir
   useEffect(() => {
     dispatch(getAllRoles());
-    dispatch(getAllProfessors());
+    dispatch(getAllStudents());
   }, []);
 
   // se cierra modal si se hizo crud
   useEffect(() => {
-    if (statusDataProfessor !== null) {
+    if (statusDataStudent !== null) {
       hideModal();
     }
-  }, [statusDataProfessor]);
+  }, [statusDataStudent]);
 
   // se asignan datos a un estado local
   useEffect(() => {
-    if (professors) {
-      if (professors.length !== 0) {
-        const data = [...professors]; // crea una copia de professors
+    if (students) {
+      if (students.length !== 0) {
+        const data = [...students]; // crea una copia de students
         data.sort((a, b) => b.id - a.id);
         setRows(data);
       } else {
         setRows([]);
       }
     }
-  }, [professors]);
+  }, [students]);
 
   // captura eventos en los estados
-  const handleChangeStatusProfessor = (row) => {
+  const handleChangeStatusStudent = (row) => {
     if (!row.status) {
-      changeStatusProfessor(row);
+      changeStatusStudent(row);
       return;
     } else {
-      setDataProfessor(row);
-      setStatusStatusProfessorModal(true);
+      setDataStudent(row);
+      setStatusStatusStudentModal(true);
       return;
     }
   };
 
   // captura eventos de eliminacion
-  const handleRemoveProfessor = (row) => {
-    setDataProfessor(row);
-    setStatusDeleteProfessorModal(true);
+  const handleRemoveStudent = (row) => {
+    setDataStudent(row);
+    setStatusDeleteStudentModal(true);
   };
 
   // cambia estado del usuario
-  const changeStatusProfessor = (row) => {
+  const changeStatusStudent = (row) => {
     if (row.status) {
-      dispatch(updateStatusProfessor({ id: row.id, status: false }));
+      dispatch(updateStatusStudent({ id: row.id, status: false }));
     } else {
-      dispatch(updateStatusProfessor({ id: row.id, status: true }));
+      dispatch(updateStatusStudent({ id: row.id, status: true }));
     }
   };
 
   // elimina usuario
-  const removeProfessor = (row) => {
-    dispatch(deleteProfessor({ id: row.id }));
+  const removeStudent = (row) => {
+    dispatch(deleteStudent({ id: row.id }));
   };
 
   // muestra modal de usuario
-  const showAddProfessorModal = () => {
-    setStatusAddProfessorModal(true);
+  const showAddStudentModal = () => {
+    setStatusAddStudentModal(true);
   };
 
   const hideModal = () => {
-    setDataProfessor({});
-    setStatusAddProfessorModal(false);
-    setStatusStatusProfessorModal(false);
-    setStatusDeleteProfessorModal(false);
+    setDataStudent({});
+    setStatusAddStudentModal(false);
+    setStatusStatusStudentModal(false);
+    setStatusDeleteStudentModal(false);
   };
 
   const columns = [
@@ -115,31 +116,26 @@ export const ProfessorsTab = () => {
       width: 110,
       renderCell: ({ row }) => {
         const onClickEdit = () => {
-          setDataProfessor(row);
-          showAddProfessorModal();
+          setDataStudent(row);
+          showAddStudentModal();
         };
         const onClickDelete = () => {
-          handleRemoveProfessor(row);
+          handleRemoveStudent(row);
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
-              title="Editar"
-              color="info"
-              className="text-white"
-              onClick={onClickEdit}
-            >
+          <Space className="d-flex justify-content-center">
+            <Button title="Editar" className="p-0 px-2" onClick={onClickEdit}>
               <FAIcon customClass="icon" icon={faEdit} />
-            </CButton>
-            <CButton
+            </Button>
+            <Button
               title="Eliminar"
-              color="danger"
-              className="text-white"
+              className="p-0 px-2"
+              style={{ color: "red" }}
               onClick={onClickDelete}
             >
               <FAIcon customClass="icon" icon={faTrash} />
-            </CButton>
-          </div>
+            </Button>
+          </Space>
         );
       },
     },
@@ -149,11 +145,6 @@ export const ProfessorsTab = () => {
       minWidth: 210,
       resizable: true,
       renderCell: ({ row }) => {
-        const goImageURL = () => {
-          if (row.filename) {
-            window.open(`${intranetAvatarApi}/${row.filename}`, "_blank");
-          }
-        };
         return (
           <span title={`${row.name} ${row.lastName1} ${row.lastName2}`}>
             {" "}
@@ -162,8 +153,7 @@ export const ProfessorsTab = () => {
               src={
                 !row.filename ? imgUser : `${intranetAvatarApi}/${row.filename}`
               }
-              style={{ marginRight: 10, overflow: "hidden", cursor: "pointer" }}
-              onClick={goImageURL}
+              style={{ marginRight: 10, overflow: "hidden" }}
             />
             {`${row.name} ${row.lastName1} ${row.lastName2}`}
           </span>
@@ -175,29 +165,29 @@ export const ProfessorsTab = () => {
     {
       key: "phone",
       name: "Celular",
-      minWidth: 90,
+      minWidth: 80,
       resizable: true,
     },
     {
       key: "status",
       name: "Estado",
-      width: 95,
+      width: 110,
       resizable: true,
       renderCell: ({ row }) => {
         const onClickStatus = () => {
-          handleChangeStatusProfessor(row);
+          handleChangeStatusStudent(row);
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
+          <Space className="d-flex justify-content-center">
+            <Button
               title="Cambiar estado"
-              color={row.status ? "success" : "danger"}
-              className="text-white"
+              type="primary"
+              className={row.status ? "bg-success" : "bg-danger"}
               onClick={onClickStatus}
             >
               {row.status ? "Activo" : "Inactivo"}
-            </CButton>
-          </div>
+            </Button>
+          </Space>
         );
       },
     },
@@ -216,15 +206,16 @@ export const ProfessorsTab = () => {
 
   return (
     <>
-      <CRow className="mt-3 mb-2">
+      <CRow className="mb-2">
         <CCol>
-          <CButton
-            color="success"
+          <Button
+            type="primary"
+            style={{ background: "green" }}
             className="text-white"
-            onClick={showAddProfessorModal}
+            onClick={showAddStudentModal}
           >
             Registrar
-          </CButton>
+          </Button>
         </CCol>
         <CCol sm={9} lg={6} className="mt-2 mt-sm-0">
           <input
@@ -237,9 +228,9 @@ export const ProfessorsTab = () => {
       </CRow>
       <CRow>
         <CCol>
-          <div style={{ height: 450, width: "100%", overflow: "hidden" }}>
-            <Loader show={!professors} center={true} />
-            {professors ? (
+          <div style={{ height: 400, width: "100%", overflow: "hidden" }}>
+            <Loader show={!students} center={true} />
+            {students ? (
               <DataGrid
                 className="rdg-light"
                 columns={columns}
@@ -254,22 +245,22 @@ export const ProfessorsTab = () => {
           </div>
         </CCol>
       </CRow>
-      <AddProfessor
-        statusAddProfessorModal={statusAddProfessorModal}
-        hideAddProfessorModal={hideModal}
-        dataProfessor={dataProfessor}
+      <AddStudent
+        statusAddStudentModal={statusAddStudentModal}
+        hideAddStudentModal={hideModal}
+        dataStudent={dataStudent}
       />
       <ConfirmChangeStatus
-        statusStatusProfessorModal={statusStatusProfessorModal}
-        hideStatusProfessorModal={hideModal}
-        changeStatus={() => changeStatusProfessor(dataProfessor)}
-        dataProfessor={dataProfessor}
+        statusStatusStudentModal={statusStatusStudentModal}
+        hideStatusStudentModal={hideModal}
+        changeStatus={() => changeStatusStudent(dataStudent)}
+        dataStudent={dataStudent}
       />
-      <ConfirmDeleteProfessor
-        statusDeleteProfessorModal={statusDeleteProfessorModal}
-        hideDeleteProfessorModal={hideModal}
-        removeProfessor={() => removeProfessor(dataProfessor)}
-        dataProfessor={dataProfessor}
+      <ConfirmDeleteStudent
+        statusDeleteStudentModal={statusDeleteStudentModal}
+        hideDeleteStudentModal={hideModal}
+        removeStudent={() => removeStudent(dataStudent)}
+        dataStudent={dataStudent}
       />
     </>
   );

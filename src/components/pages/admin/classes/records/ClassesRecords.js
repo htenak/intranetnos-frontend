@@ -6,7 +6,8 @@ import {
   setStudentsClassByClassId,
 } from "src/store";
 
-import { CButton, CCol, CRow } from "@coreui/react";
+import { CCol, CRow } from "@coreui/react";
+import { Button, Space } from "antd";
 import {
   faEdit,
   faTrash,
@@ -18,7 +19,7 @@ import Loader from "src/components/layout/loader/Loader";
 
 import { AddClassModal, DeleteClassModal, StudentsClassModal } from "../modals";
 
-export const ClassesTab = () => {
+export const ClassesRecords = () => {
   const dispatch = useDispatch();
   const { classes, statusDataClass } = useSelector((state) => state.classes);
   const [rows, setRows] = useState([]);
@@ -57,7 +58,7 @@ export const ClassesTab = () => {
       key: "actions",
       name: "Acciones",
       resizable: true,
-      width: 165,
+      width: 135,
       renderCell: ({ row }) => {
         const onClickEdit = () => {
           setDataClass(row);
@@ -73,32 +74,34 @@ export const ClassesTab = () => {
           setStatusDeleteClassModal(true);
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
+          <Space className="d-flex justify-content-center">
+            <Button
+              type="default"
+              className="p-0 px-2"
               title="Editar"
-              color="info"
-              className="text-white"
               onClick={onClickEdit}
             >
-              <FAIcon customClass="icon" icon={faEdit} />
-            </CButton>
-            <CButton
+              <FAIcon icon={faEdit} />
+            </Button>
+            <Button
+              type="default"
+              style={{ color: "green" }}
+              className="p-0 px-2"
               title="Alumnos de esta clase"
-              color="success"
-              className="text-white"
               onClick={onClickStudentsClass}
             >
-              <FAIcon customClass="icon" icon={faUserGraduate} />
-            </CButton>
-            <CButton
+              <FAIcon icon={faUserGraduate} />
+            </Button>
+            <Button
+              type="default"
+              style={{ color: "red" }}
+              className="p-0 px-2"
               title="Eliminar"
-              color="danger"
-              className="text-white"
               onClick={onClickDelete}
             >
-              <FAIcon customClass="icon" icon={faTrash} />
-            </CButton>
-          </div>
+              <FAIcon icon={faTrash} />
+            </Button>
+          </Space>
         );
       },
     },
@@ -130,16 +133,16 @@ export const ClassesTab = () => {
           dispatch(updateClass({ id: row.id, status: !row.status }));
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
+          <Space className="d-flex justify-content-center">
+            <Button
+              type="primary"
               title="Cambiar estado"
-              color={row.status ? "success" : "danger"}
-              className="text-white"
+              className={row.status ? "bg-success" : "bg-danger"}
               onClick={onClickStatus}
             >
               {row.status ? "Activo" : "Inactivo"}
-            </CButton>
-          </div>
+            </Button>
+          </Space>
         );
       },
     },
@@ -170,15 +173,15 @@ export const ClassesTab = () => {
 
   return (
     <>
-      <CRow className="mt-3 mb-2">
+      <CRow className="mb-2">
         <CCol>
-          <CButton
-            color="success"
-            className="text-white"
+          <Button
+            type="primary"
+            style={{ background: "green" }}
             onClick={showAddClassModal}
           >
             Registrar
-          </CButton>
+          </Button>
         </CCol>
         {/* POR HACER: agregar select para filtrar por ciclo (u otros) */}
         <CCol sm={9} lg={6} className="mt-2 mt-sm-0">
@@ -192,7 +195,7 @@ export const ClassesTab = () => {
       </CRow>
       <CRow>
         <CCol>
-          <div style={{ height: 450, width: "100%", overflow: "hidden" }}>
+          <div style={{ height: 400, width: "100%", overflow: "hidden" }}>
             <Loader show={!classes} center={true} />
             {classes ? (
               <DataGrid

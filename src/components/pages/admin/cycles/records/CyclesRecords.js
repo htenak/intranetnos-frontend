@@ -10,8 +10,9 @@ import Loader from "src/components/layout/loader/Loader";
 import { friendlyDateFormat } from "src/components/helpers/";
 
 import { AddCycleModal, DeleteCycleModal, InfoCoursesModal } from "../modals";
+import { Button, Space } from "antd";
 
-export const CyclesTab = () => {
+export const CyclesRecords = () => {
   const dispatch = useDispatch();
   const { cycles, statusDataCycle } = useSelector((state) => state.academic);
   const [rows, setRows] = useState([]);
@@ -60,24 +61,24 @@ export const CyclesTab = () => {
           setStatusDeleteCycleModal(true);
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
+          <Space className="d-flex justify-content-center">
+            <Button
               title="Editar"
               color="info"
-              className="text-white"
+              className="p-0 px-2"
               onClick={onClickEdit}
             >
               <FAIcon customClass="icon" icon={faEdit} />
-            </CButton>
-            <CButton
+            </Button>
+            <Button
               title="Eliminar"
-              color="danger"
-              className="text-white"
+              style={{ color: "red" }}
+              className="p-0 px-2"
               onClick={onClickDelete}
             >
               <FAIcon customClass="icon" icon={faTrash} />
-            </CButton>
-          </div>
+            </Button>
+          </Space>
         );
       },
     },
@@ -125,15 +126,15 @@ export const CyclesTab = () => {
           setStatusInfoCoursesModal(true);
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
+          <Space className="d-flex justify-content-center">
+            <Button
               onClick={onClick}
               title="Ver cursos en este ciclo"
-              className="text-white"
+              className="text-primary"
             >
               Cursos
-            </CButton>
-          </div>
+            </Button>
+          </Space>
         );
       },
     },
@@ -147,16 +148,16 @@ export const CyclesTab = () => {
           dispatch(updateCycle({ id: row.id, status: !row.status }));
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
+          <Space className="d-flex justify-content-center">
+            <Button
+              type="primary"
               title="Cambiar estado"
-              color={row.status ? "success" : "danger"}
-              className="text-white"
+              className={row.status ? "bg-success" : "bg-danger"}
               onClick={onClickStatus}
             >
               {row.status ? "Activo" : "Inactivo"}
-            </CButton>
-          </div>
+            </Button>
+          </Space>
         );
       },
     },
@@ -187,15 +188,15 @@ export const CyclesTab = () => {
 
   return (
     <>
-      <CRow className="mt-3 mb-2">
+      <CRow className="mb-2">
         <CCol>
-          <CButton
-            color="success"
-            className="text-white"
+          <Button
+            type="primary"
+            style={{ background: "green" }}
             onClick={showAddCycleModal}
           >
             Registrar
-          </CButton>
+          </Button>
         </CCol>
         <CCol sm={9} lg={6} className="mt-2 mt-sm-0">
           <input
@@ -208,7 +209,7 @@ export const CyclesTab = () => {
       </CRow>
       <CRow>
         <CCol>
-          <div style={{ height: 450, width: "100%", overflow: "hidden" }}>
+          <div style={{ height: 400, width: "100%", overflow: "hidden" }}>
             <Loader show={!cycles} center={true} />
             {cycles ? (
               <DataGrid

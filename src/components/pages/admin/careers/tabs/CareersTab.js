@@ -4,17 +4,11 @@ import {
   getAllCareers,
   getAllClassrooms,
   getAllClassroomsCareers,
-  setClassroomsCareerByCareerId,
 } from "src/store";
 
-import { CButton, CCol, CRow } from "@coreui/react";
-import {
-  faEdit,
-  faSitemap,
-  faStore,
-  faThLarge,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
+import { CCol, CRow } from "@coreui/react";
+import { Button, Space } from "antd";
+import { faEdit, faSitemap, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FAIcon } from "src/assets/icon/FAIcon";
 import DataGrid from "react-data-grid";
 import Loader from "src/components/layout/loader/Loader";
@@ -70,7 +64,7 @@ export const CareersTab = () => {
       key: "actions",
       name: "Acciones",
       resizable: true,
-      width: 165,
+      width: 135,
       renderCell: ({ row }) => {
         const onClickEdit = () => {
           setDataCareer(row);
@@ -85,34 +79,39 @@ export const CareersTab = () => {
           setStatusDeleteCareerModal(true);
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
+          <Space className="d-flex justify-content-center">
+            <Button
               title="Editar"
-              color="info"
-              className="text-white"
+              type="default"
+              className="p-0 px-2"
               onClick={onClickEdit}
             >
-              <FAIcon customClass="icon" icon={faEdit} />
-            </CButton>
-            <CButton title="Aulas" color="warning" onClick={onClickClassrooms}>
-              <FAIcon customClass="icon" icon={faSitemap} />
-            </CButton>
-            <CButton
+              <FAIcon icon={faEdit} />
+            </Button>
+            <Button
+              title="Aulas"
+              className="p-0 px-2"
+              style={{ color: "green" }}
+              onClick={onClickClassrooms}
+            >
+              <FAIcon icon={faSitemap} />
+            </Button>
+            <Button
               title="Eliminar"
-              color="danger"
-              className="text-white"
+              style={{ color: "red" }}
+              className="p-0 px-2"
               onClick={onClickDelete}
             >
-              <FAIcon customClass="icon" icon={faTrash} />
-            </CButton>
-          </div>
+              <FAIcon icon={faTrash} />
+            </Button>
+          </Space>
         );
       },
     },
     {
       key: "name",
       name: "Carreras",
-      minWidth: 170,
+      minWidth: 150,
       resizable: true,
     },
     {
@@ -148,15 +147,15 @@ export const CareersTab = () => {
           setStatusCoursesCareerModal(true);
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
+          <Space className="d-flex justify-content-center">
+            <Button
               title="Todos los cursos en esta carrera"
-              className="text-white"
+              className="text-primary"
               onClick={onClick}
             >
               Cursos
-            </CButton>
-          </div>
+            </Button>
+          </Space>
         );
       },
     },
@@ -194,14 +193,14 @@ export const CareersTab = () => {
   return (
     <>
       <CRow className="mt-3 mb-2">
-        <CCol>
-          <CButton
-            color="success"
-            className="text-white"
+        <CCol className="align-self-center">
+          <Button
+            type="primary"
+            style={{ background: "green" }}
             onClick={showAddCareerModal}
           >
             Registrar
-          </CButton>
+          </Button>
         </CCol>
         <CCol sm={9} lg={6} className="mt-2 mt-sm-0">
           <input

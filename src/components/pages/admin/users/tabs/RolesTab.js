@@ -8,6 +8,7 @@ import { FAIcon } from "src/assets/icon/FAIcon";
 import { faQuestion } from "@fortawesome/free-solid-svg-icons";
 
 import { RoleDetail } from "../modals";
+import { Space } from "antd";
 
 export const RolesTab = () => {
   const { roles } = useSelector((state) => state.users);
@@ -89,11 +90,12 @@ export const RolesTab = () => {
       resizable: true,
       renderCell: ({ row }) => {
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton disabled color={"success"} className="text-white">
-              {"En uso"}
-            </CButton>
-          </div>
+          <Space
+            className="d-flex justify-content-center"
+            style={{ color: "green" }}
+          >
+            En uso
+          </Space>
         );
       },
     },

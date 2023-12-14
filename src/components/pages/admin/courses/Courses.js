@@ -59,9 +59,7 @@ const Courses = () => {
           <CRow>
             <CCol xs>
               <CCard>
-                <CCardHeader style={{ fontSize: "18px", fontWeight: 500 }}>
-                  Todos los cursos
-                </CCardHeader>
+                <CCardHeader className="fs-6">Todos los cursos</CCardHeader>
                 <CCardBody>
                   <CNav variant="tabs">
                     <CNavItem>

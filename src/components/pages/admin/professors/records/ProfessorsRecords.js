@@ -3,108 +3,109 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import DataGrid from "react-data-grid";
-import { CAvatar, CButton, CCol, CRow } from "@coreui/react";
+import { CAvatar, CCol, CRow } from "@coreui/react";
+import { Button, Space } from "antd";
 import { FAIcon } from "src/assets/icon/FAIcon";
+import Loader from "src/components/layout/loader/Loader";
+import imgUser from "src/assets/images/user.png";
 
 import {
   getAllRoles,
-  getAllStudents,
-  deleteStudent,
-  updateStatusStudent,
+  getAllProfessors,
+  deleteProfessor,
+  updateStatusProfessor,
 } from "src/store";
-import imgUser from "src/assets/images/user.png";
-import Loader from "src/components/layout/loader/Loader";
-
-import {
-  AddStudent,
-  ConfirmChangeStatus,
-  ConfirmDeleteStudent,
-} from "../modals";
 import { intranetAvatarApi } from "src/api";
 
-export const StudentsTab = () => {
+import {
+  AddProfessor,
+  ConfirmChangeStatus,
+  ConfirmDeleteProfessor,
+} from "../modals";
+
+export const ProfessorsRecords = () => {
   const dispatch = useDispatch();
-  const { students, statusDataStudent } = useSelector(
-    (state) => state.students
+  const { professors, statusDataProfessor } = useSelector(
+    (state) => state.professors
   );
 
   const [rows, setRows] = useState([]);
   const [search, setSearch] = useState("");
-  const [statusStatusStudentModal, setStatusStatusStudentModal] =
+  const [statusStatusProfessorModal, setStatusStatusProfessorModal] =
     useState(false);
-  const [statusAddStudentModal, setStatusAddStudentModal] = useState(false);
-  const [statusDeleteStudentModal, setStatusDeleteStudentModal] =
+  const [statusAddProfessorModal, setStatusAddProfessorModal] = useState(false);
+  const [statusDeleteProfessorModal, setStatusDeleteProfessorModal] =
     useState(false);
-  const [dataStudent, setDataStudent] = useState({});
+  const [dataProfessor, setDataProfessor] = useState({});
 
   // se consultan datos al abrir
   useEffect(() => {
     dispatch(getAllRoles());
-    dispatch(getAllStudents());
+    dispatch(getAllProfessors());
   }, []);
 
   // se cierra modal si se hizo crud
   useEffect(() => {
-    if (statusDataStudent !== null) {
+    if (statusDataProfessor !== null) {
       hideModal();
     }
-  }, [statusDataStudent]);
+  }, [statusDataProfessor]);
 
   // se asignan datos a un estado local
   useEffect(() => {
-    if (students) {
-      if (students.length !== 0) {
-        const data = [...students]; // crea una copia de students
+    if (professors) {
+      if (professors.length !== 0) {
+        const data = [...professors]; // crea una copia de professors
         data.sort((a, b) => b.id - a.id);
         setRows(data);
       } else {
         setRows([]);
       }
     }
-  }, [students]);
+  }, [professors]);
 
   // captura eventos en los estados
-  const handleChangeStatusStudent = (row) => {
+  const handleChangeStatusProfessor = (row) => {
     if (!row.status) {
-      changeStatusStudent(row);
+      changeStatusProfessor(row);
       return;
     } else {
-      setDataStudent(row);
-      setStatusStatusStudentModal(true);
+      setDataProfessor(row);
+      setStatusStatusProfessorModal(true);
       return;
     }
   };
 
   // captura eventos de eliminacion
-  const handleRemoveStudent = (row) => {
-    setDataStudent(row);
-    setStatusDeleteStudentModal(true);
+  const handleRemoveProfessor = (row) => {
+    setDataProfessor(row);
+    setStatusDeleteProfessorModal(true);
   };
 
   // cambia estado del usuario
-  const changeStatusStudent = (row) => {
+  const changeStatusProfessor = (row) => {
     if (row.status) {
-      dispatch(updateStatusStudent({ id: row.id, status: false }));
+      dispatch(updateStatusProfessor({ id: row.id, status: false }));
     } else {
-      dispatch(updateStatusStudent({ id: row.id, status: true }));
+      dispatch(updateStatusProfessor({ id: row.id, status: true }));
     }
   };
 
   // elimina usuario
-  const removeStudent = (row) => {
-    dispatch(deleteStudent({ id: row.id }));
+  const removeProfessor = (row) => {
+    dispatch(deleteProfessor({ id: row.id }));
   };
 
   // muestra modal de usuario
-  const showAddStudentModal = () => {
-    setStatusAddStudentModal(true);
+  const showAddProfessorModal = () => {
+    setStatusAddProfessorModal(true);
   };
 
   const hideModal = () => {
-    setDataStudent({});
-    setStatusAddStudentModal(false);
-    setStatusStatusStudentModal(false);
-    setStatusDeleteStudentModal(false);
+    setDataProfessor({});
+    setStatusAddProfessorModal(false);
+    setStatusStatusProfessorModal(false);
+    setStatusDeleteProfessorModal(false);
   };
 
   const columns = [
@@ -115,31 +116,26 @@ export const StudentsTab = () => {
       width: 110,
       renderCell: ({ row }) => {
         const onClickEdit = () => {
-          setDataStudent(row);
-          showAddStudentModal();
+          setDataProfessor(row);
+          showAddProfessorModal();
         };
         const onClickDelete = () => {
-          handleRemoveStudent(row);
+          handleRemoveProfessor(row);
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
-              title="Editar"
-              color="info"
-              className="text-white"
-              onClick={onClickEdit}
-            >
+          <Space className="d-flex justify-content-center">
+            <Button title="Editar" className="p-0 px-2" onClick={onClickEdit}>
               <FAIcon customClass="icon" icon={faEdit} />
-            </CButton>
-            <CButton
+            </Button>
+            <Button
               title="Eliminar"
-              color="danger"
-              className="text-white"
+              style={{ color: "red" }}
+              className="p-0 px-2"
               onClick={onClickDelete}
             >
               <FAIcon customClass="icon" icon={faTrash} />
-            </CButton>
-          </div>
+            </Button>
+          </Space>
         );
       },
     },
@@ -149,11 +145,6 @@ export const StudentsTab = () => {
       minWidth: 210,
       resizable: true,
       renderCell: ({ row }) => {
-        const goImageURL = () => {
-          if (row.filename) {
-            window.open(`${intranetAvatarApi}/${row.filename}`, "_blank");
-          }
-        };
         return (
           <span title={`${row.name} ${row.lastName1} ${row.lastName2}`}>
             {" "}
@@ -162,8 +153,7 @@ export const StudentsTab = () => {
               src={
                 !row.filename ? imgUser : `${intranetAvatarApi}/${row.filename}`
               }
-              style={{ marginRight: 10, overflow: "hidden", cursor: "pointer" }}
-              onClick={goImageURL}
+              style={{ marginRight: 10, overflow: "hidden" }}
             />
             {`${row.name} ${row.lastName1} ${row.lastName2}`}
           </span>
@@ -175,29 +165,29 @@ export const StudentsTab = () => {
     {
       key: "phone",
       name: "Celular",
-      minWidth: 90,
+      minWidth: 80,
       resizable: true,
     },
     {
       key: "status",
       name: "Estado",
-      width: 95,
+      width: 110,
       resizable: true,
       renderCell: ({ row }) => {
         const onClickStatus = () => {
-          handleChangeStatusStudent(row);
+          handleChangeStatusProfessor(row);
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
+          <Space className="d-flex justify-content-center">
+            <Button
               title="Cambiar estado"
-              color={row.status ? "success" : "danger"}
-              className="text-white"
+              type="primary"
+              className={row.status ? "bg-success" : "bg-danger"}
               onClick={onClickStatus}
             >
               {row.status ? "Activo" : "Inactivo"}
-            </CButton>
-          </div>
+            </Button>
+          </Space>
         );
       },
     },
@@ -216,15 +206,15 @@ export const StudentsTab = () => {
 
   return (
     <>
-      <CRow className="mt-3 mb-2">
+      <CRow className="mb-2">
         <CCol>
-          <CButton
-            color="success"
-            className="text-white"
-            onClick={showAddStudentModal}
+          <Button
+            type="primary"
+            style={{ background: "green" }}
+            onClick={showAddProfessorModal}
           >
             Registrar
-          </CButton>
+          </Button>
         </CCol>
         <CCol sm={9} lg={6} className="mt-2 mt-sm-0">
           <input
@@ -237,9 +227,9 @@ export const StudentsTab = () => {
       </CRow>
       <CRow>
         <CCol>
-          <div style={{ height: 450, width: "100%", overflow: "hidden" }}>
-            <Loader show={!students} center={true} />
-            {students ? (
+          <div style={{ height: 400, width: "100%", overflow: "hidden" }}>
+            <Loader show={!professors} center={true} />
+            {professors ? (
               <DataGrid
                 className="rdg-light"
                 columns={columns}
@@ -254,22 +244,22 @@ export const StudentsTab = () => {
           </div>
         </CCol>
       </CRow>
-      <AddStudent
-        statusAddStudentModal={statusAddStudentModal}
-        hideAddStudentModal={hideModal}
-        dataStudent={dataStudent}
+      <AddProfessor
+        statusAddProfessorModal={statusAddProfessorModal}
+        hideAddProfessorModal={hideModal}
+        dataProfessor={dataProfessor}
       />
       <ConfirmChangeStatus
-        statusStatusStudentModal={statusStatusStudentModal}
-        hideStatusStudentModal={hideModal}
-        changeStatus={() => changeStatusStudent(dataStudent)}
-        dataStudent={dataStudent}
+        statusStatusProfessorModal={statusStatusProfessorModal}
+        hideStatusProfessorModal={hideModal}
+        changeStatus={() => changeStatusProfessor(dataProfessor)}
+        dataProfessor={dataProfessor}
       />
-      <ConfirmDeleteStudent
-        statusDeleteStudentModal={statusDeleteStudentModal}
-        hideDeleteStudentModal={hideModal}
-        removeStudent={() => removeStudent(dataStudent)}
-        dataStudent={dataStudent}
+      <ConfirmDeleteProfessor
+        statusDeleteProfessorModal={statusDeleteProfessorModal}
+        hideDeleteProfessorModal={hideModal}
+        removeProfessor={() => removeProfessor(dataProfessor)}
+        dataProfessor={dataProfessor}
       />
     </>
   );

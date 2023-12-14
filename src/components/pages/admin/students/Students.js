@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import {
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CNav,
-  CNavItem,
-  CNavLink,
-  CRow,
-} from "@coreui/react";
-import { StudentsTab } from "./tabs";
+import { CCard, CCardBody, CCardHeader, CCol, CRow } from "@coreui/react";
+import { StudentsRecords } from "./records";
 import { messageHandler } from "src/components/helpers";
 
 const Students = () => {
@@ -37,25 +28,11 @@ const Students = () => {
           <CRow>
             <CCol xs>
               <CCard>
-                <CCardHeader style={{ fontSize: "18px", fontWeight: 500 }}>
+                <CCardHeader className="fs-6">
                   Todos los estudiantes
                 </CCardHeader>
                 <CCardBody>
-                  <CNav variant="tabs">
-                    <CNavItem>
-                      <CNavLink
-                        role="button"
-                        onClick={() => setTab("students")}
-                        active={tab === "students"}
-                        className={
-                          tab === "students" ? "text-success" : "text-dark"
-                        }
-                      >
-                        Estudiantes
-                      </CNavLink>
-                    </CNavItem>
-                  </CNav>
-                  {tab === "students" ? <StudentsTab /> : <></>}
+                  <StudentsRecords />
                 </CCardBody>
               </CCard>
             </CCol>

@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCourses, updateStatusCourse } from "src/store";
 
-import { CButton, CCol, CRow } from "@coreui/react";
+import { CCol, CRow } from "@coreui/react";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FAIcon } from "src/assets/icon/FAIcon";
 import DataGrid from "react-data-grid";
 import Loader from "src/components/layout/loader/Loader";
 
 import { AddCourseModal, DeleteCourseModal } from "../modals";
+import { Button, Space } from "antd";
 
 export const CoursesTab = () => {
   const dispatch = useDispatch();
@@ -58,24 +59,25 @@ export const CoursesTab = () => {
           setStatusDeleteCourseModal(true);
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
+          <Space className="d-flex justify-content-center">
+            <Button
+              type="default"
               title="Editar"
-              color="info"
-              className="text-white"
+              className="p-0 px-2"
               onClick={onClickEdit}
             >
               <FAIcon customClass="icon" icon={faEdit} />
-            </CButton>
-            <CButton
+            </Button>
+            <Button
+              type="default"
               title="Eliminar"
-              color="danger"
-              className="text-white"
+              style={{ color: "red" }}
+              className="p-0 px-2"
               onClick={onClickDelete}
             >
               <FAIcon customClass="icon" icon={faTrash} />
-            </CButton>
-          </div>
+            </Button>
+          </Space>
         );
       },
     },
@@ -110,16 +112,16 @@ export const CoursesTab = () => {
           dispatch(updateStatusCourse({ id: row.id, status: !row.status }));
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
+          <Space className="d-flex justify-content-center">
+            <Button
               title="Cambiar estado"
-              color={row.status ? "success" : "danger"}
-              className="text-white"
+              type="primary"
+              className={row.status ? "bg-success" : "bg-danger"}
               onClick={onClickStatus}
             >
               {row.status ? "Activo" : "Inactivo"}
-            </CButton>
-          </div>
+            </Button>
+          </Space>
         );
       },
     },
@@ -151,13 +153,13 @@ export const CoursesTab = () => {
     <>
       <CRow className="mt-3 mb-2">
         <CCol>
-          <CButton
-            color="success"
-            className="text-white"
+          <Button
+            type="primary"
+            style={{ background: "green" }}
             onClick={showAddCourseModal}
           >
             Registrar
-          </CButton>
+          </Button>
         </CCol>
         <CCol sm={9} lg={6} className="mt-2 mt-sm-0">
           <input

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCycles, getAllSchedules, updateSchedule } from "src/store";
 
-import { CButton, CCol, CFormSelect, CRow } from "@coreui/react";
+import { CCol, CFormSelect, CRow } from "@coreui/react";
+import { Button, Space } from "antd";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FAIcon } from "src/assets/icon/FAIcon";
 import DataGrid from "react-data-grid";
@@ -99,24 +100,19 @@ export const SchedulesTab = ({ careerIdTab, careerNameTab }) => {
           setStatusDeleteScheduleModal(true);
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
-              title="Editar"
-              color="info"
-              className="text-white"
-              onClick={onClickEdit}
-            >
+          <Space className="d-flex justify-content-center">
+            <Button title="Editar" className="p-0 px-2" onClick={onClickEdit}>
               <FAIcon customClass="icon" icon={faEdit} />
-            </CButton>
-            <CButton
+            </Button>
+            <Button
               title="Eliminar"
-              color="danger"
-              className="text-white"
+              style={{ color: "red" }}
+              className="p-0 px-2"
               onClick={onClickDelete}
             >
               <FAIcon customClass="icon" icon={faTrash} />
-            </CButton>
-          </div>
+            </Button>
+          </Space>
         );
       },
     },
@@ -178,16 +174,16 @@ export const SchedulesTab = ({ careerIdTab, careerNameTab }) => {
           dispatch(updateSchedule({ id: row.id, status: !row.status }));
         };
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
-            <CButton
+          <Space className="d-flex justify-content-center">
+            <Button
               title="Cambiar estado"
-              color={row.status ? "success" : "danger"}
-              className="text-white"
+              type="primary"
+              className={row.status ? "bg-success" : "bg-danger"}
               onClick={onClickStatus}
             >
               {row.status ? "Activo" : "Inactivo"}
-            </CButton>
-          </div>
+            </Button>
+          </Space>
         );
       },
     },
@@ -230,18 +226,19 @@ export const SchedulesTab = ({ careerIdTab, careerNameTab }) => {
     <>
       <CRow className="mt-3 mb-2">
         <CCol>
-          <CButton
-            color="success"
-            className="text-white"
+          <Button
+            type="primary"
+            style={{ background: "green" }}
             onClick={showAddScheduleModal}
           >
             Registrar
-          </CButton>
+          </Button>
         </CCol>
         <CCol xs={7} lg={3}>
           <CFormSelect
             onChange={handleChangeCycle}
             value={cycleIdSchedule || 0}
+            style={{ fontSize: "99.5%" }}
           >
             <option value={0}>Todos los ciclos</option>
             {cycles && cycles.length !== 0 ? (

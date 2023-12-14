@@ -81,9 +81,9 @@ export const AddClassModal = ({
     );
     setValues({
       ...values,
-      denomination: `${cycle ? `${cycle.abbreviation} ciclo` : "ciclo"} - ${
+      denomination: `${cycle ? `${cycle.abbreviation} ciclo` : "ciclo"} • ${
         course ? course.name : "curso"
-      } - ${
+      } • ${
         professor
           ? professor.name +
             " " +

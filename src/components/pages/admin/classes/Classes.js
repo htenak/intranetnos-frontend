@@ -1,17 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import {
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CNav,
-  CNavItem,
-  CNavLink,
-  CRow,
-} from "@coreui/react";
-import { ClassesTab } from "./tabs";
+import { CCard, CCardBody, CCardHeader, CCol, CRow } from "@coreui/react";
 import { messageHandler } from "src/components/helpers/";
+import { ClassesRecords } from "./records";
 
 const Classes = () => {
   const {
@@ -22,8 +13,6 @@ const Classes = () => {
     studentClassSuccessMessage,
     statusDataStudentClass,
   } = useSelector((state) => state.classes);
-
-  const [tab, setTab] = useState("classes");
 
   // mensajes de las peticiones
   useEffect(() => {
@@ -55,26 +44,9 @@ const Classes = () => {
           <CRow>
             <CCol xs>
               <CCard>
-                <CCardHeader style={{ fontSize: "18px", fontWeight: 500 }}>
-                  Todas las clases
-                </CCardHeader>
+                <CCardHeader className="fs-6">Todas las clases</CCardHeader>
                 <CCardBody>
-                  {/* POR HACER: cambiar por tabs de aulas */}
-                  <CNav variant="tabs">
-                    <CNavItem>
-                      <CNavLink
-                        role="button"
-                        onClick={() => setTab("classes")}
-                        active={tab === "classes"}
-                        className={
-                          tab === "classes" ? "text-success" : "text-dark"
-                        }
-                      >
-                        Clases
-                      </CNavLink>
-                    </CNavItem>
-                  </CNav>
-                  {tab === "classes" ? <ClassesTab /> : <></>}
+                  <ClassesRecords />
                 </CCardBody>
               </CCard>
             </CCol>
