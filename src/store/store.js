@@ -10,12 +10,14 @@ import {
   classesProfessorSlice,
   academicProfessorSlice,
   pupilsProfessorSlice,
+  activitiesProfessorSlice,
 } from "./";
 
 export const store = configureStore({
   reducer: {
     nav: navSlice.reducer,
     auth: authSlice.reducer,
+
     users: usersSlice.reducer,
     students: studentsSlice.reducer,
     professors: professorsSlice.reducer,
@@ -25,6 +27,7 @@ export const store = configureStore({
     classesProfessor: classesProfessorSlice.reducer,
     academicProfessor: academicProfessorSlice.reducer,
     pupilsProfessor: pupilsProfessorSlice.reducer,
+    activitiesProfessor: activitiesProfessorSlice.reducer,
   },
   devTools: process.env.NODE_ENV !== "production", // habilita DevTools en desarrollo
 });
