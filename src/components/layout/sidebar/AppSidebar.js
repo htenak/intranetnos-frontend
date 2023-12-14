@@ -10,7 +10,7 @@ import {
 import navigation from "../../../router/Navigation";
 import AppSidebarNav from "./AppSidebarNav";
 
-import logoNor from "src/assets/images/nor_logo.jpeg";
+import logoNor from "src/assets/images/nor_logo.jpg";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 

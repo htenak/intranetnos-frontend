@@ -15,7 +15,7 @@ import {
 
 import AppBreadcrumb from "./AppBreadcrumb";
 import AppHeaderDropdown from "./AppHeaderDropdown";
-import logoNor from "src/assets/images/nor_logo.png";
+import logoNor from "src/assets/images/nor_logo.jpg";
 
 import { setNav } from "src/store/nav";
 import { FAIcon } from "src/assets/icon/FAIcon";
@@ -30,7 +30,7 @@ const AppHeader = () => {
   };
 
   return (
-    <CHeader position="sticky" className="mb-3">
+    <CHeader position="sticky" className="mb-2">
       <CContainer fluid>
         <CHeaderToggler
           className="ps-1"

@@ -56,9 +56,10 @@ input[type="number"] {
 input[type="search"] {
   background-image: url("./assets/images/search.png");
   background-repeat: no-repeat;
-  background-size: 1.5rem;
+  background-size: 1.35rem;
   background-position: 97%;
   padding-right: 40px;
+  font-size: 99.5%;
 }
 
 /* 
@@ -67,15 +68,16 @@ input[type="search"] {
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap");
 * {
   font-family: "Poppins", sans-serif;
+  font-size: 98.8% /*!important*/;
 }
 
 .fs-14px-all * {
   font-size: 14px;
 }
 
-@media screen and (max-width: 576px) {
+/* @media screen and (max-width: 576px) {
   * {
-    font-size: 0.82rem !important;
+    font-size: 0.83rem !important;
   }
 }
 
@@ -89,4 +91,4 @@ input[type="search"] {
   * {
     font-size: 0.96rem;
   }
-}
+} */
