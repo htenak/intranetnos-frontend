@@ -10,12 +10,12 @@ import {
   CHeaderToggler,
   CNavLink,
   CNavItem,
-  CButton,
 } from "@coreui/react";
+import { Button } from "antd";
 
 import AppBreadcrumb from "./AppBreadcrumb";
 import AppHeaderDropdown from "./AppHeaderDropdown";
-import logoNor from "src/assets/images/nor_logo.jpg";
+import logoNor from "src/assets/images/nor_logo.png";
 
 import { setNav } from "src/store/nav";
 import { FAIcon } from "src/assets/icon/FAIcon";
@@ -64,14 +64,14 @@ const AppHeader = () => {
       <CHeaderDivider />
       <CContainer fluid>
         <AppBreadcrumb />
-        <CButton
-          style={{ marginRight: "8px", color: "#fff" }}
-          color="warning"
+        <Button
+          type="link"
+          style={{ marginRight: 4 }}
           onClick={onClickReload}
           title="Refrescar página"
         >
-          <FAIcon customClass="icon" icon={faRotateRight} />
-        </CButton>
+          <FAIcon icon={faRotateRight} />
+        </Button>
       </CContainer>
     </CHeader>
   );
