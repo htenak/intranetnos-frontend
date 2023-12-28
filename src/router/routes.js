@@ -36,6 +36,9 @@ const Schedules = React.lazy(() =>
 const PClasses = React.lazy(() =>
   import("../components/pages/professor/classes/PClasses")
 );
+const PClass = React.lazy(() =>
+  import("../components/pages/professor/class/PClass")
+);
 const PActivities = React.lazy(() =>
   import("../components/pages/professor/activities/PActivities")
 );
@@ -121,6 +124,12 @@ const routes = [
     path: "/professor/classes",
     name: "Clases",
     element: PClasses,
+    roles: [ROLE_PROFESSOR],
+  },
+  {
+    path: "/professor/classes/one-class",
+    name: "Clase",
+    element: PClass,
     roles: [ROLE_PROFESSOR],
   },
   {
