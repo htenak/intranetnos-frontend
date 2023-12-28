@@ -77,7 +77,10 @@ const PActivities = () => {
               <AddTypeActivity />
             </CCol>
             <CCol md={6} lg={7} className="mt-2 mt-md-0">
-              <AddActivity valuesToEdit={valuesToEdit} />
+              <AddActivity
+                getAndSetActivityToEdit={getAndSetActivityToEdit}
+                valuesToEdit={valuesToEdit}
+              />
             </CCol>
           </CRow>
         </CCardBody>

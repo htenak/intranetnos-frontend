@@ -3,7 +3,11 @@ import { Button, Popconfirm, Space, Table, Tag, Tooltip } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FAIcon } from "src/assets/icon/FAIcon";
-import { deleteActivity, updateActivity } from "src/store";
+import {
+  deleteActivity,
+  updateActivity,
+  getAllClassesProfessor,
+} from "src/store";
 import { friendlyDateFormat } from "src/components/helpers";
 
 export const ActivitiesRecords = ({ getAndSetActivityToEdit }) => {
@@ -13,6 +17,11 @@ export const ActivitiesRecords = ({ getAndSetActivityToEdit }) => {
   );
 
   const [rows, setRows] = useState([]);
+
+  // obtiene las clases del profesor
+  useEffect(() => {
+    dispatch(getAllClassesProfessor());
+  }, []);
 
   useEffect(() => {
     if (activities) {
@@ -72,11 +81,22 @@ export const ActivitiesRecords = ({ getAndSetActivityToEdit }) => {
     {
       dataIndex: "name",
       title: "Nombre",
-      width: 160,
+      width: 170,
     },
     {
       dataIndex: "description",
       title: "Actividad",
+      render: (_, { description, classs }) => {
+        return (
+          <>
+            <span
+              style={{ fontWeight: 500 }}
+            >{`${classs.cycle?.abbreviation} • ${classs.course?.abbreviation} • ${classs.career?.name}`}</span>
+            <br />
+            <span style={{ fontWeight: 300 }}>{description}</span>
+          </>
+        );
+      },
     },
     {
       dataIndex: "dueDate",

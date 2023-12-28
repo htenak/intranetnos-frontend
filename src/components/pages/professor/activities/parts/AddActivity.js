@@ -21,16 +21,12 @@ import TextArea from "antd/es/input/TextArea";
 import { useDispatch, useSelector } from "react-redux";
 import { ObligatoryField } from "src/components/pages/customComponents";
 import { useEffect, useState } from "react";
-import {
-  getAllClassesProfessor,
-  saveActivity,
-  updateActivity,
-} from "src/store";
+import { saveActivity, updateActivity } from "src/store";
 import { toast } from "react-toastify";
 import { FAIcon } from "src/assets/icon/FAIcon";
 import { faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
 
-export const AddActivity = ({ valuesToEdit }) => {
+export const AddActivity = ({ getAndSetActivityToEdit, valuesToEdit }) => {
   const dispatch = useDispatch();
   const { activityTypes, statusDataActivity } = useSelector(
     (state) => state.activitiesProfessor
@@ -51,11 +47,6 @@ export const AddActivity = ({ valuesToEdit }) => {
   const [optionsActivityTypes, setOptionsActivityTypes] = useState([]);
   const [optionsClasses, setOptionsClasses] = useState([]);
 
-  // obtiene las clases del profesor
-  useEffect(() => {
-    dispatch(getAllClassesProfessor());
-  }, []);
-
   // setea values si se hizo click en editar
   useEffect(() => {
     if (valuesToEdit !== null) {
@@ -66,7 +57,7 @@ export const AddActivity = ({ valuesToEdit }) => {
   // reinicia los values si se creó o actualizó
   useEffect(() => {
     if (statusDataActivity === "CREATED" || statusDataActivity === "UPDATED") {
-      setValues(initialValues);
+      cleanValues();
     }
   }, [statusDataActivity]);
 
@@ -132,12 +123,20 @@ export const AddActivity = ({ valuesToEdit }) => {
 
   // captura nota mínima
   const handleInputMinGradeChange = (value) => {
-    setValues({ ...values, minGrade: value });
+    if (value === null) {
+      setValues({ ...values, minGrade: 0 });
+    } else {
+      setValues({ ...values, minGrade: 0 });
+    }
   };
 
   // caṕtura nota máxima
   const handleInputMaxGradeChange = (value) => {
-    setValues({ ...values, maxGrade: value });
+    if (value === null) {
+      setValues({ ...values, maxGrade: 0 });
+    } else {
+      setValues({ ...values, maxGrade: value });
+    }
   };
 
   // captura fecha
@@ -147,6 +146,7 @@ export const AddActivity = ({ valuesToEdit }) => {
 
   // limpiar values
   const cleanValues = () => {
+    getAndSetActivityToEdit(null);
     setValues(initialValues);
   };
 
@@ -163,13 +163,21 @@ export const AddActivity = ({ valuesToEdit }) => {
     if (values?.name.trim() === "") {
       return toast.error("El nombre de la actividad es requerido");
     }
-    if (values.minGrade === null) {
+    if (values?.description.trim() === "") {
+      return toast.error("La descripción de la actividad es requerido");
+    }
+    if (values?.minGrade === null) {
       return toast.error("La nota mínima es requerida");
     }
-    if (values.maxGrade === null) {
+    if (values?.maxGrade === null) {
       return toast.error("La nota máxima es requerida");
     }
-    if (values.dueDate === "") {
+    if (values?.maxGrade <= values?.minGrade) {
+      return toast.error(
+        "La nota máxima no puede ser menor o igual a la nota mínima"
+      );
+    }
+    if (values?.dueDate === "") {
       return toast.error("La fecha límite es requerida");
     }
 
@@ -257,7 +265,7 @@ export const AddActivity = ({ valuesToEdit }) => {
                 style={{ width: "100%" }}
                 onChange={handleInputMinGradeChange}
                 value={values?.minGrade || ""}
-                placeholder="Digite"
+                placeholder="0"
                 min={0}
               />
             </CCol>
@@ -269,7 +277,7 @@ export const AddActivity = ({ valuesToEdit }) => {
                 style={{ width: "100%" }}
                 onChange={handleInputMaxGradeChange}
                 value={values?.maxGrade || ""}
-                placeholder="Digite"
+                placeholder="0"
                 max={20}
               />
             </CCol>
@@ -278,7 +286,6 @@ export const AddActivity = ({ valuesToEdit }) => {
                 Fecha límite <ObligatoryField />
               </label>
               <DatePicker
-                // placeholder="Seleccionar"
                 style={{ width: "100%" }}
                 onChange={handleInputDateChange}
                 value={values?.dueDate ? dayjs(values.dueDate) : null}
