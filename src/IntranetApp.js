@@ -2,6 +2,7 @@ import React, { Component, Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Flip, ToastContainer } from "react-toastify";
 
+import "dayjs/locale/es";
 import "react-toastify/dist/ReactToastify.css";
 import "react-data-grid/lib/styles.css";
 import "./scss/style.scss";
@@ -27,6 +28,7 @@ class App extends Component {
         <ToastContainer
           theme="colored"
           hideProgressBar
+          position="top-center"
           autoClose={1000}
           transition={Flip}
         />
