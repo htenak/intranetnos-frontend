@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   CCard,
   CCardBody,
@@ -7,14 +8,10 @@ import {
   CRow,
   CCardTitle,
 } from "@coreui/react";
-import { Card, Image, Tag } from "antd";
-import {
-  faCalendarAlt,
-  faChalkboardTeacher,
-  faCog,
-} from "@fortawesome/free-solid-svg-icons";
+import { Button, Card, Image } from "antd";
+import { faChalkboardTeacher, faCog } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllClassesProfessor, getSchedulesByClass } from "src/store";
+import { getAllClassesProfessor } from "src/store";
 import { intranetClassPhotoApi } from "src/api";
 import { FAIcon } from "src/assets/icon/FAIcon";
 import { ConfigClassProfessorModal, ViewScheduleModal } from "../../modals";
@@ -24,6 +21,7 @@ import { friendlyDateFormat, messageHandler } from "src/components/helpers";
 
 export const ClassesProfessor = () => {
   const Meta = Card.Meta;
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
     classesProfessor,
@@ -37,6 +35,7 @@ export const ClassesProfessor = () => {
   const [statusScheduleModal, setStatusScheduleModal] = useState(false);
 
   useEffect(() => {
+    localStorage.removeItem("insideClassProfesor");
     dispatch(getAllClassesProfessor());
   }, []);
 
@@ -58,9 +57,9 @@ export const ClassesProfessor = () => {
     setStatusConfigClassModal(status);
   };
 
-  const onClickSchedule = (dataClass) => {
-    dispatch(getSchedulesByClass(dataClass));
-    setStatusScheduleModal(true);
+  const onClickEnterClass = (classs) => {
+    localStorage.setItem("insideClassProfesor", JSON.stringify(classs));
+    navigate("/professor/classes/one-class");
   };
 
   return (
@@ -95,35 +94,44 @@ export const ClassesProfessor = () => {
                         />
                       }
                       actions={[
-                        <Tag
-                          style={{ cursor: "not-allowed" }}
-                          color={c.status ? "#87d068" : "#cf3c3c"}
+                        <Button
+                          type="primary"
+                          onClick={() => onClickEnterClass(c)}
+                          style={{
+                            width: "88%",
+                            textAlign: "center",
+                            background: "green",
+                          }}
                         >
-                          {c.status ? "Clase activa" : "Clase inactiva"}
-                        </Tag>,
-                        <span
-                          className="text-dark"
-                          onClick={() => onClickConfigClass(c, true)}
-                        >
-                          <FAIcon customClass="icon" icon={faCog} />
-                        </span>,
-                        <span
-                          className="text-dark"
-                          onClick={() => onClickSchedule(c.id)}
-                        >
-                          <FAIcon customClass="icon" icon={faCalendarAlt} />{" "}
-                          Horario
-                        </span>,
+                          Entrar
+                        </Button>,
                       ]}
                     >
                       <Meta
                         description={
-                          <div style={{ height: 130, overflow: "auto" }}>
+                          <div style={{ height: 150, overflow: "auto" }}>
                             <b className="text-dark">{c.career.name}</b>{" "}
                             <span className="d-block">{c.denomination}</span>
                             <span className="d-block">
                               <strong>Fecha:</strong>{" "}
                               {friendlyDateFormat(c.createdAt)}
+                            </span>
+                            <span className="pt-4 d-flex justify-content-between">
+                              <span
+                                onClick={() => onClickConfigClass(c, true)}
+                                style={{ cursor: "pointer" }}
+                              >
+                                <FAIcon icon={faCog} customClass="icon" />
+                              </span>
+                              <span
+                                style={
+                                  c.status
+                                    ? { color: "green" }
+                                    : { color: "#cf3c3c" }
+                                }
+                              >
+                                {c.status ? "Clase activa" : "Clase inactiva"}
+                              </span>
                             </span>
                           </div>
                         }

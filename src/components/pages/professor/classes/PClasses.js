@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import {
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CNav,
-  CNavItem,
-  CNavLink,
-  CRow,
-} from "@coreui/react";
+import { CCard, CCardBody, CNav, CNavItem, CNavLink } from "@coreui/react";
 import { ClassesProfessor, OtherClassesProfessor } from "./tabs";
 
 const PClasses = () => {

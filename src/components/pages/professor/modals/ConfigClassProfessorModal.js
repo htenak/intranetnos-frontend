@@ -15,7 +15,7 @@ import {
   faCog,
   faWarning,
 } from "@fortawesome/free-solid-svg-icons";
-import { Button, Col, Tag, Upload } from "antd";
+import { Button, Col, Popconfirm, Tag, Upload } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import Input from "antd/es/input/Input";
 import { FAIcon } from "src/assets/icon/FAIcon";
@@ -91,8 +91,6 @@ export const ConfigClassProfessorModal = ({
 
   // elimina foto de la clase
   const onDeletePhotoClass = () => {
-    const confirm = window.confirm("¿Eliminar foto de la clase?");
-    if (!confirm) return;
     dispatch(deletePhotoClassProfessor(classSelected.id));
   };
 
@@ -103,11 +101,10 @@ export const ConfigClassProfessorModal = ({
         <Tag
           onClick={onClickCloseOptions}
           style={{ cursor: "pointer" }}
-          color="red"
+          className="mb-3"
         >
           <FAIcon icon={faArrowLeft} /> Regresar
         </Tag>
-        <hr />
       </>
     );
   };
@@ -192,13 +189,16 @@ export const ConfigClassProfessorModal = ({
                   + subir
                 </Button>
               ) : (
-                <Button
-                  type="primary"
-                  className="bg-danger"
-                  onClick={onDeletePhotoClass}
+                <Popconfirm
+                  title="¿Desea continuar?"
+                  cancelText="Cancelar"
+                  okText="Sí"
+                  onConfirm={onDeletePhotoClass}
                 >
-                  Eliminar
-                </Button>
+                  <Button type="primary" className="bg-danger">
+                    Eliminar
+                  </Button>
+                </Popconfirm>
               )}
             </div>
           </>
