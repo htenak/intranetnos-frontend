@@ -8,6 +8,7 @@ const initialState = {
   activityTypeSuccessMessage: undefined,
 
   activities: null,
+  loadingActivitiesClass: false,
   activity: null,
   statusDataActivity: null, // 'CREATED' , 'UPDATED', 'DELETED'
   activityErrorMessage: undefined,
@@ -55,8 +56,12 @@ export const activitiesProfessorSlice = createSlice({
     },
 
     // activities:
+    startGetActivitiesClass: (state) => {
+      state.loadingActivitiesClass = true;
+    },
     setActivities: (state, { payload }) => {
       state.activities = payload;
+      state.loadingActivitiesClass = false;
     },
     onActivityCrud: (state, { payload }) => {
       state.statusDataActivity = payload.crud;
@@ -99,6 +104,7 @@ export const {
   resetActivityTypeCrud,
   setActivityTypeErrorMessage,
 
+  startGetActivitiesClass,
   setActivities,
   onActivityCrud,
   resetActivityCrud,

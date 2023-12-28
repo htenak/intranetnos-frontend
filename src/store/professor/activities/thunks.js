@@ -8,6 +8,7 @@ import {
   onActivityCrud,
   resetActivityCrud,
   setActivityErrorMessage,
+  startGetActivitiesClass,
 } from "../activities";
 
 // activityTypes:
@@ -121,6 +122,25 @@ export const getAllActivities = () => {
   };
 };
 
+export const getActivitiesByClassId = (classId) => {
+  return async (dispatch) => {
+    dispatch(startGetActivitiesClass());
+    try {
+      const { data } = await intranetApi.get(
+        `/activity/professor/activities-class/${classId}`
+      );
+      setTimeout(() => {
+        dispatch(setActivities(data.data));
+      }, 300);
+    } catch (error) {
+      dispatch(setActivityErrorMessage(error.response.data?.message));
+      setTimeout(() => {
+        dispatch(resetActivityCrud());
+      }, 50);
+    }
+  };
+};
+
 export const saveActivity = (form) => {
   return async (dispatch) => {
     try {
@@ -139,6 +159,7 @@ export const saveActivity = (form) => {
         dispatch(resetActivityCrud());
       }, 50);
     } catch (error) {
+      console.log(error);
       dispatch(setActivityErrorMessage(error.response.data?.message));
       setTimeout(() => {
         dispatch(resetActivityCrud());
