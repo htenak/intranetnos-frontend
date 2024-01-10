@@ -17,6 +17,8 @@ import { updateMyData } from "src/store";
 
 import { FAIcon } from "src/assets/icon/FAIcon";
 import { MyPhoto } from "./index";
+import { getRoleName } from "src/components/helpers";
+import { Button, Space } from "antd";
 
 export const MyData = () => {
   const dispatch = useDispatch();
@@ -85,27 +87,47 @@ export const MyData = () => {
         <CCardBody>
           <CRow className="justify-content-center">
             <CCol xl={8}>
-              <CForm onSubmit={handleSubmit}>
+              <CForm>
                 <CRow>
                   <CCol md={6}>
                     <CFormLabel className="mb-1 mt-2">Nombres</CFormLabel>
-                    <CFormInput value={user.name} disabled />
+                    <CFormInput
+                      value={user.name}
+                      className="input-data-profile"
+                      style={{ background: "#eee" }}
+                      disabled
+                    />
                   </CCol>
                   <CCol sm={4} md={3}>
                     <CFormLabel className="mb-1 mt-2">
                       Apellido paterno
                     </CFormLabel>
-                    <CFormInput value={user.lastName1} disabled />
+                    <CFormInput
+                      value={user.lastName1}
+                      className="input-data-profile"
+                      style={{ background: "#eee" }}
+                      disabled
+                    />
                   </CCol>
                   <CCol sm={4} md={3}>
                     <CFormLabel className="mb-1 mt-2">
                       Apellido materno
                     </CFormLabel>
-                    <CFormInput value={user.lastName2} disabled />
+                    <CFormInput
+                      value={user.lastName2}
+                      className="input-data-profile"
+                      style={{ background: "#eee" }}
+                      disabled
+                    />
                   </CCol>
                   <CCol sm={4} md={3}>
                     <CFormLabel className="mb-1 mt-2">DNI</CFormLabel>
-                    <CFormInput value={user.dni} disabled />
+                    <CFormInput
+                      value={user.dni}
+                      className="input-data-profile"
+                      style={{ background: "#eee" }}
+                      disabled
+                    />
                   </CCol>
                   <CCol sm={6} md={6}>
                     <CFormLabel className="mb-1 mt-2">
@@ -117,6 +139,7 @@ export const MyData = () => {
                       type="email"
                       onChange={handleInputChange}
                       disabled={editing ? false : true}
+                      className="input-data-profile"
                     />
                   </CCol>
                   <CCol xs={6} sm={3} md={3}>
@@ -128,11 +151,17 @@ export const MyData = () => {
                       onChange={handleInputChange}
                       disabled={editing ? false : true}
                       placeholder="900000000"
+                      className="input-data-profile"
                     />
                   </CCol>
                   <CCol xs={6} sm={3}>
                     <CFormLabel className="mb-1 mt-2">Usuario</CFormLabel>
-                    <CFormInput value={user.username} disabled />
+                    <CFormInput
+                      value={user.username}
+                      disabled
+                      className="input-data-profile "
+                      style={{ background: "#eee" }}
+                    />
                   </CCol>
                   <CCol sm={6}>
                     <CFormLabel className="mb-1 mt-2">Apodo</CFormLabel>
@@ -141,51 +170,49 @@ export const MyData = () => {
                       value={values.nickname || ""}
                       onChange={handleInputChange}
                       disabled={editing ? false : true}
+                      className="input-data-profile"
                     />
                   </CCol>
                   <CCol sm={6} md={3}>
                     <CFormLabel className="mb-1 mt-2">Cargo</CFormLabel>
                     <CFormInput
-                      value={
-                        (user.role.name === "admin" && "ADMINISTRADOR") ||
-                        (user.role.name === "professor" && "PROFESOR") ||
-                        (user.role.name === "student" && "ESTUDIANTE") ||
-                        (user.role.name === "user" && "INVITADO")
-                      }
+                      value={getRoleName(user.role.name)}
                       disabled
+                      className="input-data-profile "
+                      style={{ background: "#eee" }}
                     />
                   </CCol>
                 </CRow>
                 <CRow className="mt-3 mb-3 text-center">
                   <CCol>
                     {!editing ? (
-                      <CButton
-                        type="button"
-                        color="info"
-                        className="text-white"
-                        onClick={startEditing}
-                      >
-                        <FAIcon customClass="icon" icon={faEdit} />
-                      </CButton>
+                      <Space>
+                        <Button
+                          type="primary"
+                          onClick={startEditing}
+                          style={{ paddingTop: 6 }}
+                        >
+                          <FAIcon customClass="icon" icon={faEdit} />
+                        </Button>
+                      </Space>
                     ) : (
-                      <>
-                        <CButton
-                          type="button"
-                          color="danger"
-                          className="text-white"
+                      <Space>
+                        <Button
+                          type="primary"
+                          className="bg-danger"
                           onClick={cancelEditing}
+                          style={{ paddingTop: 6 }}
                         >
                           <FAIcon customClass="icon" icon={faX} />
-                        </CButton>
-                        <CButton
-                          color="success"
-                          style={{ marginLeft: "10px" }}
-                          className="text-white"
-                          type="submit"
+                        </Button>
+                        <Button
+                          type="primary"
+                          style={{ background: "green" }}
+                          onClick={handleSubmit}
                         >
                           Actualizar
-                        </CButton>
-                      </>
+                        </Button>
+                      </Space>
                     )}
                   </CCol>
                 </CRow>
