@@ -64,16 +64,18 @@ export const CyclesRecords = () => {
           <Space className="d-flex justify-content-center">
             <Button
               title="Editar"
+              type="link"
               color="info"
-              className="p-0 px-2"
+              className="p-0 mx-1"
               onClick={onClickEdit}
             >
               <FAIcon customClass="icon" icon={faEdit} />
             </Button>
             <Button
               title="Eliminar"
+              type="link"
               style={{ color: "red" }}
-              className="p-0 px-2"
+              className="p-0 mx-1"
               onClick={onClickDelete}
             >
               <FAIcon customClass="icon" icon={faTrash} />

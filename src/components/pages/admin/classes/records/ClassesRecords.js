@@ -76,26 +76,26 @@ export const ClassesRecords = () => {
         return (
           <Space className="d-flex justify-content-center">
             <Button
-              type="default"
-              className="p-0 px-2"
+              type="link"
+              className="p-0 mx-1"
               title="Editar"
               onClick={onClickEdit}
             >
               <FAIcon icon={faEdit} />
             </Button>
             <Button
-              type="default"
+              type="link"
               style={{ color: "green" }}
-              className="p-0 px-2"
+              className="p-0 mx-1"
               title="Alumnos de esta clase"
               onClick={onClickStudentsClass}
             >
               <FAIcon icon={faUserGraduate} />
             </Button>
             <Button
-              type="default"
+              type="link"
               style={{ color: "red" }}
-              className="p-0 px-2"
+              className="p-0 mx-1"
               title="Eliminar"
               onClick={onClickDelete}
             >

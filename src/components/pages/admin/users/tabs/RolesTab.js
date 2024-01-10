@@ -9,6 +9,7 @@ import { faQuestion } from "@fortawesome/free-solid-svg-icons";
 
 import { RoleDetail } from "../modals";
 import { Space } from "antd";
+import { getRoleName } from "src/components/helpers";
 
 export const RolesTab = () => {
   const { roles } = useSelector((state) => state.users);
@@ -63,7 +64,7 @@ export const RolesTab = () => {
       name: "Detalles",
       renderCell: ({ row }) => {
         return (
-          <div className="h-100 d-flex justify-content-around align-items-center">
+          <div className="text-center">
             <CButton onClick={() => onClickDetailRole(row.name)}>
               <FAIcon customClass="icon" icon={faQuestion} />
             </CButton>
@@ -77,10 +78,7 @@ export const RolesTab = () => {
       minWidth: 150,
       resizable: true,
       renderCell: ({ row }) => {
-        if (row.name === "admin") return <>{"ADMINISTRADOR"}</>;
-        if (row.name === "professor") return <>{"PROFESOR"}</>;
-        if (row.name === "student") return <>{"ESTUDIANTE"}</>;
-        if (row.name === "user") return <>{"USUARIO"}</>;
+        return <span>{getRoleName(row.name)}</span>;
       },
     },
     {

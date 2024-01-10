@@ -18,6 +18,7 @@ import { intranetAvatarApi } from "src/api";
 import Loader from "src/components/layout/loader/Loader";
 import { AddUser, ConfirmChangeStatus, ConfirmDeleteUser } from "../modals";
 import { Button, Space } from "antd";
+import { getRoleName } from "src/components/helpers";
 
 export const UsersTab = () => {
   const dispatch = useDispatch();
@@ -132,12 +133,18 @@ export const UsersTab = () => {
         };
         return (
           <Space className="d-flex justify-content-center">
-            <Button title="Editar" className="p-0 px-2" onClick={onClickEdit}>
+            <Button
+              title="Editar"
+              type="link"
+              className="p-0 mx-1"
+              onClick={onClickEdit}
+            >
               <FAIcon customClass="icon" icon={faEdit} />
             </Button>
             <Button
               title="Eliminar"
-              className="p-0 px-2"
+              type="link"
+              className="p-0 mx-1"
               style={{ color: "red" }}
               onClick={onClickDelete}
             >
@@ -182,14 +189,7 @@ export const UsersTab = () => {
       minWidth: 90,
       resizable: true,
       renderCell: ({ row }) => {
-        return (
-          <span>
-            {row.role?.name === "admin" && "ADMINISTRADOR"}
-            {row.role?.name === "professor" && "PROFESOR"}
-            {row.role?.name === "student" && "ESTUDIANTE"}
-            {row.role?.name === "user" && "USUARIO"}
-          </span>
-        );
+        return <span>{getRoleName(row.role.name)}</span>;
       },
     },
     {

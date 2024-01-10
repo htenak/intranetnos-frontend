@@ -70,18 +70,18 @@ export const CourseTypesTab = () => {
         return (
           <Space className="d-flex justify-content-center">
             <Button
-              type="default"
+              type="link"
               title="Editar"
-              className="p-0 px-2"
+              className="p-0 mx-1"
               onClick={onClickEdit}
             >
               <FAIcon customClass="icon" icon={faEdit} />
             </Button>
             <Button
-              type="default"
+              type="link"
               title="Eliminar"
               style={{ color: "red" }}
-              className="p-0 px-2"
+              className="p-0 mx-1"
               onClick={onClickDelete}
             >
               <FAIcon customClass="icon" icon={faTrash} />

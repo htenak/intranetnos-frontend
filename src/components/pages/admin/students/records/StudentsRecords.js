@@ -124,12 +124,18 @@ export const StudentsRecords = () => {
         };
         return (
           <Space className="d-flex justify-content-center">
-            <Button title="Editar" className="p-0 px-2" onClick={onClickEdit}>
+            <Button
+              title="Editar"
+              type="link"
+              className="p-0 mx-1"
+              onClick={onClickEdit}
+            >
               <FAIcon customClass="icon" icon={faEdit} />
             </Button>
             <Button
               title="Eliminar"
-              className="p-0 px-2"
+              type="link"
+              className="p-0 mx-1"
               style={{ color: "red" }}
               onClick={onClickDelete}
             >

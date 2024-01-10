@@ -199,7 +199,7 @@ export const AddCourseModal = ({
                 disabled={values.careerId === null}
               >
                 <option value={0} disabled>
-                  Seleccionar carrera <ObligatoryField />
+                  Seleccionar carrera
                 </option>
                 {careers && careers.length !== 0 ? (
                   careers.map((row) => (
