@@ -1,17 +1,34 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { CContainer, CSpinner } from "@coreui/react";
+
+import routes from "../router/routes";
+import { useSelector } from "react-redux";
 
 import AppFooter from "./layout/footer/AppFooter";
 import AppHeader from "./layout/header/AppHeader";
 import AppSidebar from "./layout/sidebar/AppSidebar";
 
-// routes config
-import routes from "../router/routes";
-import { useSelector } from "react-redux";
+import { FloatButton } from "antd";
+import { FAIcon } from "src/assets/icon/FAIcon";
+import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 const DefaultLayout = () => {
   const { user } = useSelector((state) => state.auth);
+
+  const [up, setUp] = useState(false);
+
+  const onClickUp = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  window.onscroll = () => {
+    if (window.scrollY > 50) {
+      setUp(true);
+    } else {
+      setUp(false);
+    }
+  };
 
   return (
     <div>
@@ -54,8 +71,16 @@ const DefaultLayout = () => {
             </Suspense>
           </CContainer>
         </div>
-        <AppFooter />
+        {up && (
+          <FloatButton
+            type="default"
+            icon={<FAIcon icon={faArrowUp} />}
+            style={{ right: 25, bottom: 25 }}
+            onClick={onClickUp}
+          />
+        )}
       </div>
+      <AppFooter />
     </div>
   );
 };
