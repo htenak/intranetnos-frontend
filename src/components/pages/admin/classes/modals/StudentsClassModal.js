@@ -139,13 +139,7 @@ export const StudentsClassModal = ({
         };
         return (
           <Space className="d-flex justify-content-center">
-            <Button
-              title="Eliminar"
-              type="default"
-              style={{ color: "red" }}
-              className="p-0 px-2"
-              onClick={onClickDelete}
-            >
+            <Button title="Eliminar" type="link" danger onClick={onClickDelete}>
               <FAIcon customClass="icon" icon={faTrash} />
             </Button>
           </Space>

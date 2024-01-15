@@ -195,7 +195,7 @@ export const ClassesRecords = () => {
       </CRow>
       <CRow>
         <CCol>
-          <div style={{ height: 400, width: "100%", overflow: "hidden" }}>
+          <div style={{ height: 450, width: "100%", overflow: "hidden" }}>
             <Loader show={!classes} center={true} />
             {classes ? (
               <DataGrid
